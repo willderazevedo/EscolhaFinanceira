@@ -1,1 +1,37 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="menu">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons left>
+        <button ion-button icon-only clear menuClose>
+          <ion-icon name="md-arrow-round-back"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <button ion-item menuClose>
+      <ion-icon name="md-home"></ion-icon>
+      Painel Inicial
+    </button>
+    <button ion-item menuClose>
+      <ion-icon name="md-cash"></ion-icon>
+      Lançamentos
+    </button>
+    <button ion-item menuClose>
+      <ion-icon name="md-pricetags"></ion-icon>
+      Categorias
+    </button>
+    <button ion-item menuClose>
+      <ion-icon name="md-copy"></ion-icon>
+      Relatório
+    </button>
+    <ion-item>
+      <ion-icon name="logo-yen"></ion-icon>
+      Carteira: R$ 200,00
+    </ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #menu [root]="rootPage"></ion-nav>

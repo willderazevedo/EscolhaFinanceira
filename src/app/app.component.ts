@@ -3,13 +3,13 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { ConfigPage } from '../pages/config/config';
-
+import { PanelPage } from '../pages/panel/panel';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = ConfigPage;
+  rootPage = PanelPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

@@ -1,3 +1,23 @@
 page-panel {
+  .card {
+    margin: 0 0 20px 0;
+    width: 100%;
 
+    .card-line {
+      height: 1px;
+      margin: 0;
+    }
+
+    .row {
+      .col {
+        border-top: 0;
+        padding: 0;
+        color: map-get($colors, 'font');
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
 }
