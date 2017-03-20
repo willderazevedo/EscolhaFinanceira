@@ -1,0 +1,19 @@
+page-config {
+  .card {
+    margin: 0;
+    width: 100%;
+
+    .card-line {
+      margin: 0;
+    }
+
+    .list {
+      .item {
+        border-top: 0;
+        padding: 0;
+        border-bottom: 0.55px solid map-get($colors, 'border');
+        color: map-get($colors, 'font');
+      }
+    }
+  }
+}
