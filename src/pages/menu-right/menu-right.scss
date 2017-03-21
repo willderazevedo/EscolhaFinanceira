@@ -1,0 +1,10 @@
+page-menu-right {
+  .list {
+    margin: 0;
+
+    .item {
+      border: 0 !important;
+      color: map-get($colors, 'font');
+    }
+  }
+}

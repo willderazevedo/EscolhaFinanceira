@@ -1,6 +1,12 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
+//Providers
+import { GlobalService } from '../providers/global-service';
+
+//Pages
+import { MenuRightPage } from '../pages/menu-right/menu-right';
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 
@@ -8,7 +14,8 @@ import { PanelPage } from '../pages/panel/panel';
   declarations: [
     MyApp,
     ConfigPage,
-    PanelPage
+    PanelPage,
+    MenuRightPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,8 +24,12 @@ import { PanelPage } from '../pages/panel/panel';
   entryComponents: [
     MyApp,
     ConfigPage,
-    PanelPage
+    PanelPage,
+    MenuRightPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GlobalService
+  ]
 })
 export class AppModule {}

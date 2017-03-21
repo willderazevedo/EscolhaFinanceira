@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalService } from '../../providers/global-service';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 @Component({
@@ -34,7 +35,7 @@ export class PanelPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menu: MenuController) {
+  public menu: MenuController, public global: GlobalService) {
     this.menu.swipeEnable(true);
   }
 
