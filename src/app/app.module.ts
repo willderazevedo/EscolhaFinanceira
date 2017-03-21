@@ -6,7 +6,6 @@ import { MyApp } from './app.component';
 import { GlobalService } from '../providers/global-service';
 
 //Pages
-import { MenuRightPage } from '../pages/menu-right/menu-right';
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 
@@ -15,7 +14,6 @@ import { PanelPage } from '../pages/panel/panel';
     MyApp,
     ConfigPage,
     PanelPage,
-    MenuRightPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -25,7 +23,6 @@ import { PanelPage } from '../pages/panel/panel';
     MyApp,
     ConfigPage,
     PanelPage,
-    MenuRightPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
