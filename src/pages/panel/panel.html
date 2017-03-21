@@ -21,36 +21,12 @@
     </ion-card-header>
     <hr class="card-line">
     <ion-card-content>
-      <ion-row>
+      <ion-row *ngFor="let higher of higher_spend">
         <ion-col >
-          <h2>Alimentação:</h2>
+          <h2>{{ higher.label }}</h2>
         </ion-col>
         <ion-col>
-          <p>R$ 200,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Porcetagem:</h2>
-        </ion-col>
-        <ion-col>
-          <p>50%</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Forma:</h2>
-        </ion-col>
-        <ion-col>
-          <p>Avista</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Parcelas:</h2>
-        </ion-col>
-        <ion-col>
-          <p>Nenhuma</p>
+          <p>{{ higher.value }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -66,40 +42,16 @@
 
   <ion-card>
     <ion-card-header color="primary">
-      Gastos por categoria
+      Gastos fixos
     </ion-card-header>
     <hr class="card-line">
     <ion-card-content>
-      <ion-row>
+      <ion-row *ngFor="let spend of spends_category">
         <ion-col >
-          <h2>Alimentação:</h2>
+          <h2>{{ spend.label }}</h2>
         </ion-col>
         <ion-col>
-          <p>R$ 200,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Gasolina:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 180,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Remédios:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 54,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Emergência:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 200,00</p>
+          <p>{{ spend.value }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -115,40 +67,16 @@
 
   <ion-card>
     <ion-card-header color="primary">
-      Gastos do mês
+      Gastos Diversos
     </ion-card-header>
     <hr class="card-line">
     <ion-card-content>
-      <ion-row>
+      <ion-row *ngFor="let month of spends_month">
         <ion-col >
-          <h2>Roupas:</h2>
+          <h2>{{ month.label }}</h2>
         </ion-col>
         <ion-col>
-          <p>R$ 200,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Jogos:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 80,00</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Divida:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 8,50</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col >
-          <h2>Bebidas:</h2>
-        </ion-col>
-        <ion-col>
-          <p>R$ 8,50</p>
+          <p>{{ month.value }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -157,6 +85,31 @@
       <ion-col>
         <button ion-button icon-left clear small>
           <div>Todos ></div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header color="primary">
+      Entradas
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content>
+      <ion-row *ngFor="let entries of entries_month">
+        <ion-col >
+          <h2>{{ entries.label }}</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ entries.value }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <div>Todas ></div>
         </button>
       </ion-col>
     </ion-row>
