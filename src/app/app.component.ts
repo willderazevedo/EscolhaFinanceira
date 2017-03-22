@@ -9,7 +9,7 @@ import { PanelPage } from '../pages/panel/panel';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = PanelPage;
+  rootPage = ConfigPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

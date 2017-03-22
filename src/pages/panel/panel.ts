@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../../providers/global-service';
 import { NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 
+//Pages
+import { ConfigPage } from '../config/config';
+
 @Component({
   selector: 'page-panel',
   templateUrl: 'panel.html'
@@ -30,6 +33,8 @@ export class PanelPage {
     {label: "Rajuste", value: "R$ +35,00", color: "secondary"},
     {label: "Divida:", value: "R$ +20,00", color: "secondary"},
   ];
+
+  config:Object = ConfigPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,

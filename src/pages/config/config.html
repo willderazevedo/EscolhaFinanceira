@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-title>Configuração</ion-title>
     <ion-buttons right>
-      <button ion-button clear>
+      <button ion-button clear (click)="this.global.pageNavigation(this.panel)">
         <ion-icon name="md-checkmark"></ion-icon>
       </button>
     </ion-buttons>
