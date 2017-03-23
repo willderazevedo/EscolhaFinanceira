@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { GlobalService } from '../../providers/global-service';
 import { NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+
+//Providers
+import { GlobalService } from '../../providers/global-service';
 
 //Pages
 import { ConfigPage } from '../config/config';
