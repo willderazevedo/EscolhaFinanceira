@@ -4,13 +4,18 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 //Pages
 import { ConfigPage } from '../pages/config/config';
+import { PanelPage } from '../pages/panel/panel';
+import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  config:Object   = ConfigPage;
-  rootPage:Object = this.config;
+
+  config:Object    = ConfigPage;
+  panel:Object     = PanelPage;
+  various_releases = VariousReleasesPage;
+  rootPage:Object  = this.various_releases;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -21,4 +26,7 @@ export class MyApp {
     });
   }
 
+  rootNavigation(page){
+    this.rootPage = page;
+  }
 }

@@ -8,12 +8,14 @@ import { GlobalService } from '../providers/global-service';
 //Pages
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
+import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 
 @NgModule({
   declarations: [
     MyApp,
     ConfigPage,
     PanelPage,
+    VariousReleasesPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -23,6 +25,7 @@ import { PanelPage } from '../pages/panel/panel';
     MyApp,
     ConfigPage,
     PanelPage,
+    VariousReleasesPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

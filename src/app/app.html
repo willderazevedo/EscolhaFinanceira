@@ -11,11 +11,11 @@
   </ion-header>
 
   <ion-content>
-    <button ion-item menuClose>
+    <button ion-item (click)="this.rootNavigation(panel)" menuClose>
       <ion-icon name="md-home"></ion-icon>
       Painel Inicial
     </button>
-    <button ion-item menuClose>
+    <button ion-item (click)="this.rootNavigation(various_releases)" menuClose>
       <ion-icon name="logo-usd"></ion-icon>
       Lançamentos Diversos
     </button>
