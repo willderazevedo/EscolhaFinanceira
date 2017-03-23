@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
+//Pages
 import { ConfigPage } from '../pages/config/config';
-import { PanelPage } from '../pages/panel/panel';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = ConfigPage;
+  config:Object   = ConfigPage;
+  rootPage:Object = this.config;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -19,4 +20,5 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
+
 }
