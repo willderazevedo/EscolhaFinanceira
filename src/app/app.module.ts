@@ -9,23 +9,32 @@ import { GlobalService } from '../providers/global-service';
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
+import { VariousModalPage } from '../pages/various-modal/various-modal';
 
 @NgModule({
   declarations: [
     MyApp,
     ConfigPage,
     PanelPage,
-    VariousReleasesPage
+    VariousReleasesPage,
+    VariousModalPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+      iconMode: 'md',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      pageTransition: 'md'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     ConfigPage,
     PanelPage,
-    VariousReleasesPage
+    VariousReleasesPage,
+    VariousModalPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

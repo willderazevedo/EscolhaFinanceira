@@ -5,7 +5,7 @@
         <ion-icon name="md-menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Lançamentos Diversos</ion-title>
+    <ion-title>Diversos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,7 +20,7 @@
       <button ion-fab (click)="toggleHelp()">
         <ion-icon name="md-help"></ion-icon>
       </button>
-      <button ion-fab>
+      <button ion-fab (click)="this.global.toggleModal(variousModal)">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-fab-list>

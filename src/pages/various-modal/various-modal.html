@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Novo Diverso</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only clear (click)="this.modalDismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list no-lines>
+    <h6>Descrição do lançamento</h6>
+    <ion-item>
+      <ion-label stacked>Nome</ion-label>
+      <ion-input type="text" placeholder="Digite aqui"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Valor</ion-label>
+      <ion-input type="number" placeholder="Digite aqui"></ion-input>
+    </ion-item>
+
+    <div padding-top>
+      <h6>Tipo de lançamento</h6>
+      <ion-row radio-group>
+        <ion-col>
+          <ion-item>
+            <ion-label>Entrada</ion-label>
+            <ion-radio checked="true" value="entrada" (click)="hidePayForm()"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Saída</ion-label>
+            <ion-radio value="saida" (click)="showPayForm()"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="this.out" padding-top>
+      <h6>Forma de pagamento</h6>
+      <ion-row radio-group >
+        <ion-col>
+          <ion-item>
+            <ion-label>Avista</ion-label>
+            <ion-radio checked="true" value="av" (click)="hidePlots()"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Cartão</ion-label>
+            <ion-radio value="ca" (click)="showPlots()"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-item *ngIf="this.card">
+      <ion-label stacked>Número de parcelas</ion-label>
+      <ion-input type="number" placeholder="Digite aqui"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button full color="primary">Salvar</button>
+</ion-content>

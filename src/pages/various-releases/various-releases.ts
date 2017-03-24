@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+
+//Pages
+import { ConfigPage } from '../config/config';
+import { VariousModalPage } from '../various-modal/various-modal';
 
 @Component({
   selector: 'page-various-releases',
@@ -10,9 +14,11 @@ import { GlobalService } from '../../providers/global-service';
 })
 export class VariousReleasesPage {
 
+  config:Object      = ConfigPage;
+  variousModal:Object = VariousModalPage;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public modal: ModalController, public global: GlobalService,
-  public alertCtrl: AlertController) {}
+  public global: GlobalService, public alertCtrl: AlertController) {}
 
   toggleHelp() {
     let help_alert = this.alertCtrl.create({
