@@ -19,7 +19,7 @@ export class MyApp {
   various_releases:Object = VariousReleasesPage;
   fixes_releases:Object   = FixesReleasesPage;
   report:Object           = ReportPage;
-  rootPage:Object         = this.report;
+  rootPage:Object         = this.config;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
