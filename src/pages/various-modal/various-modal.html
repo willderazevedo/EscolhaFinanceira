@@ -28,14 +28,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="entrada" (click)="hidePayForm()"></ion-radio>
+            <ion-radio checked="true" value="entrada" (click)="fieldPayForm(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="saida" (click)="showPayForm()"></ion-radio>
+            <ion-radio value="saida" (click)="fieldPayForm(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -47,14 +47,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Avista</ion-label>
-            <ion-radio checked="true" value="av" (click)="hidePlots()"></ion-radio>
+            <ion-radio checked="true" value="av" (click)="fieldPlots(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Cartão</ion-label>
-            <ion-radio value="ca" (click)="showPlots()"></ion-radio>
+            <ion-radio value="ca" (click)="fieldPlots(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>

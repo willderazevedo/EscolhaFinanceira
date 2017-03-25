@@ -39,21 +39,8 @@ export class PanelPage {
   config:Object = ConfigPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menu: MenuController, public global: GlobalService,
-  public alertCtrl: AlertController) {
+  public menu: MenuController, public global: GlobalService) {
     this.menu.swipeEnable(true);
   }
-
-  toggleHelp() {
-    let help_alert = this.alertCtrl.create({
-      title: "",
-      subTitle: "Nesta área você podera ver toda sua movimentação do mês. " +
-                "Os valores negativos seram seus gastos e os positivos suas entradas.",
-      buttons: ["Entendi"]
-    });
-
-    help_alert.present();
-  }
-
 
 }

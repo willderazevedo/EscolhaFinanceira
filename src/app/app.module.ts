@@ -10,6 +10,7 @@ import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 import { VariousModalPage } from '../pages/various-modal/various-modal';
+import { VariousPopoverPage } from '../pages/various-popover/various-popover';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { VariousModalPage } from '../pages/various-modal/various-modal';
     ConfigPage,
     PanelPage,
     VariousReleasesPage,
-    VariousModalPage
+    VariousModalPage,
+    VariousPopoverPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -34,7 +36,8 @@ import { VariousModalPage } from '../pages/various-modal/various-modal';
     ConfigPage,
     PanelPage,
     VariousReleasesPage,
-    VariousModalPage
+    VariousModalPage,
+    VariousPopoverPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
