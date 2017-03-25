@@ -19,11 +19,11 @@
       <ion-icon name="logo-usd"></ion-icon>
       Lançamentos Diversos
     </button>
-    <button ion-item menuClose>
+    <button ion-item (click)="this.rootNavigation(fixes_releases)" menuClose>
       <ion-icon name="md-pricetags"></ion-icon>
       Lançamentos Fixos
     </button>
-    <button ion-item menuClose>
+    <button ion-item (click)="this.rootNavigation(report)" menuClose>
       <ion-icon name="md-trending-up"></ion-icon>
       Relatório do Mês
     </button>

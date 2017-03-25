@@ -14,6 +14,8 @@ import { VariousPopoverPage } from '../pages/various-popover/various-popover';
 import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
 import { FixesModalPage } from '../pages/fixes-modal/fixes-modal';
 import { FixesPopoverPage } from '../pages/fixes-popover/fixes-popover';
+import { ReportPage } from '../pages/report/report';
+import { ReportModalPage } from '../pages/report-modal/report-modal';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FixesPopoverPage } from '../pages/fixes-popover/fixes-popover';
     VariousPopoverPage,
     FixesReleasesPage,
     FixesModalPage,
-    FixesPopoverPage
+    FixesPopoverPage,
+    ReportPage,
+    ReportModalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -46,7 +50,9 @@ import { FixesPopoverPage } from '../pages/fixes-popover/fixes-popover';
     VariousPopoverPage,
     FixesReleasesPage,
     FixesModalPage,
-    FixesPopoverPage
+    FixesPopoverPage,
+    ReportPage,
+    ReportModalPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

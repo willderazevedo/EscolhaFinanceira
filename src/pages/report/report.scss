@@ -1,0 +1,22 @@
+page-report {
+  .item,
+  .col {
+    padding: 0;
+  }
+
+  .item {
+    border-bottom: 0.55px solid map-get($colors, 'border') !important;
+  }
+
+  .col {
+    .item {
+      border-bottom: 0 !important;
+    }
+  }
+
+  h6,
+  .item,
+  .item .input {
+    color: map-get($colors, 'font');
+  }
+}

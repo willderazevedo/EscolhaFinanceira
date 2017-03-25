@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Relatório</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only clear (click)="modalDismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- Para as entradas -->
+  <ion-card>
+    <ion-card-header color="primary">
+      Entradas
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content>
+      <ion-row *ngFor="let entrie of entries">
+        <ion-col>
+          <h2>{{ entrie.label }}</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ entrie.value }}</p>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <h2>Total:</h2>
+        </ion-col>
+        <ion-col>
+          <p>R$ 1120,00</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Para as saídas -->
+  <ion-card>
+    <ion-card-header color="primary">
+      Saídas
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content>
+      <ion-row *ngFor="let out of outs">
+        <ion-col>
+          <h2>{{ out.label }}</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ out.value }}</p>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <h2>Total:</h2>
+        </ion-col>
+        <ion-col>
+          <p>R$ 1120,00</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only clear menuToggle>
+        <ion-icon name="md-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Gerar Relatório</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only clear>
+        <ion-icon name="md-help"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list no-lines>
+    <h6>Período</h6>
+    <ion-item>
+      <ion-label stacked>Data Inicial</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" placeholder="Digite aqui"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Data Final</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" placeholder="Digite aqui"></ion-datetime>
+    </ion-item>
+
+    <div padding-top>
+      <h6>Categoria</h6>
+      <ion-row radio-group>
+        <ion-col>
+          <ion-item>
+            <ion-label>Diversos</ion-label>
+            <ion-radio checked="true" value="variuos"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Fixos</ion-label>
+            <ion-radio value="fixes"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div padding-top>
+      <h6>Tipo de lançamento</h6>
+      <ion-row radio-group>
+        <ion-col>
+          <ion-item>
+            <ion-label>Entrada</ion-label>
+            <ion-radio checked="true" value="in" (click)="fieldPayForm(false)"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Saída</ion-label>
+            <ion-radio value="out" (click)="fieldPayForm(true)"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="this.out" padding-top>
+      <h6>Forma de pagamento</h6>
+      <ion-row radio-group >
+        <ion-col>
+          <ion-item>
+            <ion-label>Avista</ion-label>
+            <ion-radio checked="true" value="cash"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Cartão</ion-label>
+            <ion-radio value="card"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-list>
+
+  <button ion-button full color="primary" (click)="this.global.toggleModal(reportModal)">
+    Gerar Relatório
+  </button>
+</ion-content>

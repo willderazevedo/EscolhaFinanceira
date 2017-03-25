@@ -7,6 +7,7 @@ import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
+import { ReportPage } from '../pages/report/report';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,8 @@ export class MyApp {
   panel:Object            = PanelPage;
   various_releases:Object = VariousReleasesPage;
   fixes_releases:Object   = FixesReleasesPage;
-  rootPage:Object         = this.fixes_releases;
+  report:Object           = ReportPage;
+  rootPage:Object         = this.report;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
