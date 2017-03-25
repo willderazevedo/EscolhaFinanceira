@@ -1,0 +1,18 @@
+page-fixes-popover {
+  .list {
+    margin: 0;
+
+    .item {
+      padding-right: 16px;
+      color: map-get($colors, 'font');
+
+      &:first-child {
+          border-top: 0;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}

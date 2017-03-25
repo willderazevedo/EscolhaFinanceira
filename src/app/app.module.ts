@@ -11,6 +11,9 @@ import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 import { VariousModalPage } from '../pages/various-modal/various-modal';
 import { VariousPopoverPage } from '../pages/various-popover/various-popover';
+import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
+import { FixesModalPage } from '../pages/fixes-modal/fixes-modal';
+import { FixesPopoverPage } from '../pages/fixes-popover/fixes-popover';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { VariousPopoverPage } from '../pages/various-popover/various-popover';
     PanelPage,
     VariousReleasesPage,
     VariousModalPage,
-    VariousPopoverPage
+    VariousPopoverPage,
+    FixesReleasesPage,
+    FixesModalPage,
+    FixesPopoverPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -37,7 +43,10 @@ import { VariousPopoverPage } from '../pages/various-popover/various-popover';
     PanelPage,
     VariousReleasesPage,
     VariousModalPage,
-    VariousPopoverPage
+    VariousPopoverPage,
+    FixesReleasesPage,
+    FixesModalPage,
+    FixesPopoverPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

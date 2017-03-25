@@ -6,16 +6,18 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
+import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
 
-  config:Object    = ConfigPage;
-  panel:Object     = PanelPage;
-  various_releases = VariousReleasesPage;
-  rootPage:Object  = this.various_releases;
+  config:Object           = ConfigPage;
+  panel:Object            = PanelPage;
+  various_releases:Object = VariousReleasesPage;
+  fixes_releases:Object   = FixesReleasesPage;
+  rootPage:Object         = this.fixes_releases;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
