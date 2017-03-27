@@ -26,11 +26,19 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.hideSplashScreen();
     });
   }
 
   rootNavigation(page){
     this.rootPage = page;
+  }
+
+  hideSplashScreen() {
+    if(Splashscreen) {
+      setTimeout(()=> {
+        Splashscreen.hide();
+      }, 100);
+    }
   }
 }
