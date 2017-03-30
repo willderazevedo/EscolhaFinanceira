@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
+//Providers
+import { DbHelper } from '../providers/db-helper';
+
 //Pages
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
@@ -21,10 +24,11 @@ export class MyApp {
   report:Object           = ReportPage;
   rootPage:Object         = this.config;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, helper: DbHelper) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      helper.createDataBase();
       StatusBar.styleDefault();
       this.hideSplashScreen();
     });

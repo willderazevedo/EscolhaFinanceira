@@ -3,7 +3,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 //Providers
+import { SQLite } from '@ionic-native/sqlite';
 import { GlobalService } from '../providers/global-service';
+import { DbHelper } from '../providers/db-helper';
 
 //Pages
 import { ConfigPage } from '../pages/config/config';
@@ -56,7 +58,9 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GlobalService
+    GlobalService,
+    SQLite,
+    DbHelper
   ]
 })
 export class AppModule {}
