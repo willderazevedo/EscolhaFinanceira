@@ -2,6 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+//Data Access Object
+import { ConfigDAO } from '../dao/config-dao';
+
 //Providers
 import { SQLite } from '@ionic-native/sqlite';
 import { GlobalService } from '../providers/global-service';
@@ -60,7 +63,8 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
     SQLite,
-    DbHelper
+    DbHelper,
+    ConfigDAO
   ]
 })
 export class AppModule {}

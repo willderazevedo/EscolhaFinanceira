@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController } from 'ionic-angular';
+
+//Data Access Object
+import { ConfigDAO } from '../../dao/config-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -17,14 +20,15 @@ export class ConfigPage {
   panel:Object         = PanelPage;
   user:Object          = {
     name: "",
-    income: 0.0,
+    income: null,
     income_day: ""
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public helper: DbHelper,
-  public loadCtrl: LoadingController) {
+  public loadCtrl: LoadingController, public alertCtrl: AlertController,
+  public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
   }
 
@@ -38,8 +42,6 @@ export class ConfigPage {
   saveConfig(update = false) {
 
     setTimeout(() => {
-      //TODO: toda logica devera ser feita aqui
-
       let load = this.loadCtrl.create({
         content: "Salvando informações...",
         duration: 1500

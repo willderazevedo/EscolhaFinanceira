@@ -9,7 +9,7 @@ export class DbHelper {
 
   public createDataBase() {
     this.sqlite.create({
-      name: "escolhafinanceita.db",
+      name: "escolhafinanceira.db",
       location: "default"
     }).then((db: SQLiteObject) => {
 
