@@ -48,7 +48,6 @@ export class ConfigPage {
 
     var result = this.dao.insert(this.user);
 
-    load.dismiss();
     load.onDidDismiss(() => {
       // this.global.pageNavigation(this.panel);
       this.alertCtrl.create({
