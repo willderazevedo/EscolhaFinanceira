@@ -6,7 +6,6 @@ import { ConfigDAO } from '../../dao/config-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-import { DbHelper } from '../../providers/db-helper';
 
 //Pages
 import { PanelPage } from '../panel/panel';
@@ -17,8 +16,8 @@ import { PanelPage } from '../panel/panel';
 })
 export class ConfigPage {
 
-  panel:Object         = PanelPage;
-  user:Object          = {
+  panel = PanelPage;
+  user  = {
     name: "",
     income: null,
     income_day: ""
@@ -26,9 +25,8 @@ export class ConfigPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
-  public viewCtrl: ViewController, public helper: DbHelper,
-  public loadCtrl: LoadingController, public alertCtrl: AlertController,
-  public dao: ConfigDAO) {
+  public viewCtrl: ViewController, public loadCtrl: LoadingController,
+  public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
   }
 
@@ -39,19 +37,25 @@ export class ConfigPage {
     }
   }
 
-  saveConfig(update = false) {
+  public saveConfig(update = false) {
 
-    setTimeout(() => {
-      let load = this.loadCtrl.create({
-        content: "Salvando informações...",
-        duration: 1500
-      });
+    let load = this.loadCtrl.create({
+      content: "Salvando informações...",
+      duration: 1500
+    });
 
-      load.present();
-      load.onDidDismiss(() => {
-        this.global.pageNavigation(this.panel);
-      });
-    }, 100);
+    load.present();
+
+    var result = this.dao.insert(this.user);
+
+    load.dismiss();
+    load.onDidDismiss(() => {
+      // this.global.pageNavigation(this.panel);
+      this.alertCtrl.create({
+        title: "asd",
+        message: "" + JSON.stringify(result)
+      }).present();
+    });
   }
 
 }
