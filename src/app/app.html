@@ -11,19 +11,19 @@
   </ion-header>
 
   <ion-content>
-    <button ion-item (click)="this.rootNavigation(panel)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(panel)" menuClose>
       <ion-icon name="md-home"></ion-icon>
       Painel Inicial
     </button>
-    <button ion-item (click)="this.rootNavigation(various_releases)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(various_releases)" menuClose>
       <ion-icon name="logo-usd"></ion-icon>
       Lançamentos Diversos
     </button>
-    <button ion-item (click)="this.rootNavigation(fixes_releases)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(fixes_releases)" menuClose>
       <ion-icon name="md-pricetags"></ion-icon>
       Lançamentos Fixos
     </button>
-    <button ion-item (click)="this.rootNavigation(report)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(report)" menuClose>
       <ion-icon name="md-trending-up"></ion-icon>
       Relatório do Mês
     </button>

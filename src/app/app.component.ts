@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 //Providers
 import { DbHelper } from '../providers/db-helper';
+import { GlobalService } from '../providers/global-service';
 
 //Pages
 import { ConfigPage } from '../pages/config/config';
@@ -24,7 +25,7 @@ export class MyApp {
   report:Object           = ReportPage;
   rootPage:Object         = this.config;
 
-  constructor(platform: Platform, helper: DbHelper) {
+  constructor(platform: Platform, helper: DbHelper, public global: GlobalService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -34,11 +35,7 @@ export class MyApp {
     });
   }
 
-  rootNavigation(page){
-    this.rootPage = page;
-  }
-
-  hideSplashScreen() {
+  private hideSplashScreen() {
     if(Splashscreen) {
       setTimeout(()=> {
         Splashscreen.hide();
