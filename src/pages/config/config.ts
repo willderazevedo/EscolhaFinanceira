@@ -41,19 +41,22 @@ export class ConfigPage {
 
     let load = this.loadCtrl.create({
       content: "Salvando informações...",
-      duration: 1500
     });
 
     load.present();
+    this.dao.insert(this.user, (res) => {
+      load.dismiss();
 
-    var result = this.dao.insert(this.user);
+      if(res.rowsAffected <= 0){
+        this.alertCtrl.create({
+          title: "Erro",
+          message: "Não foi possível salvar as configurações!"
+        }).present();
 
-    load.onDidDismiss(() => {
-      // this.global.pageNavigation(this.panel);
-      this.alertCtrl.create({
-        title: "asd",
-        message: "" + JSON.stringify(result)
-      }).present();
+        return false;
+      }
+
+      this.global.pageNavigation(this.panel);
     });
   }
 

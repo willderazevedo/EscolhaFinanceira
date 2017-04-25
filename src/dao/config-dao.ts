@@ -7,13 +7,10 @@ export class ConfigDAO {
 
   private DBNAME     = "escolhafinanceira.db";
   private DBLOCATION = "default";
-  private result;
 
   constructor(public sqlite: SQLite, public alertCtrl: AlertController) {}
 
-  public insert(user) {
-
-    var result = {};
+  public insert(user, callback) {
 
     this.sqlite.create({
       name: this.DBNAME,
@@ -26,12 +23,10 @@ export class ConfigDAO {
         user.income,
         user.income_day
       ])
-      .then(res => result = res)
+      .then(res => callback(res))
       .catch(err => console.log(err));
 
     }).catch(err => console.log(err));
-
-    return result;
   }
 
 }
