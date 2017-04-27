@@ -13,6 +13,12 @@ import { DbHelper } from '../providers/db-helper';
 export class MyApp {
 
   /**
+   * Página inicial
+   * @var  {Object} rootPage
+   */
+  rootPage:Object         = this.vars.config;
+
+  /**
    * Contrutor da classe principal do app
    * @param  {Platform}      platform     Biblioteca com informações da plataforma Android/IOs
    * @param  {DbHelper}      helper       Provider usada na criação das tabelas do banco

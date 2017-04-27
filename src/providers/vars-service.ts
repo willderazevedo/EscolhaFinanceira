@@ -60,12 +60,6 @@ export class VarsService {
   report:Object           = ReportPage;
 
   /**
-   * Página inicial
-   * @var  {Object} rootPage
-   */
-  rootPage:Object         = this.config;
-
-  /**
    * Template da modal de lançamentos fixos
    * @var  {Object} fixesModal
    */
