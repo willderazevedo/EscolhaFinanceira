@@ -10,7 +10,7 @@ export class VariousPopoverPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController) {}
 
-  popoverDismiss() {
+  public popoverDismiss() {
     this.viewCtrl.dismiss();
   }
 

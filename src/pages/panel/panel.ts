@@ -3,9 +3,7 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-
-//Pages
-import { ConfigPage } from '../config/config';
+import { VarsService } from '../../providers/vars-service';
 
 @Component({
   selector: 'page-panel',
@@ -36,10 +34,9 @@ export class PanelPage {
     {label: "Divida:", value: "R$ +20,00", color: "secondary"},
   ];
 
-  config:Object = ConfigPage;
-
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menu: MenuController, public global: GlobalService) {
+  public menu: MenuController, public global: GlobalService,
+  public vars: VarsService) {
     this.menu.swipeEnable(true);
   }
 

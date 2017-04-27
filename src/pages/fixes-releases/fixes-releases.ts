@@ -3,18 +3,14 @@ import { NavController, NavParams, PopoverController, ModalController } from 'io
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { VarsService } from '../../providers/vars-service';
 
-//Pages
-import { FixesModalPage } from '../fixes-modal/fixes-modal';
-import { FixesPopoverPage } from '../fixes-popover/fixes-popover';
 
 @Component({
   selector: 'page-fixes-releases',
   templateUrl: 'fixes-releases.html'
 })
 export class FixesReleasesPage {
-
-  fixesModal:Object = FixesModalPage;
 
   releases:Object = [
     {name: "Alimentação", value: "R$ -300,00", type: "Saída", color:"danger"},
@@ -26,10 +22,10 @@ export class FixesReleasesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController, public modalCtrl: ModalController,
-    public global: GlobalService) {}
+    public global: GlobalService, public vars: VarsService) {}
 
-  togglePopover(event, params = {}){
-    let popover = this.popoverCtrl.create(FixesPopoverPage, params);
+  public togglePopover(event, params = {}){
+    let popover = this.popoverCtrl.create(this.vars.fixesPopover, params);
     popover.present({ev: event});
   }
 

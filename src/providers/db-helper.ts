@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { VarsService } from '../providers/vars-service';
 
 @Injectable()
 export class DbHelper {
 
-  private DBNAME     = "escolhafinanceira.db";
-  private DBLOCATION = "default";
+  /**
+   * Construtor do DbHelper
+   * @param  {SQLite} sqlite    Biblioteca de manipulação SQlite
+   * @return {void}
+   */
+  constructor(public sqlite: SQLite, public vars: VarsService) {}
 
-  constructor(public sqlite: SQLite) {}
-
+  /**
+   * Método responsável pela criação de todas as tabelas do app
+   * @return {void}
+   */
   public createDataBase() {
     this.sqlite.create({
-      name: this.DBNAME,
-      location: this.DBLOCATION
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
       //Table User

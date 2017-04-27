@@ -3,18 +3,13 @@ import { NavController, NavParams, PopoverController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-
-//Pages
-import { VariousModalPage } from '../various-modal/various-modal';
-import { VariousPopoverPage } from '../various-popover/various-popover';
+import { VarsService } from '../../providers/vars-service';
 
 @Component({
   selector: 'page-various-releases',
   templateUrl: 'various-releases.html'
 })
 export class VariousReleasesPage {
-
-  variousModal:Object = VariousModalPage;
 
   releases:Object = [
     {name: "Bebidas", value: "R$ -80,00", type: "Saída", form: "Avista", plots: "Nenhuma", color:"danger"},
@@ -23,10 +18,11 @@ export class VariousReleasesPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public global: GlobalService, public popoverCtrl: PopoverController) {}
+  public global: GlobalService, public popoverCtrl: PopoverController,
+  public vars: VarsService) {}
 
   togglePopover(event, params = {}){
-    let popover = this.popoverCtrl.create(VariousPopoverPage, params);
+    let popover = this.popoverCtrl.create(this.vars.variousPopover, params);
     popover.present({ev: event});
   }
 

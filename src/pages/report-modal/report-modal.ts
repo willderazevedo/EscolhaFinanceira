@@ -25,7 +25,7 @@ export class ReportModalPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController) {}
 
-  modalDismiss() {
+  public modalDismiss() {
     this.viewCtrl.dismiss();
   }
 

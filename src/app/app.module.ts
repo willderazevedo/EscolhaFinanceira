@@ -8,6 +8,8 @@ import { ConfigDAO } from '../dao/config-dao';
 //Providers
 import { SQLite } from '@ionic-native/sqlite';
 import { GlobalService } from '../providers/global-service';
+import { VarsService } from '../providers/vars-service';
+import { TutorialService } from '../providers/tutorial-service';
 import { DbHelper } from '../providers/db-helper';
 
 //Pages
@@ -34,7 +36,7 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
     FixesModalPage,
     FixesPopoverPage,
     ReportPage,
-    ReportModalPage
+    ReportModalPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -62,6 +64,7 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
+    VarsService,
     SQLite,
     DbHelper,
     ConfigDAO
