@@ -16,7 +16,7 @@ export class MyApp {
    * Página inicial
    * @var  {Object} rootPage
    */
-  rootPage:Object         = this.vars.config;
+  rootPage:Object = this.vars.config;
 
   /**
    * Contrutor da classe principal do app

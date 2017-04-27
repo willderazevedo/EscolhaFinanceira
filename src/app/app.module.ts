@@ -64,7 +64,7 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
-    VarsService,
+    VarsService ,
     SQLite,
     DbHelper,
     ConfigDAO
