@@ -3,7 +3,6 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-import { VarsService } from '../../providers/vars-service';
 
 @Component({
   selector: 'page-panel',
@@ -35,8 +34,7 @@ export class PanelPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menu: MenuController, public global: GlobalService,
-  public vars: VarsService) {
+  public menu: MenuController, public global: GlobalService) {
     this.menu.swipeEnable(true);
   }
 

@@ -6,13 +6,21 @@ import { ConfigDAO } from '../../dao/config-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-import { VarsService } from '../../providers/vars-service';
+
+//Pages
+import { PanelPage } from '../panel/panel';
 
 @Component({
   selector: 'page-config',
   templateUrl: 'config.html'
 })
 export class ConfigPage {
+
+  /**
+   * Página do painel
+   * @var  {Object} panel
+   */
+  panel:Object = PanelPage;
 
   /**
    * Informações do usuário
@@ -34,14 +42,12 @@ export class ConfigPage {
    * @param  {LoadingController} loadCtrl  Controle do alerta de load
    * @param  {AlertController}   alertCtrl Controle do alerta
    * @param  {ConfigDAO}         dao       Data Access Object de config
-   * @param  {VarsService}       vars      Provider de variaveis globais
    * @return {void}
    */
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public dao: ConfigDAO,
-  public vars: VarsService) {
+  public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
   }
 
@@ -80,7 +86,7 @@ export class ConfigPage {
         return false;
       }
 
-      this.global.pageNavigation(this.vars.panel);
+      this.global.pageNavigation(this.panel);
     });
   }
 

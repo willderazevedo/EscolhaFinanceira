@@ -3,7 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
-import { VarsService } from '../../providers/vars-service';
+
+//TemplatePages
+import { ReportModalPage } from '../report-modal/report-modal';
 
 @Component({
   selector: 'page-report',
@@ -11,10 +13,11 @@ import { VarsService } from '../../providers/vars-service';
 })
 export class ReportPage {
 
+  reportModal:Object = ReportModalPage;
   out:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public global: GlobalService, public vars: VarsService) {}
+  public global: GlobalService) {}
 
   public fieldPayForm(hide) {
     this.out = hide;

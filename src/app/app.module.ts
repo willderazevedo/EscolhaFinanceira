@@ -64,10 +64,10 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
-    VarsService ,
     SQLite,
     DbHelper,
-    ConfigDAO
+    ConfigDAO,
+    VarsService
   ]
 })
 export class AppModule {}
