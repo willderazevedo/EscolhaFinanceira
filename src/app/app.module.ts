@@ -3,7 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 //Data Access Object
-import { ConfigDAO } from '../dao/config-dao';
+import { ConfigDAO } from '../providers/dao/config-dao';
 
 //Providers
 import { SQLite } from '@ionic-native/sqlite';
@@ -67,7 +67,8 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
     SQLite,
     DbHelper,
     ConfigDAO,
-    VarsService
+    VarsService,
+    TutorialService
   ]
 })
 export class AppModule {}

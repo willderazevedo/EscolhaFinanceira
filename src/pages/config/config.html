@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-title>Configuração</ion-title>
     <ion-buttons right>
-      <button ion-button clear (click)="saveConfig()">
+      <button ion-button clear *ngIf="user.name && user.income && user.income_day" (click)="saveConfig()">
         CONFIRMAR
       </button>
     </ion-buttons>

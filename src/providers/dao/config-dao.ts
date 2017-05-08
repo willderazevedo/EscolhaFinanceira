@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-import { VarsService } from '../providers/vars-service';
+import { VarsService } from '../vars-service';
 
 @Injectable()
 export class ConfigDAO {

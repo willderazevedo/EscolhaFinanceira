@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController } from 'ionic-angular';
 
 //Data Access Object
-import { ConfigDAO } from '../../dao/config-dao';
+import { ConfigDAO } from '../../providers/dao/config-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
