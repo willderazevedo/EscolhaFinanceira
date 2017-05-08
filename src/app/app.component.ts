@@ -6,6 +6,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { GlobalService } from '../providers/global-service';
 import { DbHelper } from '../providers/db-helper';
 
+//Data Access Object
+import { ConfigDAO } from '../providers/dao/config-dao';
+
 //Pages
 import { ConfigPage } from '../pages/config/config';
 import { PanelPage } from '../pages/panel/panel';
@@ -52,7 +55,7 @@ export class MyApp {
    * Página inicial
    * @var  {Object} rootPage
    */
-  rootPage:Object         = this.config;
+  rootPage:Object;
 
   /**
    * Contrutor da classe principal do app
@@ -63,11 +66,11 @@ export class MyApp {
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
-    public global: GlobalService) {
+    public global: GlobalService, public daoConfig: ConfigDAO) {
     platform.ready().then(() => {
       helper.createDataBase();
       StatusBar.styleDefault();
-      this.hideSplashScreen();
+      this.checkConfig();
     });
   }
 
@@ -81,5 +84,23 @@ export class MyApp {
         Splashscreen.hide();
       }, 100);
     }
+  }
+
+  /**
+   * Método responsável pela checagem da configuração existente
+   * @return {boolean|void} Retorna falso ou nada
+   */
+  public checkConfig() {
+    this.daoConfig.select(res => {
+      if(res.rows.length > 0){
+        this.rootPage = this.panel;
+        this.hideSplashScreen();
+
+        return false;
+      }
+
+      this.rootPage = this.config;
+      this.hideSplashScreen();
+    });
   }
 }

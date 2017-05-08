@@ -17,20 +17,28 @@ import { PanelPage } from '../panel/panel';
 export class ConfigPage {
 
   /**
+   * Identificador se a tela está em modo de update ou nao
+   * @var  {boolean} update
+   */
+  update = this.navParams.get('update') ? true : false;
+
+  /**
    * Página do painel
    * @var  {Object} panel
    */
-  panel:Object = PanelPage;
+  panel  = PanelPage;
 
   /**
    * Informações do usuário
    * @var {Obeject} user
    */
-  user  = {
+  user   = {
     name: "",
     income: null,
     income_day: ""
   };
+
+  days   = [];
 
   /**
    * [constructor description]
@@ -49,6 +57,8 @@ export class ConfigPage {
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
   public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
+    this.initializeDays();
+    // this.checkConfig();
   }
 
   /**
@@ -67,7 +77,7 @@ export class ConfigPage {
    * @param  {boolean} update Indica se realizara um update ou um insert
    * @return {void}
    */
-  public saveConfig(update = false) {
+  public saveConfig() {
 
     let load = this.loadCtrl.create({
       content: "Salvando informações...",
@@ -88,6 +98,32 @@ export class ConfigPage {
 
       this.global.pageNavigation(this.panel);
     });
+  }
+
+  // /**
+  //  * Método responsável pela checagem da configuração existente
+  //  * @return {boolean|void} Retorna falso ou nada
+  //  */
+  // public checkConfig() {
+  //
+  //   if(this.update){
+  //     return false;
+  //   }
+  //
+  //   this.dao.select(res => {
+  //     if(res.rows.length > 0)
+  //       this.global.pageNavigation(this.panel);
+  //   });
+  // }
+
+  /**
+   * Método responsável por inicializar os dias
+   * @return {void}
+   */
+  public initializeDays() {
+    for (var i = 1;i <= 31; i++){
+      this.days.push({value: i, information: i});
+    }
   }
 
 }
