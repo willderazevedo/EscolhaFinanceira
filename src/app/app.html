@@ -11,6 +11,18 @@
   </ion-header>
 
   <ion-content>
+    <ion-item class="no-border">
+      <ion-row>
+        <ion-col>
+          <ion-thumbnail>
+            <img src="assets/images/tororo.png" alt="Avatar">
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col>
+          <h2>{{ this.vars.name }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-item>
     <button ion-item (click)="this.global.pageNavigation(this.panel)" menuClose>
       <ion-icon name="md-home"></ion-icon>
       Painel Inicial

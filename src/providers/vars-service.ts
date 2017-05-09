@@ -16,6 +16,12 @@ export class VarsService {
   public DBLOCATION = "default";
 
   /**
+   * Nome do usuário
+   * @var {string} name
+   */
+  public name = "";
+
+  /**
    * Valor da carteira
    * @var {float} wallet
    */

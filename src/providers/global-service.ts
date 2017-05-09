@@ -48,12 +48,13 @@ export class GlobalService {
    * Método responsável buscar valor na carteira
    * @return {void}
    */
-  public getWallet() {
+  public updateConfigVars() {
     this.daoConfig.select(res => {
       if(res.rows.length > 0){
 
-        var data    = res.rows.item(0);
+        var data         = res.rows.item(0);
         this.vars.wallet = data.USER_WALLET.toFixed(2);
+        this.vars.name   = data.USER_NAME;
       }
     });
   }

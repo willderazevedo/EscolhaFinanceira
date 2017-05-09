@@ -133,7 +133,7 @@ export class ConfigPage {
           {
             text: "Ok",
             handler: () => {
-              this.global.getWallet();
+              this.global.updateConfigVars();
               this.menu.swipeEnable(true);
               this.navCtrl.pop();
             }

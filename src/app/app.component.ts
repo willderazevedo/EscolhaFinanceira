@@ -96,7 +96,7 @@ export class MyApp {
     this.daoConfig.select(res => {
       if(res.rows.length > 0){
         this.rootPage = this.panel;
-        this.global.getWallet();
+        this.global.updateConfigVars();
         this.hideSplashScreen();
 
         return false;
