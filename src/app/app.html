@@ -11,14 +11,16 @@
   </ion-header>
 
   <ion-content>
-    <ion-item class="no-border">
+    <ion-item>
       <ion-row>
         <ion-col>
-          <ion-thumbnail>
+          <ion-avatar class="avatar">
             <img src="assets/images/tororo.png" alt="Avatar">
-          </ion-thumbnail>
+          </ion-avatar>
         </ion-col>
-        <ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-center">
           <h2>{{ this.vars.name }}</h2>
         </ion-col>
       </ion-row>
@@ -28,7 +30,7 @@
       Painel Inicial
     </button>
     <button ion-item (click)="this.global.pageNavigation(this.various_releases)" menuClose>
-      <ion-icon name="logo-usd"></ion-icon>
+      <ion-icon name="md-pricetags"></ion-icon>
       Lançamentos Diversos
     </button>
     <button ion-item (click)="this.global.pageNavigation(this.fixes_releases)" menuClose>
