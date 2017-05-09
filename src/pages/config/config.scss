@@ -13,6 +13,14 @@ page-config {
         padding: 0;
         border-bottom: 0.55px solid map-get($colors, 'border');
         color: map-get($colors, 'font');
+
+        &.last {
+          border-bottom: 0;
+        }
+
+        .checkbox {
+          margin: 9px 10px 9px 4px !important;
+        }
       }
     }
   }

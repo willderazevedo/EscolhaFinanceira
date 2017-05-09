@@ -24,7 +24,7 @@ export class DbHelper {
 
       //Table User
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_USER (" +
-          "USER_ID INT PRIMARY KEY," +
+          "USER_ID INT PRIMARY KEY ASC," +
           "USER_NAME VARCHAR(60) NOT NULL," +
           "USER_INCOME DOUBLE NOT NULL," +
           "USER_WALLET DOUBLE NOT NULL," +
@@ -36,7 +36,7 @@ export class DbHelper {
 
       //Table Various Releases
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_VARIOUS_RELEASES (" +
-          "VARIOUS_ID INT PRIMARY KEY," +
+          "VARIOUS_ID INT PRIMARY KEY ASC," +
           "VARIOUS_NAME VARCHAR(60) NOT NULL," +
           "VARIOUS_VALUE DOUBLE NOT NULL," +
           "VARIOUS_TYPE VARCHAR(7) NOT NULL," +
@@ -48,7 +48,7 @@ export class DbHelper {
 
       //Table Fixes Releases
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_FIXES_RELEASES (" +
-          "FIXES_ID INT PRIMARY KEY," +
+          "FIXES_ID INT PRIMARY KEY ASC," +
           "FIXES_NAME VARCHAR(60) NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
           "FIXES_TYPE VARCHAR(7) NOT NULL" +

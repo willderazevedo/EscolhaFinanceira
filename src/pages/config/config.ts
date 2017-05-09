@@ -35,9 +35,14 @@ export class ConfigPage {
   user   = {
     name: "",
     income: null,
-    income_day: ""
+    income_day: "",
+    update_wallet: false
   };
 
+  /**
+   * Dias do mês
+   * @var  {any} days
+   */
   days   = [];
 
   /**
@@ -58,7 +63,7 @@ export class ConfigPage {
   public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
     this.initializeDays();
-    // this.checkConfig();
+    this.getConfig();
   }
 
   /**
@@ -73,8 +78,7 @@ export class ConfigPage {
   }
 
   /**
-   * Método resposavel pela gravação/atualização do usuario no app
-   * @param  {boolean} update Indica se realizara um update ou um insert
+   * Método resposavel pela gravação do usuario no app
    * @return {void}
    */
   public saveConfig() {
@@ -100,21 +104,63 @@ export class ConfigPage {
     });
   }
 
-  // /**
-  //  * Método responsável pela checagem da configuração existente
-  //  * @return {boolean|void} Retorna falso ou nada
-  //  */
-  // public checkConfig() {
-  //
-  //   if(this.update){
-  //     return false;
-  //   }
-  //
-  //   this.dao.select(res => {
-  //     if(res.rows.length > 0)
-  //       this.global.pageNavigation(this.panel);
-  //   });
-  // }
+  /**
+   * Método resposavel pela atualização do usuario no app
+   * @return {void}
+   */
+  public updateConfig() {
+    let load = this.loadCtrl.create({
+      content: "Salvando informações...",
+    });
+
+    load.present();
+    this.dao.update(this.user, (res) => {
+      load.dismiss();
+
+      if(res.rowsAffected <= 0){
+        this.alertCtrl.create({
+          message: "Não foi possível salvar as configurações!",
+          buttons: ["Ok"]
+        }).present();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: "Configurações atualizadas!",
+        buttons: [
+          {
+            text: "Ok",
+            handler: () => {
+              this.menu.swipeEnable(true);
+              this.navCtrl.pop();
+            }
+          }
+        ]
+      }).present();
+    });
+  }
+
+  /**
+   * Método responsável por colocar configurações nos campos
+   * @return {boolean|void} Retorna falso ou nada
+   */
+  public getConfig() {
+
+    if(!this.update){
+      return false;
+    }
+
+    this.dao.select(res => {
+      if(res.rows.length > 0){
+
+        var data             = res.rows.item(0);
+        this.user.name       = data.USER_NAME;
+        this.user.income     = data.USER_INCOME;
+        this.user.income_day = data.USER_INCOME_DAY;
+      }
+    });
+  }
 
   /**
    * Método responsável por inicializar os dias
