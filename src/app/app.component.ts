@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 //Providers
 import { GlobalService } from '../providers/global-service';
 import { DbHelper } from '../providers/db-helper';
+import { VarsService } from '../providers/vars-service';
 
 //Data Access Object
 import { ConfigDAO } from '../providers/dao/config-dao';
@@ -66,7 +67,8 @@ export class MyApp {
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
-    public global: GlobalService, public daoConfig: ConfigDAO) {
+  public global: GlobalService, public daoConfig: ConfigDAO,
+  public vars: VarsService) {
     platform.ready().then(() => {
       helper.createDataBase();
       StatusBar.styleDefault();
@@ -94,6 +96,7 @@ export class MyApp {
     this.daoConfig.select(res => {
       if(res.rows.length > 0){
         this.rootPage = this.panel;
+        this.global.getWallet();
         this.hideSplashScreen();
 
         return false;

@@ -15,6 +15,12 @@ export class VarsService {
    */
   public DBLOCATION = "default";
 
+  /**
+   * Valor da carteira
+   * @var {float} wallet
+   */
+  public wallet = 0;
+
   constructor() {}
 
 }

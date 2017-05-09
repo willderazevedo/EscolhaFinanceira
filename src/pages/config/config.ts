@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController, App } from 'ionic-angular';
 
 //Data Access Object
 import { ConfigDAO } from '../../providers/dao/config-dao';
@@ -60,7 +60,7 @@ export class ConfigPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public dao: ConfigDAO) {
+  public alertCtrl: AlertController, public dao: ConfigDAO, public teste: App) {
     this.menu.swipeEnable(false);
     this.initializeDays();
     this.getConfig();
@@ -109,6 +109,7 @@ export class ConfigPage {
    * @return {void}
    */
   public updateConfig() {
+
     let load = this.loadCtrl.create({
       content: "Salvando informações...",
     });
@@ -132,6 +133,7 @@ export class ConfigPage {
           {
             text: "Ok",
             handler: () => {
+              this.global.getWallet();
               this.menu.swipeEnable(true);
               this.navCtrl.pop();
             }
