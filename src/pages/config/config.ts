@@ -100,6 +100,7 @@ export class ConfigPage {
         return false;
       }
 
+      this.global.updateConfigVars();
       this.global.pageNavigation(this.panel);
     });
   }
