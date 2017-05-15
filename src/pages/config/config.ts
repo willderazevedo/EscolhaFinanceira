@@ -93,8 +93,8 @@ export class ConfigPage {
 
       if(res.rowsAffected <= 0){
         this.alertCtrl.create({
-          title: "Erro",
-          message: "Não foi possível salvar as configurações!"
+          message: "Não foi possível salvar as configurações!",
+          buttons: ["Ok"]
         }).present();
 
         return false;

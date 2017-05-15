@@ -14,28 +14,28 @@
     <h6>Descrição do lançamento</h6>
     <ion-item>
       <ion-label stacked>Nome</ion-label>
-      <ion-input type="text" placeholder="Digite aqui"></ion-input>
+      <ion-input type="text" placeholder="Digite aqui" [(ngModel)]="releases.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Valor</ion-label>
-      <ion-input type="number" placeholder="Digite aqui"></ion-input>
+      <ion-input type="number" placeholder="Digite aqui" [(ngModel)]="releases.value"></ion-input>
     </ion-item>
 
     <div padding-top>
       <h6>Tipo de lançamento</h6>
-      <ion-row radio-group>
+      <ion-row radio-group [(ngModel)]="releases.type">
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="entrada" (click)="fieldPayForm(false)"></ion-radio>
+            <ion-radio checked="true" value="0" (click)="fieldPayForm(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="saida" (click)="fieldPayForm(true)"></ion-radio>
+            <ion-radio value="1" (click)="fieldPayForm(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -43,18 +43,18 @@
 
     <div *ngIf="this.out" padding-top>
       <h6>Forma de pagamento</h6>
-      <ion-row radio-group >
+      <ion-row radio-group [(ngModel)]="releases.form">
         <ion-col>
           <ion-item>
             <ion-label>Avista</ion-label>
-            <ion-radio checked="true" value="av" (click)="fieldPlots(false)"></ion-radio>
+            <ion-radio checked="true" value="0" (click)="fieldPlots(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Cartão</ion-label>
-            <ion-radio value="ca" (click)="fieldPlots(true)"></ion-radio>
+            <ion-radio value="1" (click)="fieldPlots(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -62,9 +62,9 @@
 
     <ion-item *ngIf="this.card">
       <ion-label stacked>Número de parcelas</ion-label>
-      <ion-input type="number" placeholder="Digite aqui"></ion-input>
+      <ion-input type="number" placeholder="Digite aqui" [(ngModel)]="releases.plots"></ion-input>
     </ion-item>
   </ion-list>
 
-  <button ion-button full color="primary">Salvar</button>
+  <button ion-button full color="primary" (click)="saveRelease()">Salvar</button>
 </ion-content>

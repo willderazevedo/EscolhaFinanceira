@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 
 //Data Access Object
 import { ConfigDAO } from '../providers/dao/config-dao';
+import { VariousReleasesDAO } from '../providers/dao/various-releases-dao';
 
 //Providers
 import { SQLite } from '@ionic-native/sqlite';
@@ -67,6 +68,7 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
     SQLite,
     DbHelper,
     ConfigDAO,
+    VariousReleasesDAO,
     VarsService,
     TutorialService
   ]

@@ -41,7 +41,24 @@ export class GlobalService {
    * @return {void}
    */
   public toggleModal(template, params = {}) {
-    this.modalCtrl.create(template, params).present();
+    let modal = this.modalCtrl.create(template, params);
+
+    modal.present();
+    modal.onDidDismiss(refresh => {
+      if(!refresh){
+        return false;
+      }
+
+      this.refreshPage();
+    });
+  }
+
+  /**
+   * Método responsável por atualizar a pagina
+   * @return {void}
+   */
+  public refreshPage() {
+    this.app.getRootNav().setRoot(this.app.getActiveNav().getActive().component);
   }
 
   /**

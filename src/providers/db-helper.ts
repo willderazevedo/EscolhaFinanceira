@@ -24,11 +24,11 @@ export class DbHelper {
 
       //Table User
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_USER (" +
-          "USER_ID INT PRIMARY KEY ASC," +
-          "USER_NAME VARCHAR(60) NOT NULL," +
+          "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+          "USER_NAME TEXT NOT NULL," +
           "USER_INCOME DOUBLE NOT NULL," +
           "USER_WALLET DOUBLE NOT NULL," +
-          "USER_INCOME_DAY VARCHAR(2) NOT NULL," +
+          "USER_INCOME_DAY TEXT NOT NULL," +
           "USER_TUTORIAL BOOLEAN DEFAULT 1" +
         ")", {})
       .then(res => console.log(res))
@@ -36,22 +36,22 @@ export class DbHelper {
 
       //Table Various Releases
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_VARIOUS_RELEASES (" +
-          "VARIOUS_ID INT PRIMARY KEY ASC," +
-          "VARIOUS_NAME VARCHAR(60) NOT NULL," +
+          "VARIOUS_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+          "VARIOUS_NAME TEXT NOT NULL," +
           "VARIOUS_VALUE DOUBLE NOT NULL," +
-          "VARIOUS_TYPE VARCHAR(7) NOT NULL," +
-          "VARIOUS_PAY_FORM VARCHAR(6) NOT NULL," +
-          "VARIOUS_PLOTS INT DEFAULT 0" +
+          "VARIOUS_TYPE TEXT NOT NULL," +
+          "VARIOUS_PAY_FORM TEXT NOT NULL," +
+          "VARIOUS_PLOTS INTEGER DEFAULT 0" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));
 
       //Table Fixes Releases
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_FIXES_RELEASES (" +
-          "FIXES_ID INT PRIMARY KEY ASC," +
-          "FIXES_NAME VARCHAR(60) NOT NULL," +
+          "FIXES_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+          "FIXES_NAME TEXT NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
-          "FIXES_TYPE VARCHAR(7) NOT NULL" +
+          "FIXES_TYPE TEXT NOT NULL" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));

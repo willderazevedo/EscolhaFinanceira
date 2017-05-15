@@ -3,7 +3,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { VarsService } from '../vars-service';
 
 @Injectable()
-export class ConfigDAO {
+export class VariousReleasesDAO {
 
   /**
    * Construtor do Data Access Object de config
@@ -13,23 +13,24 @@ export class ConfigDAO {
   constructor(public sqlite: SQLite, public vars: VarsService) {}
 
   /**
-   * Método responsável pela gravação das informações do usuário  no banco SQlite
-   * @param  {Object}   user     Descrição do usuario
+   * Método responsável pela gravação das informações do lançamento  no banco SQlite
+   * @param  {Object}   user     Descrição do lançamento
    * @param  {Function} callback Função de retorno para saber se deu certo ou não
    * @return {void}
    */
-  public insert(user, callback) {
+  public insert(release, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_USER VALUES (null, ?, ?, ?, ?, 1)",[
-        user.name,
-        user.income,
-        user.income,
-        user.income_day
+      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?)",[
+        release.name,
+        release.value,
+        release.type,
+        release.form,
+        release.plots
       ])
       .then(res => callback(res))
       .catch(err => console.log(err));
@@ -38,30 +39,24 @@ export class ConfigDAO {
   }
 
   /**
-   * Método responsável pela atualização das informações do usuário  no banco SQlite
-   * @param  {Object}   user     Descrição do usuario
+   * Método responsável pela atualização das informações do laçamento no banco SQlite
+   * @param  {Object}   user     Descrição do lançamento
    * @param  {Function} callback Função de retorno para saber se deu certo ou não
    * @return {void}
    */
-  public update(user, callback) {
+  public update(release, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      var sql    = "UPDATE TB_USER SET USER_NAME = ?, USER_INCOME = ?,";
-      var params = [user.name, user.income];
-
-      if(user.update_wallet){
-        sql += " USER_WALLET = ?,";
-        params.push(user.income);
-      }
-
-      sql += " USER_INCOME_DAY = ?";
-      params.push(user.income_day);
-
-      db.executeSql(sql,params)
+      db.executeSql("INSERT INTO TB_USER VALUES (1, ?, ?, ?, ?, 1)",[
+        release.name,
+        release.income,
+        release.income,
+        release.income_day
+      ])
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -69,18 +64,19 @@ export class ConfigDAO {
   }
 
   /**
-   * Método responsável por desligar o tutorial do usuário
+   * Método responsável pela deleção das informações do laçamento no banco SQlite
+   * @param  {Object}   user     Descrição do lançamento
    * @param  {Function} callback Função de retorno para saber se deu certo ou não
    * @return {void}
    */
-  public turnOffTutorial(callback) {
+  public delete(release_id, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("UPDATE TB_USER SET USER_TUTORIAL = 0",{})
+      db.executeSql("DELETE FROM TB_VARIOUS_RELEASES WHERE VARIOUS_ID = ?", [release_id])
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -88,7 +84,7 @@ export class ConfigDAO {
   }
 
   /**
-   * Método responsável pela busca das informações do usuário  no banco SQlite
+   * Método responsável pela busca das informações do lançamento  no banco SQlite
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
@@ -99,7 +95,7 @@ export class ConfigDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_USER",{})
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES",{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 
