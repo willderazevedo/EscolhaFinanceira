@@ -1,13 +1,13 @@
 <ion-list>
-  <button ion-item detail-none clear (click)="popoverDismiss()">
+  <button ion-item detail-none clear>
     <ion-icon name="md-cash"></ion-icon>
-    Quitar
+    {{ release.VARIOUS_TYPE == 1 ? 'Recebido' : 'Pago' }}
   </button>
-  <button ion-item detail-none clear (click)="popoverDismiss()">
+  <button ion-item detail-none clear>
     <ion-icon name="md-create"></ion-icon>
     Editar
   </button>
-  <button ion-item detail-none clear (click)="popoverDismiss()">
+  <button ion-item detail-none clear (click)="confirmDelete();">
     <ion-icon name="md-close"></ion-icon>
     Remover
   </button>

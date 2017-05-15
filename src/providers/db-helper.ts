@@ -27,8 +27,6 @@ export class DbHelper {
           "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "USER_NAME TEXT NOT NULL," +
           "USER_INCOME DOUBLE NOT NULL," +
-          "USER_WALLET DOUBLE NOT NULL," +
-          "USER_INCOME_DAY TEXT NOT NULL," +
           "USER_TUTORIAL BOOLEAN DEFAULT 1" +
         ")", {})
       .then(res => console.log(res))

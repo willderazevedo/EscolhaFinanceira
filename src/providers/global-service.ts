@@ -61,8 +61,8 @@ export class GlobalService {
       if(res.rows.length > 0){
 
         var data         = res.rows.item(0);
-        this.vars.wallet = data.USER_WALLET.toFixed(2);
         this.vars.name   = data.USER_NAME;
+        this.vars.income = data.USER_INCOME.toFixed(2);
       }
     });
   }

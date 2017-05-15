@@ -44,7 +44,17 @@ export class VariousReleasesPage {
 
   public togglePopover(event, params = {}){
     let popover = this.popoverCtrl.create(VariousPopoverPage, params);
+
     popover.present({ev: event});
+    popover.onDidDismiss(refresh => {
+
+      if(!refresh){
+        return false;
+      }
+
+      this.releases = [];
+      this.getVariousReleases();
+    });
   }
 
   public toggleModal() {
@@ -54,7 +64,7 @@ export class VariousReleasesPage {
     modal.onDidDismiss(() => {
       this.releases = [];
       this.getVariousReleases();
-    })
+    });
   }
 
 }

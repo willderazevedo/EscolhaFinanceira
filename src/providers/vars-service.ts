@@ -22,10 +22,10 @@ export class VarsService {
   public name = "";
 
   /**
-   * Valor da carteira
-   * @var {float} wallet
+   * Valor da salario
+   * @var {float} income
    */
-  public wallet = 0;
+  public income = 0;
 
   constructor() {}
 

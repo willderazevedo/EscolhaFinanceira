@@ -25,11 +25,9 @@ export class ConfigDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_USER VALUES (null, ?, ?, ?, ?, 1)",[
+      db.executeSql("INSERT INTO TB_USER VALUES (null, ?, ?, 1)",[
         user.name,
         user.income,
-        user.income,
-        user.income_day
       ])
       .then(res => callback(res))
       .catch(err => console.log(err));
@@ -50,18 +48,10 @@ export class ConfigDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      var sql    = "UPDATE TB_USER SET USER_NAME = ?, USER_INCOME = ?,";
-      var params = [user.name, user.income];
-
-      if(user.update_wallet){
-        sql += " USER_WALLET = ?,";
-        params.push(user.income);
-      }
-
-      sql += " USER_INCOME_DAY = ?";
-      params.push(user.income_day);
-
-      db.executeSql(sql,params)
+      db.executeSql("UPDATE TB_USER SET USER_NAME = ?, USER_INCOME = ?,",[
+        user.name,
+        user.income
+      ])
       .then(res => callback(res))
       .catch(err => console.log(err));
 

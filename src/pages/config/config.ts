@@ -35,15 +35,7 @@ export class ConfigPage {
   user   = {
     name: "",
     income: null,
-    income_day: "",
-    update_wallet: false
   };
-
-  /**
-   * Dias do mês
-   * @var  {any} days
-   */
-  days   = [];
 
   /**
    * [constructor description]
@@ -62,7 +54,6 @@ export class ConfigPage {
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
   public alertCtrl: AlertController, public dao: ConfigDAO, public teste: App) {
     this.menu.swipeEnable(false);
-    this.initializeDays();
     this.getConfig();
   }
 
@@ -160,19 +151,8 @@ export class ConfigPage {
         var data             = res.rows.item(0);
         this.user.name       = data.USER_NAME;
         this.user.income     = data.USER_INCOME;
-        this.user.income_day = data.USER_INCOME_DAY;
       }
     });
-  }
-
-  /**
-   * Método responsável por inicializar os dias
-   * @return {void}
-   */
-  public initializeDays() {
-    for (var i = 1;i <= 31; i++){
-      this.days.push({value: i, information: i});
-    }
   }
 
 }

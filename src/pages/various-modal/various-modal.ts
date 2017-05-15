@@ -39,7 +39,8 @@ export class VariousModalPage {
 
       if(res.rowsAffected <= 0){
         this.alertCtrl.create({
-          message: "Não foi possível salvar este lançamento!"
+          message: "Não foi possível salvar este lançamento!",
+          buttons: ["Ok"]
         }).present();
 
         return false;

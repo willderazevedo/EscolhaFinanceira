@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-title>Configuração</ion-title>
     <ion-buttons right>
-      <button ion-button clear *ngIf="user.name && user.income && user.income_day" (click)="update ? updateConfig() : saveConfig()">
+      <button ion-button clear *ngIf="user.name && user.income" (click)="update ? updateConfig() : saveConfig()">
         CONFIRMAR
       </button>
     </ion-buttons>
@@ -24,16 +24,6 @@
         <ion-item>
           <ion-label stacked>Qual a sua renda?</ion-label>
           <ion-input type="number" placeholder="Digite aqui" [(ngModel)]="user.income"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Dia de recebimento</ion-label>
-          <ion-select [(ngModel)]="user.income_day" placeholder="Escolha um dia">
-            <ion-option *ngFor="let day of days" value="{{ day.value }}">{{ day.information }}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item *ngIf="update" class="last">
-          <ion-label stacked>Deseja atualizar a carteira?</ion-label>
-          <ion-checkbox color="primary" checked="false" [(ngModel)]="user.update_wallet"></ion-checkbox>
         </ion-item>
       </ion-list>
     </ion-card-content>
