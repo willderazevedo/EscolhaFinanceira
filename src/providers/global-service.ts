@@ -41,16 +41,7 @@ export class GlobalService {
    * @return {void}
    */
   public toggleModal(template, params = {}) {
-    let modal = this.modalCtrl.create(template, params);
-
-    modal.present();
-    modal.onDidDismiss(refresh => {
-      if(!refresh){
-        return false;
-      }
-
-      this.refreshPage();
-    });
+    this.modalCtrl.create(template, params).present();
   }
 
   /**

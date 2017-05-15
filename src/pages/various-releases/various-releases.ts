@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, AlertController, LoadingController, ModalController } from 'ionic-angular';
+
+//Data Access Object
+import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -14,19 +17,44 @@ import { VariousPopoverPage } from '../various-popover/various-popover';
 })
 export class VariousReleasesPage {
 
-  variousModal:Object = VariousModalPage;
-  releases:Object = [
-    {name: "Bebidas", value: "R$ -80,00", type: "Saída", form: "Avista", plots: "Nenhuma", color:"danger"},
-    {name: "Cama", value: "R$ -900,00", type: "Saída", form: "Cartão", plots: "5x", color: "danger"},
-    {name: "Divida", value: "R$ +30,00", type: "Entrada", form: "Nenhuma", plots: "Nenhuma", color: "secondary"},
-  ];
+  variousModal = VariousModalPage;
+  releases     = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public global: GlobalService, public popoverCtrl: PopoverController) {}
+  public global: GlobalService, public popoverCtrl: PopoverController,
+  public alertCtrl: AlertController, public loadCtrl: LoadingController,
+  public modalCtrl: ModalController, public variousDao: VariousReleasesDAO) {
+    this.getVariousReleases();
+  }
 
-  togglePopover(event, params = {}){
+  public getVariousReleases() {
+    let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
+
+    load.present();
+    this.variousDao.select(data => {
+      let length = data.rows.length;
+
+      for(let i = 0;i < length;i++) {
+        this.releases.push(data.rows.item(i));
+      }
+
+      load.dismiss();
+    });
+  }
+
+  public togglePopover(event, params = {}){
     let popover = this.popoverCtrl.create(VariousPopoverPage, params);
     popover.present({ev: event});
+  }
+
+  public toggleModal() {
+    let modal = this.modalCtrl.create(this.variousModal);
+
+    modal.present();
+    modal.onDidDismiss(() => {
+      this.releases = [];
+      this.getVariousReleases();
+    })
   }
 
 }

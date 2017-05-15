@@ -18,8 +18,8 @@ export class VariousModalPage {
   releases     = {
     name: "",
     value: "",
-    type: 0,
-    form: 0,
+    type: 1,
+    form: 1,
     plots: ""
   };
 
@@ -51,7 +51,7 @@ export class VariousModalPage {
           {
             text:"Ok",
             handler: () => {
-              this.viewCtrl.dismiss(true);
+              this.modalDismiss();
             }
           }
         ]
