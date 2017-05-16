@@ -25,31 +25,31 @@
         </ion-col>
       </ion-row>
     </ion-item>
-    <button ion-item (click)="this.global.pageNavigation(this.panel)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(panel)" menuClose>
       <ion-icon name="md-home"></ion-icon>
       Painel Inicial
     </button>
-    <button ion-item (click)="this.global.pageNavigation(this.various_releases)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(various_releases)" menuClose>
       <ion-icon name="md-pricetags"></ion-icon>
       Lançamentos Diversos
     </button>
-    <button ion-item (click)="this.global.pageNavigation(this.fixes_releases)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(fixes_releases)" menuClose>
       <ion-icon name="md-pricetags"></ion-icon>
       Lançamentos Fixos
     </button>
-    <button ion-item (click)="this.global.pageNavigation(this.report)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(report)" menuClose>
       <ion-icon name="md-trending-up"></ion-icon>
       Relatório do Mês
     </button>
-    <button ion-item  menuClose>
+    <button ion-item (click)="this.global.pageNavigation(close_releases)"  menuClose>
       <ion-icon name="ios-archive"></ion-icon>
       Lançamentos Fechados
     </button>
-    <button ion-item (click)="this.global.pageNavigation(this.config, {update: true}, true)" menuClose>
+    <button ion-item (click)="this.global.pageNavigation(config, {update: true}, true)" menuClose>
       <ion-icon name="ios-build"></ion-icon>
       Configuração
     </button>
-    <button ion-item menuClose>
+    <button ion-item (click)="this.global.pageNavigation(info)" menuClose>
       <ion-icon name="md-information-circle"></ion-icon>
       Sobre
     </button>

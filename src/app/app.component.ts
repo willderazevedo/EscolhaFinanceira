@@ -16,6 +16,8 @@ import { PanelPage } from '../pages/panel/panel';
 import { VariousReleasesPage } from '../pages/various-releases/various-releases';
 import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
 import { ReportPage } from '../pages/report/report';
+import { CloseReleasesPage } from '../pages/close-releases/close-releases';
+import { InfoPage } from '../pages/info/info';
 
 @Component({
   templateUrl: 'app.html'
@@ -51,6 +53,18 @@ export class MyApp {
    * @var  {Object} report
    */
   report:Object           = ReportPage;
+
+  /**
+   * Página de lançamentos fechados
+   * @var  {Object} close_releases
+   */
+  close_releases          = CloseReleasesPage;
+
+  /**
+   * Página de sobre app
+   * @var  {Object} info
+   */
+  info                    = InfoPage;
 
   /**
    * Página inicial
