@@ -1,8 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, AlertController, ModalController } from 'ionic-angular';
+
+//Providers
+import { GlobalService } from '../../providers/global-service';
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
+
+//Template Pages
+import { VariousModalPage } from '../various-modal/various-modal';
+
+//Pages
+import { VariousReleasesPage } from '../various-releases/various-releases';
 
 @Component({
   selector: 'page-various-popover',
@@ -10,14 +19,30 @@ import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 })
 export class VariousPopoverPage {
 
-  release = this.navParams.get('release');
+  release       = this.navParams.get('release');
+  various_modal = VariousModalPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public variousDao: VariousReleasesDAO) {}
+  public alertCtrl: AlertController, public variousDao: VariousReleasesDAO,
+  public global: GlobalService, public modalCtrl: ModalController) {}
 
   public popoverDismiss(refresh = false) {
     this.viewCtrl.dismiss(refresh);
+  }
+
+  public toggleModal() {
+    let modal = this.modalCtrl.create(this.various_modal, {release: this.release});
+
+    modal.present();
+    modal.onDidDismiss(refresh => {
+
+      if(!refresh) {
+        return false;
+      }
+
+      this.global.pageNavigation(VariousReleasesPage);
+    });
   }
 
   public confirmDelete() {

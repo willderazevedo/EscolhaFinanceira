@@ -41,9 +41,17 @@
       <ion-icon name="md-trending-up"></ion-icon>
       Relatório do Mês
     </button>
+    <button ion-item  menuClose>
+      <ion-icon name="ios-archive"></ion-icon>
+      Lançamentos arquivados
+    </button>
     <button ion-item (click)="this.global.pageNavigation(this.config, {update: true}, true)" menuClose>
       <ion-icon name="ios-build"></ion-icon>
       Configuração
+    </button>
+    <button ion-item menuClose>
+      <ion-icon name="md-information-circle"></ion-icon>
+      Sobre
     </button>
   </ion-content>
 </ion-menu>

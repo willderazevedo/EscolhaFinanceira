@@ -13,9 +13,11 @@ import { GlobalService } from '../../providers/global-service';
 })
 export class VariousModalPage {
 
-  card:boolean = false;
-  out:boolean  = false;
-  releases     = {
+  card:boolean   = false;
+  out:boolean    = false;
+  release_update = this.navParams.get('release');
+  releases       = {
+    id: "",
     name: "",
     value: "",
     type: 1,
@@ -26,7 +28,9 @@ export class VariousModalPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public global: GlobalService,
-  public variousDao: VariousReleasesDAO) {}
+  public variousDao: VariousReleasesDAO) {
+    this.populateRelease();
+  }
 
   public saveRelease() {
     let load = this.loadCtrl.create({
@@ -52,7 +56,7 @@ export class VariousModalPage {
           {
             text:"Ok",
             handler: () => {
-              this.modalDismiss();
+              this.modalDismiss(true);
             }
           }
         ]
@@ -60,8 +64,54 @@ export class VariousModalPage {
     });
   }
 
-  public modalDismiss() {
-    this.viewCtrl.dismiss();
+  public updateRelease() {
+    let load = this.loadCtrl.create({
+      content: "Salvando informações...",
+    });
+
+    load.present();
+    this.variousDao.update(this.releases, (res) => {
+      load.dismiss();
+
+      if(res.rowsAffected <= 0){
+        this.alertCtrl.create({
+          message: "Não foi possível salvar este lançamento!",
+          buttons: ["Ok"]
+        }).present();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: "Lançamento salvo com sucesso!",
+        buttons: [
+          {
+            text:"Ok",
+            handler: () => {
+              this.modalDismiss(true);
+            }
+          }
+        ]
+      }).present();
+    });
+  }
+
+  private populateRelease() {
+
+    if(!this.release_update) {
+      return false;
+    }
+
+    this.releases.id    = this.release_update.VARIOUS_ID;
+    this.releases.name  = this.release_update.VARIOUS_NAME;
+    this.releases.type  = this.release_update.VARIOUS_TYPE;
+    this.releases.form  = this.release_update.VARIOUS_PAY_FORM;
+    this.releases.plots = this.release_update.VARIOUS_PLOTS;
+    this.releases.value = this.release_update.VARIOUS_VALUE;
+  }
+
+  public modalDismiss(refresh = false) {
+    this.viewCtrl.dismiss(refresh);
   }
 
   public fieldPlots(hide) {

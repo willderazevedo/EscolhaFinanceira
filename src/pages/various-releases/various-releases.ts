@@ -61,7 +61,12 @@ export class VariousReleasesPage {
     let modal = this.modalCtrl.create(this.variousModal);
 
     modal.present();
-    modal.onDidDismiss(() => {
+    modal.onDidDismiss(refresh => {
+
+      if(!refresh){
+        return false;
+      }
+
       this.releases = [];
       this.getVariousReleases();
     });

@@ -1,9 +1,9 @@
 <ion-list>
   <button ion-item detail-none clear>
-    <ion-icon name="md-cash"></ion-icon>
-    {{ release.VARIOUS_TYPE == 1 ? 'Recebido' : 'Pago' }}
+    <ion-icon name="ios-archive"></ion-icon>
+    Arquivar
   </button>
-  <button ion-item detail-none clear>
+  <button ion-item detail-none clear (click)="toggleModal(variousModal, {release: release}); popoverDismiss();">
     <ion-icon name="md-create"></ion-icon>
     Editar
   </button>

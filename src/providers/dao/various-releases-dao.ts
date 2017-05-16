@@ -51,12 +51,14 @@ export class VariousReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_USER VALUES (1, ?, ?, ?, ?, 1)",[
-        release.name,
-        release.income,
-        release.income,
-        release.income_day
-      ])
+      db.executeSql("UPDATE TB_VARIOUS_RELEASES SET " +
+          "VARIOUS_NAME = ?, " +
+          "VARIOUS_VALUE = ?, " +
+          "VARIOUS_TYPE = ?, " +
+          "VARIOUS_PAY_FORM = ?, " +
+          "VARIOUS_PLOTS = ? " +
+          "WHERE VARIOUS_ID = ?",
+        [release.name, release.value, release.type, release.form, release.plots, release.id])
       .then(res => callback(res))
       .catch(err => console.log(err));
 

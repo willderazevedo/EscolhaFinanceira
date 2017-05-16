@@ -41,7 +41,7 @@
       </ion-row>
     </div>
 
-    <div *ngIf="this.out" padding-top>
+    <div *ngIf="releases.type == 0" padding-top>
       <h6>Forma de pagamento</h6>
       <ion-row radio-group [(ngModel)]="releases.form">
         <ion-col>
@@ -60,11 +60,11 @@
       </ion-row>
     </div>
 
-    <ion-item *ngIf="this.card">
+    <ion-item *ngIf="releases.form == 0">
       <ion-label stacked>Número de parcelas</ion-label>
       <ion-input type="number" placeholder="Digite aqui" [(ngModel)]="releases.plots"></ion-input>
     </ion-item>
   </ion-list>
 
-  <button ion-button full color="primary" (click)="saveRelease()">Salvar</button>
+  <button ion-button full color="primary" (click)="release_update ? updateRelease() : saveRelease()">Salvar</button>
 </ion-content>

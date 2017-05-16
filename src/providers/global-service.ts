@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { App, ModalController } from 'ionic-angular';
+import { App, ModalController, PopoverController } from 'ionic-angular';
 
 //Providers
 import { VarsService } from './vars-service';
@@ -17,7 +17,8 @@ export class GlobalService {
    * @return {void}
    */
   constructor(public app: App, public modalCtrl: ModalController,
-  public daoConfig: ConfigDAO, public vars: VarsService){}
+  public daoConfig: ConfigDAO, public vars: VarsService,
+  public popoverCtrl: PopoverController){}
 
   /**
    * Método responsável por toda navegação do app
@@ -42,6 +43,17 @@ export class GlobalService {
    */
   public toggleModal(template, params = {}) {
     this.modalCtrl.create(template, params).present();
+  }
+
+  /**
+   * Método responsável por criar a popover
+   * @param  {Object} event Informação sobre o elemento
+   * @param  {Object} template Página que será usada como template para a modal
+   * @param  {Object} params Parametros a serem passados para a modal
+   * @return {void}
+   */
+  public togglePopover(event, template, params = {}){
+    this.popoverCtrl.create(template, params).present({ev: event});
   }
 
   /**
