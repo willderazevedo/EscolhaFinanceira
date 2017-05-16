@@ -27,7 +27,7 @@ export class DbHelper {
           "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "USER_NAME TEXT NOT NULL," +
           "USER_INCOME DOUBLE NOT NULL," +
-          "USER_TUTORIAL BOOLEAN DEFAULT 1" +
+          "USER_TUTORIAL INTEGER DEFAULT 1" +
         ")", {})
       .then(res => console.log(res))
       .catch(err => console.log(err));
@@ -39,7 +39,8 @@ export class DbHelper {
           "VARIOUS_VALUE DOUBLE NOT NULL," +
           "VARIOUS_TYPE TEXT NOT NULL," +
           "VARIOUS_PAY_FORM TEXT NOT NULL," +
-          "VARIOUS_PLOTS INTEGER DEFAULT 0" +
+          "VARIOUS_PLOTS INTEGER DEFAULT 0," +
+          "ARCHIVED INTEGER DEFAULT 0" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));
@@ -49,7 +50,8 @@ export class DbHelper {
           "FIXES_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "FIXES_NAME TEXT NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
-          "FIXES_TYPE TEXT NOT NULL" +
+          "FIXES_TYPE TEXT NOT NULL," +
+          "ARCHIVED INTEGER DEFAULT 0" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));

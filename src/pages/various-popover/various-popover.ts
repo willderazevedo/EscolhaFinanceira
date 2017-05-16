@@ -62,6 +62,23 @@ export class VariousPopoverPage {
     }).present();
   }
 
+  public confirmArchive() {
+    this.alertCtrl.create({
+      message: "Você deseja arquivar o lançamento: " + this.release.VARIOUS_NAME + "?",
+      buttons: [
+        {
+          text: "Não"
+        },
+        {
+          text: "Sim",
+          handler: () => {
+            this.archiveVariousRelease();
+          }
+        }
+      ]
+    }).present();
+  }
+
   private deleteVariousRelease() {
     let load = this.loadCtrl.create({content:"Deletando Lançamento..."});
 
@@ -80,6 +97,37 @@ export class VariousPopoverPage {
 
       this.alertCtrl.create({
         message: "Lançamento deletado com sucesso!",
+        buttons: [
+          {
+            text: "Ok",
+            handler: () =>{
+              this.popoverDismiss(true);
+            }
+          }
+        ]
+      }).present();
+    });
+  }
+
+  private archiveVariousRelease() {
+    let load = this.loadCtrl.create({content:"Arquivando Lançamento..."});
+
+    load.present();
+    this.variousDao.archive(this.release.VARIOUS_ID, res => {
+      load.dismiss();
+
+      if(res.rowsAffected <= 0){
+        this.popoverDismiss();
+        this.alertCtrl.create({
+          message: "Não foi possível arquivar este lançamento!",
+          buttons: ["Ok"]
+        }).present();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: "Lançamento arquivado com sucesso!",
         buttons: [
           {
             text: "Ok",

@@ -68,6 +68,15 @@
           <p>{{ release.VARIOUS_PLOTS ? release.VARIOUS_PLOTS : 'Nenhuma' }}</p>
         </ion-col>
       </ion-row>
+
+      <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
+        <ion-col>
+          <h2>Total parcela:</h2>
+        </ion-col>
+        <ion-col>
+          <p color="danger">R$ -{{ release.VARIOUS_VALUE/release.VARIOUS_PLOTS }}</p>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 </ion-content>

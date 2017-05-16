@@ -25,7 +25,7 @@ export class VariousReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?)",[
+      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?, 0)",[
         release.name,
         release.value,
         release.type,
@@ -86,6 +86,26 @@ export class VariousReleasesDAO {
   }
 
   /**
+   * Método responsável pela atualização das informações do laçamento no banco SQlite
+   * @param  {Object}   user     Descrição do lançamento
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public archive(release_id, callback) {
+
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("UPDATE TB_VARIOUS_RELEASES SET ARCHIVED = 1 WHERE VARIOUS_ID = ?", [release_id])
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
    * Método responsável pela busca das informações do lançamento  no banco SQlite
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
@@ -97,7 +117,7 @@ export class VariousReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES",{})
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE ARCHIVED <> 1",{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 
