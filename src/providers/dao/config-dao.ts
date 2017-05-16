@@ -48,7 +48,7 @@ export class ConfigDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("UPDATE TB_USER SET USER_NAME = ?, USER_INCOME = ?,",[
+      db.executeSql("UPDATE TB_USER SET USER_NAME = ?, USER_INCOME = ?",[
         user.name,
         user.income
       ])

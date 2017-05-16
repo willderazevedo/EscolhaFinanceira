@@ -6,6 +6,11 @@
       </button>
     </ion-buttons>
     <ion-title>Fixos</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only clear (click)="this.global.toggleModal(this.fixesModal)">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -40,18 +45,4 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
-
-  <ion-fab left bottom>
-    <button ion-fab color="secondary">
-      <ion-icon name="ios-arrow-up"></ion-icon>
-    </button>
-    <ion-fab-list side="top">
-      <button ion-fab>
-        <ion-icon name="md-help"></ion-icon>
-      </button>
-      <button ion-fab (click)="this.global.toggleModal(this.fixesModal)">
-        <ion-icon name="md-add"></ion-icon>
-      </button>
-    </ion-fab-list>
-  </ion-fab>
 </ion-content>
