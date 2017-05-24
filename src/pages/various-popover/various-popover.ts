@@ -64,7 +64,7 @@ export class VariousPopoverPage {
 
   public confirmArchive() {
     this.alertCtrl.create({
-      message: "Você deseja arquivar o lançamento: " + this.release.VARIOUS_NAME + "?",
+      message: "Você deseja fechar o lançamento: " + this.release.VARIOUS_NAME + "?",
       buttons: [
         {
           text: "Não"
@@ -110,7 +110,7 @@ export class VariousPopoverPage {
   }
 
   private archiveVariousRelease() {
-    let load = this.loadCtrl.create({content:"Arquivando Lançamento..."});
+    let load = this.loadCtrl.create({content:"Fechando Lançamento..."});
 
     load.present();
     this.variousDao.archive(this.release.VARIOUS_ID, res => {

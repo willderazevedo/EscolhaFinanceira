@@ -69,6 +69,9 @@ export class VariousModalPage {
       content: "Salvando informações...",
     });
 
+    if(this.releases.form == 1)
+      this.releases.plots = "";  
+
     load.present();
     this.variousDao.update(this.releases, (res) => {
       load.dismiss();
