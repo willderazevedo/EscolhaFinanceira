@@ -4,9 +4,6 @@ import { NavController, NavParams, PopoverController, AlertController, LoadingCo
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 
-//Providers
-import { GlobalService } from '../../providers/global-service';
-
 //Template Pages
 import { VariousModalPage } from '../various-modal/various-modal';
 import { VariousPopoverPage } from '../various-popover/various-popover';
@@ -21,9 +18,9 @@ export class VariousReleasesPage {
   releases     = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public global: GlobalService, public popoverCtrl: PopoverController,
-  public alertCtrl: AlertController, public loadCtrl: LoadingController,
-  public modalCtrl: ModalController, public variousDao: VariousReleasesDAO) {
+  public popoverCtrl: PopoverController, public alertCtrl: AlertController,
+  public loadCtrl: LoadingController, public modalCtrl: ModalController,
+  public variousDao: VariousReleasesDAO) {
     this.getVariousReleases();
   }
 
