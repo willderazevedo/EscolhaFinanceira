@@ -1,9 +1,9 @@
 <ion-list>
-  <button ion-item detail-none clear (click)="popoverDismiss()">
+  <button ion-item detail-none clear (click)="toggleModal(variousModal, {release: release}); popoverDismiss();">
     <ion-icon name="md-create"></ion-icon>
     Editar
   </button>
-  <button ion-item detail-none clear (click)="popoverDismiss()">
+  <button ion-item detail-none clear (click)="confirmDelete();">
     <ion-icon name="md-close"></ion-icon>
     Remover
   </button>

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ModalController, LoadingController } from 'ionic-angular';
+
+//Data Access Object
+import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -14,22 +17,59 @@ import { FixesPopoverPage } from '../fixes-popover/fixes-popover';
 })
 export class FixesReleasesPage {
 
-  fixesModal:Object = FixesModalPage;
-  releases:Object   = [
-    {name: "Alimentação", value: "R$ -300,00", type: "Saída", color:"danger"},
-    {name: "Passagem", value: "R$ -150,00", type: "Saída", color: "danger"},
-    {name: "Reajuste", value: "R$ +50,00", type: "Entrada", color: "secondary"},
-    {name: "Reajuste", value: "R$ +50,00", type: "Entrada", color: "secondary"},
-    {name: "Reajuste", value: "R$ +50,00", type: "Entrada", color: "secondary"},
-  ];
+  fixesModal = FixesModalPage;
+  releases   = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController, public modalCtrl: ModalController,
-    public global: GlobalService) {}
+  public popoverCtrl: PopoverController, public modalCtrl: ModalController,
+  public global: GlobalService, public loadCtrl: LoadingController,
+  public fixesDao: FixesReleasesDAO) {
+    this.getFixesReleases();
+  }
+
+  public getFixesReleases() {
+    let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
+
+    load.present();
+    this.fixesDao.select(data => {
+      let length = data.rows.length;
+
+      for(let i = 0;i < length;i++) {
+        this.releases.push(data.rows.item(i));
+      }
+
+      load.dismiss();
+    });
+  }
 
   public togglePopover(event, params = {}){
     let popover = this.popoverCtrl.create(FixesPopoverPage, params);
+
     popover.present({ev: event});
+    popover.onDidDismiss(refresh => {
+
+      if(!refresh){
+        return false;
+      }
+
+      this.releases = [];
+      this.getFixesReleases();
+    });
+  }
+
+  public toggleModal() {
+    let modal = this.modalCtrl.create(this.fixesModal);
+
+    modal.present();
+    modal.onDidDismiss(refresh => {
+
+      if(!refresh){
+        return false;
+      }
+
+      this.releases = [];
+      this.getFixesReleases();
+    });
   }
 
 }

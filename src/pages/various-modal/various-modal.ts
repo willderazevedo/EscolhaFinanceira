@@ -13,8 +13,8 @@ import { GlobalService } from '../../providers/global-service';
 })
 export class VariousModalPage {
 
-  card:boolean   = false;
-  out:boolean    = false;
+  card           = false;
+  out            = false;
   release_update = this.navParams.get('release');
   releases       = {
     id: "",
@@ -70,7 +70,7 @@ export class VariousModalPage {
     });
 
     if(this.releases.form == 1)
-      this.releases.plots = "";  
+      this.releases.plots = "";
 
     load.present();
     this.variousDao.update(this.releases, (res) => {

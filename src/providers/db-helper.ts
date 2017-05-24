@@ -50,8 +50,7 @@ export class DbHelper {
           "FIXES_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "FIXES_NAME TEXT NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
-          "FIXES_TYPE TEXT NOT NULL," +
-          "ARCHIVED INTEGER DEFAULT 0" +
+          "FIXES_TYPE TEXT NOT NULL" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));

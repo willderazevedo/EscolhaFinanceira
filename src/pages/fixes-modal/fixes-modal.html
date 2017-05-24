@@ -14,33 +14,35 @@
     <h6>Descrição do lançamento</h6>
     <ion-item>
       <ion-label stacked>Nome</ion-label>
-      <ion-input type="text" placeholder="Digite aqui"></ion-input>
+      <ion-input type="text" placeholder="Digite aqui" [(ngModel)]="releases.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Valor</ion-label>
-      <ion-input type="number" placeholder="Digite aqui"></ion-input>
+      <ion-input type="number" placeholder="Digite aqui" [(ngModel)]="releases.value"></ion-input>
     </ion-item>
 
     <div padding-top>
       <h6>Tipo de lançamento</h6>
-      <ion-row radio-group>
+      <ion-row radio-group [(ngModel)]="releases.type">
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="entrada"></ion-radio>
+            <ion-radio checked="true" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="saida"></ion-radio>
+            <ion-radio value="0"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
     </div>
   </ion-list>
 
-  <button ion-button full color="primary">Salvar</button>
+  <button ion-button full color="primary" (click)="release_update ? updateRelease() : saveRelease()">
+    Salvar
+  </button>
 </ion-content>

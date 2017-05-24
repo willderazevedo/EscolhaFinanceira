@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 //Data Access Object
 import { ConfigDAO } from '../providers/dao/config-dao';
 import { VariousReleasesDAO } from '../providers/dao/various-releases-dao';
+import { FixesReleasesDAO } from '../providers/dao/fixes-releases-dao';
 
 //Providers
 import { SQLite } from '@ionic-native/sqlite';
@@ -75,6 +76,7 @@ import { InfoPage } from '../pages/info/info';
     DbHelper,
     ConfigDAO,
     VariousReleasesDAO,
+    FixesReleasesDAO,
     VarsService,
     TutorialService
   ]
