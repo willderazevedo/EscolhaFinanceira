@@ -10,15 +10,17 @@ import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 })
 export class CloseReleasesPage {
 
-  releases = [];
+  release_type     = "various";
+  various_releases = [];
+  fixes_releases   = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public loadCtrl: LoadingController, public variousDao: VariousReleasesDAO,
   public alertCtrl: AlertController) {
-    this.getClosedReleases();
+    this.getClosedVariousReleases();
   }
 
-  public getClosedReleases() {
+  public getClosedVariousReleases() {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
     load.present();
@@ -26,16 +28,16 @@ export class CloseReleasesPage {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
-        this.releases.push(data.rows.item(i));
+        this.various_releases.push(data.rows.item(i));
       }
 
       load.dismiss();
     });
   }
 
-  public confirmOpen(release) {
+  public confirmOpen(various_releases) {
     this.alertCtrl.create({
-      message: "Deseja abrir o lançamento: " + release.VARIOUS_NAME + "?",
+      message: "Deseja abrir o lançamento: " + various_releases.VARIOUS_NAME + "?",
       buttons: [
         {
           text: "Não"
@@ -43,14 +45,14 @@ export class CloseReleasesPage {
         {
           text: "Sim",
           handler: () => {
-            this.openRelease(release);
+            this.openVariousRelease(various_releases);
           }
         }
       ]
     }).present();
   }
 
-  private openRelease(release) {
+  private openVariousRelease(release) {
     let load = this.loadCtrl.create({content:"Abrindo lançamento..."});
 
     load.present();
@@ -72,8 +74,8 @@ export class CloseReleasesPage {
           {
             text: "Ok",
             handler: () => {
-              this.releases = [];
-              this.getClosedReleases();
+              this.various_releases = [];
+              this.getClosedVariousReleases();
             }
           }
         ]

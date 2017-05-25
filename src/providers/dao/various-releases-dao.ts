@@ -25,12 +25,13 @@ export class VariousReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?, 0)",[
+      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?, ?, 0)",[
         release.name,
         release.value,
         release.type,
         release.form,
-        release.plots
+        release.plots,
+        new Date().toISOString()
       ])
       .then(res => callback(res))
       .catch(err => console.log(err));

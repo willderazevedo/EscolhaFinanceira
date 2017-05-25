@@ -1,4 +1,8 @@
 <ion-list>
+  <button ion-item detail-none clear (click)="confirmClose();">
+    <ion-icon name="md-lock"></ion-icon>
+    Fechar desse mês
+  </button>
   <button ion-item detail-none clear (click)="toggleModal(variousModal, {release: release}); popoverDismiss();">
     <ion-icon name="md-create"></ion-icon>
     Editar

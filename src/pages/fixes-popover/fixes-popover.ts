@@ -58,6 +58,68 @@ export class FixesPopoverPage {
     }).present();
   }
 
+  public confirmClose() {
+    this.alertCtrl.create({
+      message: "Você deseja fechar o mês deste lançamento: " + this.release.FIXES_NAME + "?",
+      buttons: [
+        {
+          text: "Não"
+        },
+        {
+          text: "Sim",
+          handler: () => {
+            this.closeFixesRelease();
+          }
+        }
+      ]
+    }).present();
+  }
+
+  private closeFixesRelease() {
+    let load = this.loadCtrl.create({content:"Fechando Mês..."});
+    load.present();
+
+    this.fixesDao.haveClosedInThisMonth(this.release.FIXES_ID, res => {  
+
+      if (res.rows.length > 0) {
+        load.dismiss();
+
+        this.alertCtrl.create({
+          message: "Este lançamento ja foi fechado neste mês.",
+          buttons: ["Ok"]
+        }).present();
+
+        return false;
+      }
+
+      this.fixesDao.close(this.release, res => {
+        load.dismiss();
+
+        if(res.rowsAffected <= 0){
+          this.alertCtrl.create({
+            message: "Não foi possível fechar este lançamento!",
+            buttons: ["Ok"]
+          }).present();
+
+          return false;
+        }
+
+        this.alertCtrl.create({
+          message: "Lançamento fechado com sucesso!",
+          buttons: [
+            {
+              text: "Ok",
+              handler: () =>{
+                this.popoverDismiss(true);
+              }
+            }
+          ]
+        }).present();
+      });
+    });
+  }
+
+
   private deleteFixesRelease() {
     let load = this.loadCtrl.create({content:"Deletando Lançamento..."});
 
