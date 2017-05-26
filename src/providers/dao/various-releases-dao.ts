@@ -88,18 +88,37 @@ export class VariousReleasesDAO {
   }
 
   /**
-   * Método responsável pela busca das informações do lançamento  no banco SQlite
+   * Método responsável pela busca das informações do lançamento de saida  no banco SQlite
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public select(callback) {
+  public selectReleasesOut(callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES",{})
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 0",{})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável pela busca das informações do lançamento de entrada  no banco SQlite
+   * @param  {Function} callback Função de retorno com os dados
+   * @return {void}
+   */
+  public selectReleasesIn(callback) {
+
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 1",{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 

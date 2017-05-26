@@ -25,12 +25,17 @@ export class CloseReleasesPage {
   }
 
   public getClosedVariousReleases() {
+    let load = this.loadCtrl.create({content:"Carregando movimentações..."});
+
+    load.present();
     this.closedVariousDao.selectVariousCloseds(data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
         this.various_releases.push(data.rows.item(i));
       }
+
+      load.dismiss();
     });
   }
 

@@ -14,29 +14,43 @@ import { VariousPopoverPage } from '../various-popover/various-popover';
 })
 export class VariousReleasesPage {
 
-  variousModal = VariousModalPage;
-  releases     = [];
+  variousModal  = VariousModalPage;
+  releases_type = "out";
+  releases_out  = [];
+  releases_in   = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public modalCtrl: ModalController,
   public variousDao: VariousReleasesDAO) {
-    this.getVariousReleases();
+    this.getVariousReleasesOut();
+    this.getVariousReleasesIn();
   }
 
-  public getVariousReleases() {
+  public getVariousReleasesOut() {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
     load.present();
-    this.variousDao.select(data => {
+    this.variousDao.selectReleasesOut(data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
-        this.releases.push(data.rows.item(i));
-        this.releases[i]["collapse"] = true;
+        this.releases_out.push(data.rows.item(i));
+        this.releases_out[i]["collapse"] = true;
       }
 
       load.dismiss();
+    });
+  }
+
+  public getVariousReleasesIn() {
+    this.variousDao.selectReleasesIn(data => {
+      let length = data.rows.length;
+
+      for(let i = 0;i < length;i++) {
+        this.releases_in.push(data.rows.item(i));
+        this.releases_in[i]["collapse"] = true;
+      }
     });
   }
 
@@ -52,8 +66,10 @@ export class VariousReleasesPage {
         return false;
       }
 
-      this.releases = [];
-      this.getVariousReleases();
+      this.releases_out = [];
+      this.releases_in  = [];
+      this.getVariousReleasesOut();
+      this.getVariousReleasesIn();
     });
   }
 
@@ -67,8 +83,10 @@ export class VariousReleasesPage {
         return false;
       }
 
-      this.releases = [];
-      this.getVariousReleases();
+      this.releases_out = [];
+      this.releases_in  = [];
+      this.getVariousReleasesOut();
+      this.getVariousReleasesIn();
     });
   }
 

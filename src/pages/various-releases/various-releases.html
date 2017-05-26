@@ -12,86 +12,140 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="releases_type">
+      <ion-segment-button value="out">
+        Saída
+      </ion-segment-button>
+      <ion-segment-button value="in">
+        Entrada
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngIf="releases.length == 0">
-    <ion-card-content>
-      Nenhum lançamento encontrado
-    </ion-card-content>
-  </ion-card>
-  <ion-card *ngFor="let release of releases">
-    <ion-card-header (click)="release.collapse=!release.collapse;">
-      <ion-item detail-none>
-        <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
-        <!-- <button ion-button clear icon-only item-right (click)="release.collapse=!release.collapse;">
-          <ion-icon *ngIf="release.collapse" name="ios-arrow-down"></ion-icon>
-          <ion-icon *ngIf="!release.collapse" name="md-remove"></ion-icon>
-        </button> -->
-        <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
-          <ion-icon name="md-more"></ion-icon>
-        </button>
-      </ion-item>
-    </ion-card-header>
-    <hr class="card-line">
-    <div class="collapse-content {{ !release.collapse ? 'collapse' : '' }}">
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <h2>Valor:</h2>
-          </ion-col>
-          <ion-col>
-            <p color="{{ release.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
-              R$ {{ release.VARIOUS_TYPE == 1 ? '+' : '-' }}{{ release.VARIOUS_VALUE }}
-            </p>
-          </ion-col>
-        </ion-row>
+  <div [ngSwitch]="releases_type">
+    <div *ngSwitchCase="'out'">
+      <ion-card *ngIf="releases_out.length == 0">
+        <ion-card-content>
+          Nenhum lançamento encontrado
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngFor="let release of releases_out">
+        <ion-card-header (click)="release.collapse=!release.collapse;">
+          <ion-item detail-none>
+            <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
+            <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
+              <ion-icon name="md-more"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-card-header>
+        <hr class="card-line">
+        <div class="collapse-content {{ !release.collapse ? 'collapse' : '' }}">
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <h2>Valor:</h2>
+              </ion-col>
+              <ion-col>
+                <p color="danger">
+                  R$ -{{ release.VARIOUS_VALUE }}
+                </p>
+              </ion-col>
+            </ion-row>
 
-        <ion-row>
-          <ion-col>
-            <h2>Tipo:</h2>
-          </ion-col>
-          <ion-col>
-            <p>{{ release.VARIOUS_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
-          </ion-col>
-        </ion-row>
+            <ion-row>
+              <ion-col>
+                <h2>Tipo:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+              </ion-col>
+            </ion-row>
 
-        <ion-row *ngIf="release.VARIOUS_TYPE == 0">
-          <ion-col>
-            <h2>Forma:</h2>
-          </ion-col>
-          <ion-col>
-            <p>{{ release.VARIOUS_PAY_FORM == 1? 'Avista' : 'Cartão' }}</p>
-          </ion-col>
-        </ion-row>
+            <ion-row>
+              <ion-col>
+                <h2>Forma:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_PAY_FORM == 1? 'Avista' : 'Cartão' }}</p>
+              </ion-col>
+            </ion-row>
 
-        <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
-          <ion-col>
-            <h2>Parcelas:</h2>
-          </ion-col>
-          <ion-col>
-            <p>{{ release.VARIOUS_PLOTS }}</p>
-          </ion-col>
-        </ion-row>
+            <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
+              <ion-col>
+                <h2>Parcelas:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_PLOTS }}</p>
+              </ion-col>
+            </ion-row>
 
-        <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
-          <ion-col>
-            <h2>Restantes:</h2>
-          </ion-col>
-          <ion-col>
-            <p>{{ release.VARIOUS_PLOTS_REMAINING }}</p>
-          </ion-col>
-        </ion-row>
+            <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
+              <ion-col>
+                <h2>Restantes:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_PLOTS_REMAINING }}</p>
+              </ion-col>
+            </ion-row>
 
-        <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
-          <ion-col>
-            <h2>Total parcela:</h2>
-          </ion-col>
-          <ion-col>
-            <p color="danger">R$ -{{ (release.VARIOUS_VALUE/release.VARIOUS_PLOTS).toFixed(2) }}</p>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
+            <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
+              <ion-col>
+                <h2>Total parcela:</h2>
+              </ion-col>
+              <ion-col>
+                <p color="danger">R$ -{{ (release.VARIOUS_VALUE/release.VARIOUS_PLOTS).toFixed(2) }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </div>
+      </ion-card>
     </div>
-  </ion-card>
+  </div>
+
+  <div [ngSwitch]="releases_type">
+    <div *ngSwitchCase="'in'">
+      <ion-card *ngIf="releases_in.length == 0">
+        <ion-card-content>
+          Nenhum lançamento encontrado
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngFor="let release of releases_in">
+        <ion-card-header (click)="release.collapse=!release.collapse;">
+          <ion-item detail-none>
+            <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
+            <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
+              <ion-icon name="md-more"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-card-header>
+        <hr class="card-line">
+        <div class="collapse-content {{ !release.collapse ? 'collapse' : '' }}">
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <h2>Valor:</h2>
+              </ion-col>
+              <ion-col>
+                <p color="secondary">
+                  R$ +{{ release.VARIOUS_VALUE }}
+                </p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <h2>Tipo:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </div>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
