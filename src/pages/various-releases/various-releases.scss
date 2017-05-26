@@ -7,6 +7,15 @@ page-various-releases {
       padding: 0;
     }
 
+    .collapse-content {
+      transition: max-height .7s;
+      max-height: 0;
+
+      &.collapse {
+        max-height: 350px;
+      }
+    }
+
     .card-line {
       height: 1px;
       margin: 0;

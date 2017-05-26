@@ -33,6 +33,7 @@ export class VariousReleasesPage {
 
       for(let i = 0;i < length;i++) {
         this.releases.push(data.rows.item(i));
+        this.releases[i]["collapse"] = true;
       }
 
       load.dismiss();
@@ -40,6 +41,8 @@ export class VariousReleasesPage {
   }
 
   public togglePopover(event, params = {}){
+    event.stopPropagation();
+
     let popover = this.popoverCtrl.create(VariousPopoverPage, params);
 
     popover.present({ev: event});

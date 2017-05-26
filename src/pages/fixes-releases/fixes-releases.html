@@ -21,7 +21,7 @@
     </ion-card-content>
   </ion-card>
   <ion-card *ngFor="let release of releases">
-    <ion-card-header>
+    <ion-card-header (click)="release.collapse=!release.collapse;">
       <ion-item detail-none>
         <h2 color="primary">{{ release.FIXES_NAME }}</h2>
         <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
@@ -30,26 +30,28 @@
       </ion-item>
     </ion-card-header>
     <hr class="card-line">
-    <ion-card-content>
-      <ion-row>
-        <ion-col>
-          <h2>Valor:</h2>
-        </ion-col>
-        <ion-col>
-          <p color="{{ release.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
-            R$ {{ release.FIXES_TYPE == 1 ? '+' : '-' }}{{ release.FIXES_VALUE }}
-          </p>
-        </ion-col>
-      </ion-row>
+    <div class="collapse-content {{ !release.collapse ? 'collapse' : '' }}">
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <h2>Valor:</h2>
+          </ion-col>
+          <ion-col>
+            <p color="{{ release.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
+              R$ {{ release.FIXES_TYPE == 1 ? '+' : '-' }}{{ release.FIXES_VALUE }}
+            </p>
+          </ion-col>
+        </ion-row>
 
-      <ion-row>
-        <ion-col>
-          <h2>Tipo:</h2>
-        </ion-col>
-        <ion-col>
-          <p>{{ release.FIXES_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
+        <ion-row>
+          <ion-col>
+            <h2>Tipo:</h2>
+          </ion-col>
+          <ion-col>
+            <p>{{ release.FIXES_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </div>
   </ion-card>
 </ion-content>
