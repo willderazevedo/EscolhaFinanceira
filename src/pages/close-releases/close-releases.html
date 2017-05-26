@@ -95,13 +95,10 @@
           Nenhum lançamento encontrado
         </ion-card-content>
       </ion-card>
-      <!-- <ion-card *ngFor="let release of fixes_releases">
+      <ion-card *ngFor="let release of fixes_releases">
         <ion-card-header>
           <ion-item detail-none>
-            <h2 color="primary">{{ release.FIXES_NAME }}</h2>
-            <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
-              <ion-icon name="md-more"></ion-icon>
-            </button>
+            <h2 color="primary">{{ release.CLOSED_NAME }}</h2>
           </ion-item>
         </ion-card-header>
         <hr class="card-line">
@@ -111,8 +108,8 @@
               <h2>Valor:</h2>
             </ion-col>
             <ion-col>
-              <p color="{{ release.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
-                R$ {{ release.FIXES_TYPE == 1 ? '+' : '-' }}{{ release.FIXES_VALUE }}
+              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+                R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ release.CLOSED_VALUE }}
               </p>
             </ion-col>
           </ion-row>
@@ -122,11 +119,20 @@
               <h2>Tipo:</h2>
             </ion-col>
             <ion-col>
-              <p>{{ release.FIXES_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+              <p>{{ release.CLOSED_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <h2>Pago em:</h2>
+            </ion-col>
+            <ion-col>
+              <p>{{ release.CLOSED_DATE | date: 'dd/MM/yyyy'}}</p>
             </ion-col>
           </ion-row>
         </ion-card-content>
-      </ion-card> -->
+      </ion-card>
     </div>
   </div>
 </ion-content>
