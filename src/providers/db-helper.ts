@@ -40,8 +40,7 @@ export class DbHelper {
           "VARIOUS_TYPE TEXT NOT NULL," +
           "VARIOUS_PAY_FORM TEXT NOT NULL," +
           "VARIOUS_PLOTS INTEGER DEFAULT 0," +
-          "VARIOUS_DATE DATE," +
-          "ARCHIVED INTEGER DEFAULT 0" +
+          "VARIOUS_PLOTS_REMAINING INTEGER DEFAULT 0" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));
@@ -52,6 +51,18 @@ export class DbHelper {
           "FIXES_NAME TEXT NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
           "FIXES_TYPE TEXT NOT NULL" +
+        ");", {})
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+
+      db.executeSql("CREATE TABLE IF NOT EXISTS TB_VARIOUS_CLOSED (" +
+          "CLOSED_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+          "VARIOUS_INDENTIFY INTEGER NOT NULL, " +
+          "CLOSED_NAME TEXT NOT NULL," +
+          "CLOSED_VALUE DOUBLE NOT NULL," +
+          "CLOSED_TYPE TEXT NOT NULL," +
+          "CLOSED_PAY_FORM TEXT NOT NULL," +
+          "CLOSED_DATE DATE" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));

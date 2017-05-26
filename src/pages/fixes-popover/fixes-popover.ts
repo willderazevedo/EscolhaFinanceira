@@ -6,6 +6,7 @@ import { GlobalService } from '../../providers/global-service';
 
 //Data Access Object
 import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
+import { ClosedFixesReleasesDao } from '../../providers/dao/closed-fixes-releases-dao';
 
 //Template Pages
 import { FixesModalPage } from '../fixes-modal/fixes-modal';
@@ -22,7 +23,8 @@ export class FixesPopoverPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public modalCtrl: ModalController,
   public global: GlobalService, public fixesDao: FixesReleasesDAO,
-  public alertCtrl: AlertController, public loadCtrl: LoadingController) {}
+  public alertCtrl: AlertController, public loadCtrl: LoadingController,
+  public closedDao: ClosedFixesReleasesDao) {}
 
   release     = this.navParams.get('release');
   fixes_modal = FixesModalPage;
@@ -79,7 +81,7 @@ export class FixesPopoverPage {
     let load = this.loadCtrl.create({content:"Fechando Mês..."});
     load.present();
 
-    this.fixesDao.haveClosedInThisMonth(this.release.FIXES_ID, res => {  
+    this.closedDao.haveClosedInThisMonth(this.release.FIXES_ID, res => {
 
       if (res.rows.length > 0) {
         load.dismiss();

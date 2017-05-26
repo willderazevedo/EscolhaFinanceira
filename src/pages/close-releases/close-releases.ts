@@ -23,18 +23,7 @@ export class CloseReleasesPage {
   }
 
   public getClosedVariousReleases() {
-    let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
-    load.present();
-    this.variousDao.selectCloseds(data => {
-      let length = data.rows.length;
-
-      for(let i = 0;i < length;i++) {
-        this.various_releases.push(data.rows.item(i));
-      }
-
-      load.dismiss();
-    });
   }
 
   public getClosedFixesReleases() {
@@ -44,54 +33,6 @@ export class CloseReleasesPage {
       for(let i = 0;i < length;i++) {
         this.fixes_releases.push(data.rows.item(i));
       }
-    });
-  }
-
-  public confirmOpen(various_releases) {
-    this.alertCtrl.create({
-      message: "Deseja abrir o lançamento: " + various_releases.VARIOUS_NAME + "?",
-      buttons: [
-        {
-          text: "Não"
-        },
-        {
-          text: "Sim",
-          handler: () => {
-            this.openVariousRelease(various_releases);
-          }
-        }
-      ]
-    }).present();
-  }
-
-  private openVariousRelease(release) {
-    let load = this.loadCtrl.create({content:"Abrindo lançamento..."});
-
-    load.present();
-    this.variousDao.open(release.VARIOUS_ID, res => {
-      load.dismiss();
-
-      if(res.rowsAffected <= 0){
-        this.alertCtrl.create({
-          message: "Não foi possível abrir este lançamento!",
-          buttons: ["Ok"]
-        }).present();
-
-        return false;
-      }
-
-      this.alertCtrl.create({
-        message: "Lançamento aberto com sucesso!",
-        buttons: [
-          {
-            text: "Ok",
-            handler: () => {
-              this.various_releases = [];
-              this.getClosedVariousReleases();
-            }
-          }
-        ]
-      }).present();
     });
   }
 

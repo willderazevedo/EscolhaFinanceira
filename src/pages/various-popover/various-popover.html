@@ -1,14 +1,11 @@
 <ion-list>
-  <button ion-item detail-none clear (click)="confirmArchive();">
-    <ion-icon name="md-lock"></ion-icon>
-    Fechar Lançamento
+  <button ion-item detail-none clear (click)="confirmClose();">
+    {{ close_text }}
   </button>
   <button ion-item detail-none clear (click)="toggleModal(variousModal, {release: release}); popoverDismiss();">
-    <ion-icon name="md-create"></ion-icon>
     Editar
   </button>
   <button ion-item detail-none clear (click)="confirmDelete();">
-    <ion-icon name="md-close"></ion-icon>
     Remover
   </button>
 </ion-list>

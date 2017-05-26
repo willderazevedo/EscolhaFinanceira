@@ -73,30 +73,42 @@ export class VariousModalPage {
       this.releases.plots = "";
 
     load.present();
-    this.variousDao.update(this.releases, (res) => {
-      load.dismiss();
-
-      if(res.rowsAffected <= 0){
+    this.variousDao.getRemainingPlots(this.releases.id, (res) => {
+      if(res.rows.item(0).REMAIN < this.release_update.VARIOUS_PLOTS_REMAINING){
         this.alertCtrl.create({
-          message: "Não foi possível salvar este lançamento!",
+          message: "Não é possível alterar este lançamento pois algumas parcelas já foram pagas.",
           buttons: ["Ok"]
         }).present();
 
         return false;
       }
+      
+      this.variousDao.update(this.releases, (res) => {
+        load.dismiss();
 
-      this.alertCtrl.create({
-        message: "Lançamento salvo com sucesso!",
-        buttons: [
-          {
-            text:"Ok",
-            handler: () => {
-              this.modalDismiss(true);
+        if(res.rowsAffected <= 0){
+          this.alertCtrl.create({
+            message: "Não foi possível salvar este lançamento!",
+            buttons: ["Ok"]
+          }).present();
+
+          return false;
+        }
+
+        this.alertCtrl.create({
+          message: "Lançamento salvo com sucesso!",
+          buttons: [
+            {
+              text:"Ok",
+              handler: () => {
+                this.modalDismiss(true);
+              }
             }
-          }
-        ]
-      }).present();
+          ]
+        }).present();
+      });
     });
+
   }
 
   private populateRelease() {

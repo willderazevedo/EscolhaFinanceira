@@ -60,12 +60,21 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
         <ion-col>
           <h2>Parcelas:</h2>
         </ion-col>
         <ion-col>
-          <p>{{ release.VARIOUS_PLOTS ? release.VARIOUS_PLOTS : 'Nenhuma' }}</p>
+          <p>{{ release.VARIOUS_PLOTS }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
+        <ion-col>
+          <h2>Restantes:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ release.VARIOUS_PLOTS_REMAINING }}</p>
         </ion-col>
       </ion-row>
 
