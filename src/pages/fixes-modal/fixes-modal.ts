@@ -24,10 +24,31 @@ export class FixesModalPage {
     this.populateRelease();
   }
 
+  private checkFields() {
+    let empty = false;
+    let field = this.releases;
+
+    if(!field.name || !field.value) {
+      empty = true;
+    }
+
+    return empty;
+  }
+
   public saveRelease() {
-    let load = this.loadCtrl.create({
+    let empty = this.checkFields();
+    let load  = this.loadCtrl.create({
       content: "Salvando informações...",
     });
+
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
 
     load.present();
     this.fixesDao.insert(this.releases, (res) => {
@@ -57,9 +78,19 @@ export class FixesModalPage {
   }
 
   public updateRelease() {
-    let load = this.loadCtrl.create({
+    let empty = this.checkFields();
+    let load  = this.loadCtrl.create({
       content: "Salvando informações...",
     });
+
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
 
     load.present();
     this.fixesDao.update(this.releases, (res) => {

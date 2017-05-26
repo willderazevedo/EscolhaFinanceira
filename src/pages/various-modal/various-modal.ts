@@ -32,12 +32,34 @@ export class VariousModalPage {
     this.populateRelease();
   }
 
+  private checkFields() {
+    let empty = false;
+    let field = this.releases;
+
+    if(!field.name || !field.value || (field.type == 0 && field.form == 0 && !field.plots)) {
+      empty = true;
+    }
+
+    return empty;
+  }
+
   public saveRelease() {
-    let load = this.loadCtrl.create({
+    let empty = this.checkFields();
+    let load  = this.loadCtrl.create({
       content: "Salvando informações...",
     });
 
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
+
     load.present();
+
     this.variousDao.insert(this.releases, (res) => {
       load.dismiss();
 
@@ -65,9 +87,19 @@ export class VariousModalPage {
   }
 
   public updateRelease() {
-    let load = this.loadCtrl.create({
+    let empty = this.checkFields();
+    let load  = this.loadCtrl.create({
       content: "Salvando informações...",
     });
+
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
 
     if(this.releases.form == 1)
       this.releases.plots = "";
@@ -82,7 +114,7 @@ export class VariousModalPage {
 
         return false;
       }
-      
+
       this.variousDao.update(this.releases, (res) => {
         load.dismiss();
 
