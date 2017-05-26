@@ -99,18 +99,37 @@ export class FixesReleasesDAO {
   }
 
   /**
-   * Método responsável pela busca das informações do lançamento  no banco SQlite
+   * Método responsável pela busca das informações do lançamento de saida no banco SQlite
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public select(callback) {
+  public selectFixesOut(callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_FIXES_RELEASES",{})
+      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 0",{})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável pela busca das informações do lançamento de entrada no banco SQlite
+   * @param  {Function} callback Função de retorno com os dados
+   * @return {void}
+   */
+  public selectFixesIn(callback) {
+
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 1",{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 

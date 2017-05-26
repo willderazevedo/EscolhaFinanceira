@@ -17,29 +17,43 @@ import { FixesPopoverPage } from '../fixes-popover/fixes-popover';
 })
 export class FixesReleasesPage {
 
-  fixesModal = FixesModalPage;
-  releases   = [];
+  fixesModal    = FixesModalPage;
+  releases_type = "out";
+  releases_out  = [];
+  releases_in   = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public modalCtrl: ModalController,
   public global: GlobalService, public loadCtrl: LoadingController,
   public fixesDao: FixesReleasesDAO) {
-    this.getFixesReleases();
+    this.getFixesReleasesOut();
+    this.getFixesReleasesIn();
   }
 
-  public getFixesReleases() {
+  public getFixesReleasesOut() {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
     load.present();
-    this.fixesDao.select(data => {
+    this.fixesDao.selectFixesOut(data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
-        this.releases.push(data.rows.item(i));
-        this.releases[i]["collapse"] = true;
+        this.releases_out.push(data.rows.item(i));
+        this.releases_out[i]["collapse"] = true;
       }
 
       load.dismiss();
+    });
+  }
+
+  public getFixesReleasesIn() {
+    this.fixesDao.selectFixesIn(data => {
+      let length = data.rows.length;
+
+      for(let i = 0;i < length;i++) {
+        this.releases_in.push(data.rows.item(i));
+        this.releases_in[i]["collapse"] = true;
+      }
     });
   }
 
@@ -55,8 +69,10 @@ export class FixesReleasesPage {
         return false;
       }
 
-      this.releases = [];
-      this.getFixesReleases();
+      this.releases_out = [];
+      this.releases_in  = [];
+      this.getFixesReleasesOut();
+      this.getFixesReleasesIn();
     });
   }
 
@@ -70,8 +86,10 @@ export class FixesReleasesPage {
         return false;
       }
 
-      this.releases = [];
-      this.getFixesReleases();
+      this.releases_out = [];
+      this.releases_in  = [];
+      this.getFixesReleasesOut();
+      this.getFixesReleasesIn();
     });
   }
 
