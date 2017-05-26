@@ -83,7 +83,7 @@
           <h2>Total parcela:</h2>
         </ion-col>
         <ion-col>
-          <p color="danger">R$ -{{ release.VARIOUS_VALUE/release.VARIOUS_PLOTS }}</p>
+          <p color="danger">R$ -{{ (release.VARIOUS_VALUE/release.VARIOUS_PLOTS).toFixed(2) }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>

@@ -4,6 +4,7 @@ import { NavController, NavParams, LoadingController, AlertController } from 'io
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 import { ClosedFixesReleasesDao } from '../../providers/dao/closed-fixes-releases-dao';
+import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-releases-dao';
 
 @Component({
   selector: 'page-close-releases',
@@ -17,17 +18,24 @@ export class CloseReleasesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public loadCtrl: LoadingController, public variousDao: VariousReleasesDAO,
-  public alertCtrl: AlertController, public closedDao: ClosedFixesReleasesDao) {
+  public alertCtrl: AlertController, public closedFixesDao: ClosedFixesReleasesDao,
+  public closedVariousDao: ClosedVariousReleasesDao) {
     this.getClosedVariousReleases();
     this.getClosedFixesReleases();
   }
 
   public getClosedVariousReleases() {
+    this.closedVariousDao.selectVariousCloseds(data => {
+      let length = data.rows.length;
 
+      for(let i = 0;i < length;i++) {
+        this.various_releases.push(data.rows.item(i));
+      }
+    });
   }
 
   public getClosedFixesReleases() {
-    this.closedDao.selectFixesCloseds(data => {
+    this.closedFixesDao.selectFixesCloseds(data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {

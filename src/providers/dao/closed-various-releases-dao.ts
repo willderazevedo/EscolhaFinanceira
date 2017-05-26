@@ -38,13 +38,14 @@ export class ClosedVariousReleasesDao {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_VARIOUS_CLOSED VALUES(null, ?, ?, ?, ?, ?, ?)"
+      db.executeSql("INSERT INTO TB_VARIOUS_CLOSED VALUES(null, ?, ?, ?, ?, ?, ?, ?)"
       , [
           release.VARIOUS_ID,
           release.VARIOUS_NAME,
           release.VARIOUS_VALUE,
           release.VARIOUS_TYPE,
           release.VARIOUS_PAY_FORM,
+          release.VARIOUS_PLOTS,
           new Date().toISOString()
       ])
       .then(res => callback(res))

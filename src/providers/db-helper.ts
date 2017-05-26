@@ -62,6 +62,7 @@ export class DbHelper {
           "CLOSED_VALUE DOUBLE NOT NULL," +
           "CLOSED_TYPE TEXT NOT NULL," +
           "CLOSED_PAY_FORM TEXT NOT NULL," +
+          "CLOSED_PLOTS INTEGER DEFAULT 0," +
           "CLOSED_DATE DATE" +
         ");", {})
         .then(res => console.log(res))

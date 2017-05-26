@@ -22,7 +22,6 @@ export class VariousPopoverPage {
 
   release       = this.navParams.get('release');
   close_text    = "";
-  close_icon    = "";
   various_modal = VariousModalPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -55,7 +54,7 @@ export class VariousPopoverPage {
 
   public setCloseText() {
     this.variousDao.getRemainingPlots(this.release.VARIOUS_ID, res => {
-      if(res.rows.item(0) > 1 || this.release.VARIOUS_TYPE == 1) {
+      if(res.rows.item(0) == 1 || this.release.VARIOUS_TYPE == 1) {
         this.close_text = "Fechar lançamento";
 
         return false;

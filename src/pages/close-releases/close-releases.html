@@ -28,13 +28,10 @@
           Nenhum lançamento encontrado
         </ion-card-content>
       </ion-card>
-      <!-- <ion-card *ngFor="let release of various_releases">
+      <ion-card *ngFor="let release of various_releases">
         <ion-card-header>
           <ion-item detail-none>
-            <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
-            <button ion-button clear icon-only item-right (click)="confirmOpen(release)">
-              <ion-icon name="md-unlock"></ion-icon>
-            </button>
+            <h2 color="primary">{{ release.CLOSED_NAME }}</h2>
           </ion-item>
         </ion-card-header>
         <hr class="card-line">
@@ -43,9 +40,14 @@
             <ion-col>
               <h2>Valor:</h2>
             </ion-col>
-            <ion-col>
-              <p color="{{ release.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
-                R$ {{ release.VARIOUS_TYPE == 1 ? '+' : '-' }}{{ release.VARIOUS_VALUE }}
+            <ion-col *ngIf="release.CLOSED_PAY_FORM == 0">
+              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+                R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ (release.CLOSED_VALUE/release.CLOSED_PLOTS).toFixed(2) }}
+              </p>
+            </ion-col>
+            <ion-col *ngIf="release.CLOSED_PAY_FORM == 1">
+              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+                R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ release.CLOSED_VALUE }}
               </p>
             </ion-col>
           </ion-row>
@@ -55,7 +57,7 @@
               <h2>Tipo:</h2>
             </ion-col>
             <ion-col>
-              <p>{{ release.VARIOUS_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
+              <p>{{ release.CLOSED_TYPE == 1 ? 'Entrada' : 'Saída' }}</p>
             </ion-col>
           </ion-row>
 
@@ -64,29 +66,20 @@
               <h2>Forma:</h2>
             </ion-col>
             <ion-col>
-              <p>{{ release.VARIOUS_PAY_FORM == 1? 'Avista' : 'Cartão' }}</p>
+              <p>{{ release.CLOSED_PAY_FORM == 1? 'Avista' : 'Cartão' }}</p>
             </ion-col>
           </ion-row>
 
           <ion-row>
             <ion-col>
-              <h2>Parcelas:</h2>
+              <h2>Pago em:</h2>
             </ion-col>
             <ion-col>
-              <p>{{ release.VARIOUS_PLOTS ? release.VARIOUS_PLOTS : 'Nenhuma' }}</p>
-            </ion-col>
-          </ion-row>
-
-          <ion-row *ngIf="release.VARIOUS_PAY_FORM == 0">
-            <ion-col>
-              <h2>Total parcela:</h2>
-            </ion-col>
-            <ion-col>
-              <p color="danger">R$ -{{ release.VARIOUS_VALUE/release.VARIOUS_PLOTS }}</p>
+              <p>{{ release.CLOSED_DATE | date: 'dd/MM/yyyy'}}</p>
             </ion-col>
           </ion-row>
         </ion-card-content>
-      </ion-card> -->
+      </ion-card>
     </div>
 
     <div *ngSwitchCase="'fixes'">
