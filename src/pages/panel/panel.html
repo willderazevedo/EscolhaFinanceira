@@ -12,6 +12,19 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header color="primary">
+      Histórico de Diversos
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content>
+      <canvas #hitoryVariousChart></canvas>
+      <p *ngIf="chart_various_data.length == 0">
+        Nenhum lançamento encontrado
+      </p>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header color="primary">
       Maior lançamento diverso do mês
     </ion-card-header>
     <hr class="card-line">
@@ -65,6 +78,19 @@
           <p>{{ higher.VARIOUS_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
         </ion-col>
       </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header color="primary">
+      Histórico de Fixos
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content>
+      <canvas #hitoryFixesChart></canvas>
+      <p *ngIf="chart_fixes_data.length == 0">
+        Nenhum lançamento encontrado
+      </p>
     </ion-card-content>
   </ion-card>
 

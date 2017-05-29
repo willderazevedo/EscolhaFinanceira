@@ -146,7 +146,6 @@ export class FixesReleasesDAO {
 
   /**
    * Método responsável por buscar o maior gasto fixo
-   * @param  {Object}   release     Descrição do lançamento
    * @param  {Function} callback Função de retorno para saber se deu certo ou não
    * @return {void}
    */
@@ -164,6 +163,46 @@ export class FixesReleasesDAO {
       "WHERE FIXES_TYPE = 0 GROUP BY FIXES_TYPE " +
       "HAVING strftime('%m', FIXES_RELEASES_DATE) = ? AND strftime('%Y', FIXES_RELEASES_DATE) = ?",
       [month, year])
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável por buscar a quantidade de entradas
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public getInCount(callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT COUNT(*) AS VARIOUS_QUANTITY FROM TB_FIXES_RELEASES " +
+      "WHERE FIXES_TYPE = 1",
+      [])
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável por buscar a quantidade de entradas
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public getOutCount(callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT COUNT(*) AS VARIOUS_QUANTITY FROM TB_FIXES_RELEASES " +
+      "WHERE FIXES_TYPE = 0",
+      [])
       .then(res => callback(res))
       .catch(err => console.log(err));
 
