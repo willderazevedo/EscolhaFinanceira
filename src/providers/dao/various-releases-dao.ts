@@ -25,13 +25,14 @@ export class VariousReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?, ?)",[
+      db.executeSql("INSERT INTO TB_VARIOUS_RELEASES VALUES (null, ?, ?, ?, ?, ?, ?, ?)",[
         release.name,
         release.value,
         release.type,
         release.form,
         release.plots,
-        release.plots
+        release.plots,
+        new Date().toISOString()
       ])
       .then(res => callback(res))
       .catch(err => console.log(err));
@@ -92,14 +93,18 @@ export class VariousReleasesDAO {
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public selectReleasesOut(callback) {
+  public selectVariousOut(limit, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 0",{})
+      if(limit !== "") {
+        limit = "ORDER BY RANDOM() LIMIT " + limit;
+      }
+
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 0 " + limit,{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -111,14 +116,18 @@ export class VariousReleasesDAO {
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public selectReleasesIn(callback) {
+  public selectVariousIn(limit, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 1",{})
+      if(limit !== "") {
+        limit = "ORDER BY RANDOM() LIMIT " + limit;
+      }
+
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES WHERE VARIOUS_TYPE = 1 " + limit,{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -161,6 +170,32 @@ export class VariousReleasesDAO {
       db.executeSql("SELECT VARIOUS_PLOTS_REMAINING AS REMAIN FROM TB_VARIOUS_RELEASES " +
       "WHERE VARIOUS_ID = ?"
       ,[release_id])
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável por buscar o maior gasto diverso
+   * @param  {Object}   release     Descrição do lançamento
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public getMaxVariousRelease(callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      let year      = new Date().getFullYear().toString();
+      let month:any = (new Date().getMonth() + 1);
+      month         = month > 9 ? month.toString() : "0" + month.toString();
+
+      db.executeSql("SELECT *,  MAX(VARIOUS_VALUE) AS MAX_VALUE FROM TB_VARIOUS_RELEASES " +
+      "WHERE VARIOUS_TYPE = 0 GROUP BY VARIOUS_TYPE " +
+      "HAVING strftime('%m', VARIOUS_RELEASES_DATE) = ? AND strftime('%Y', VARIOUS_RELEASES_DATE) = ?",
+      [month, year])
       .then(res => callback(res))
       .catch(err => console.log(err));
 

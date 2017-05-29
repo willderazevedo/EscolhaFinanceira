@@ -63,6 +63,15 @@
                 <p>Saída</p>
               </ion-col>
             </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <h2>Lançado em:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.FIXES_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
         </div>
       </ion-card>
@@ -105,6 +114,15 @@
               </ion-col>
               <ion-col>
                 <p>Entrada</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <h2>Lançado em:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.FIXES_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
               </ion-col>
             </ion-row>
           </ion-card-content>

@@ -34,7 +34,7 @@ export class FixesReleasesPage {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
     load.present();
-    this.fixesDao.selectFixesOut(data => {
+    this.fixesDao.selectFixesOut("", data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
@@ -47,7 +47,7 @@ export class FixesReleasesPage {
   }
 
   public getFixesReleasesIn() {
-    this.fixesDao.selectFixesIn(data => {
+    this.fixesDao.selectFixesIn("", data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {

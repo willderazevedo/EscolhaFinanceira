@@ -99,6 +99,15 @@
                 <p color="danger">R$ -{{ (release.VARIOUS_VALUE/release.VARIOUS_PLOTS).toFixed(2) }}</p>
               </ion-col>
             </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <h2>Lançado em:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
         </div>
       </ion-card>
@@ -141,6 +150,15 @@
               </ion-col>
               <ion-col>
                 <p>Entrada</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <h2>Lançado em:</h2>
+              </ion-col>
+              <ion-col>
+                <p>{{ release.VARIOUS_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
               </ion-col>
             </ion-row>
           </ion-card-content>

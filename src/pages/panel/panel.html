@@ -12,16 +12,57 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header color="primary">
-      Maior gasto do mês
+      Maior lançamento diverso do mês
     </ion-card-header>
     <hr class="card-line">
-    <ion-card-content>
-      <ion-row *ngFor="let higher of higher_spend">
+    <ion-card-content *ngIf="higher_various_release.length == 0">
+      Nenhum lançamento encontrado
+    </ion-card-content>
+    <ion-card-content *ngFor="let higher of higher_various_release">
+      <ion-row>
         <ion-col >
-          <h2>{{ higher.label }}</h2>
+          <h2>{{ higher.VARIOUS_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ higher.color }}">{{ higher.value }}</p>
+          <p color="danger">
+            R$ -{{ higher.VARIOUS_VALUE }}
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >
+          <h2>Forma:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ higher.VARIOUS_PAY_FORM == 1 ? 'Avista' : 'Cartão' }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="higher.VARIOUS_PAY_FORM == 0">
+        <ion-col >
+          <h2>Parcelas:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ higher.VARIOUS_PLOTS }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="higher.VARIOUS_PAY_FORM == 0">
+        <ion-col >
+          <h2>Restantes:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ higher.VARIOUS_PLOTS_REMAINING }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >
+          <h2>Lançado em:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ higher.VARIOUS_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -29,23 +70,59 @@
 
   <ion-card>
     <ion-card-header color="primary">
-      Lançamentos fixos
+      Maior lançamento fixo do mês
     </ion-card-header>
     <hr class="card-line">
-    <ion-card-content>
-      <ion-row *ngFor="let spend of spends_category">
+    <ion-card-content *ngIf="higher_fixes_release.length == 0">
+      Nenhum lançamento encontrado
+    </ion-card-content>
+    <ion-card-content *ngFor="let higher of higher_fixes_release">
+      <ion-row>
         <ion-col >
-          <h2>{{ spend.label }}</h2>
+          <h2>{{ higher.FIXES_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ spend.color }}">{{ spend.value }}</p>
+          <p color="danger">
+            R$ -{{ higher.FIXES_VALUE }}
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col >
+          <h2>Lançado em:</h2>
+        </ion-col>
+        <ion-col>
+          <p>{{ higher.FIXES_RELEASES_DATE | date: 'dd/MM/yyyy' }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header color="primary">
+      Lançamentos Diversos
+    </ion-card-header>
+    <hr class="card-line">
+    <ion-card-content *ngIf="various_releases.length == 0">
+      Nenhum lançamento encontrado
+    </ion-card-content>
+    <ion-card-content *ngIf="various_releases.length !== 0">
+      <ion-row *ngFor="let various of various_releases">
+        <ion-col >
+          <h2>{{ various.VARIOUS_NAME }}</h2>
+        </ion-col>
+        <ion-col>
+          <p color="{{ various.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
+            R$ {{ various.VARIOUS_TYPE == 1 ? '+' : '-' }}{{ various.VARIOUS_VALUE }}
+          </p>
         </ion-col>
       </ion-row>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small>
+        <button ion-button icon-left clear small (click)="this.global.pageNavigation(various_page)">
           <div>Todos ></div>
         </button>
       </ion-col>
@@ -54,23 +131,28 @@
 
   <ion-card>
     <ion-card-header color="primary">
-      Lançamentos Diversos
+      Lançamentos Fixos
     </ion-card-header>
     <hr class="card-line">
-    <ion-card-content>
-      <ion-row *ngFor="let month of spends_month">
+    <ion-card-content *ngIf="fixes_releases.length == 0">
+      Nenhum lançamento encontrado
+    </ion-card-content>
+    <ion-card-content *ngIf="fixes_releases.length !== 0">
+      <ion-row *ngFor="let fixes of fixes_releases">
         <ion-col >
-          <h2>{{ month.label }}</h2>
+          <h2>{{ fixes.FIXES_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ month.color }}">{{ month.value }}</p>
+          <p color="{{ fixes.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
+            R$ {{ fixes.FIXES_TYPE == 1 ? '+' : '-' }}{{ fixes.FIXES_VALUE }}
+          </p>
         </ion-col>
       </ion-row>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small>
+        <button ion-button icon-left clear small (click)="this.global.pageNavigation(fixes_page)">
           <div>Todos ></div>
         </button>
       </ion-col>

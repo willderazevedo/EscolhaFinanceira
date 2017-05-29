@@ -31,7 +31,7 @@ export class VariousReleasesPage {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
     load.present();
-    this.variousDao.selectReleasesOut(data => {
+    this.variousDao.selectVariousOut("", data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {
@@ -44,7 +44,7 @@ export class VariousReleasesPage {
   }
 
   public getVariousReleasesIn() {
-    this.variousDao.selectReleasesIn(data => {
+    this.variousDao.selectVariousIn("", data => {
       let length = data.rows.length;
 
       for(let i = 0;i < length;i++) {

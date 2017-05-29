@@ -40,7 +40,8 @@ export class DbHelper {
           "VARIOUS_TYPE TEXT NOT NULL," +
           "VARIOUS_PAY_FORM TEXT NOT NULL," +
           "VARIOUS_PLOTS INTEGER DEFAULT 0," +
-          "VARIOUS_PLOTS_REMAINING INTEGER DEFAULT 0" +
+          "VARIOUS_PLOTS_REMAINING INTEGER DEFAULT 0," +
+          "VARIOUS_RELEASES_DATE DATE" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));
@@ -50,7 +51,8 @@ export class DbHelper {
           "FIXES_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "FIXES_NAME TEXT NOT NULL," +
           "FIXES_VALUE DOUBLE NOT NULL," +
-          "FIXES_TYPE TEXT NOT NULL" +
+          "FIXES_TYPE TEXT NOT NULL," +
+          "FIXES_RELEASES_DATE DATE" +
         ");", {})
         .then(res => console.log(res))
         .catch(err => console.log(err));

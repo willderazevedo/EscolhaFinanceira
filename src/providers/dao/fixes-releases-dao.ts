@@ -25,8 +25,8 @@ export class FixesReleasesDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_FIXES_RELEASES VALUES (null, ?, ?, ?)",
-      [release.name, release.value, release.type])
+      db.executeSql("INSERT INTO TB_FIXES_RELEASES VALUES (null, ?, ?, ?, ?)",
+      [release.name, release.value, release.type, new Date().toISOString()])
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -103,14 +103,18 @@ export class FixesReleasesDAO {
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public selectFixesOut(callback) {
+  public selectFixesOut(limit, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 0",{})
+      if(limit !== "") {
+        limit = "ORDER BY RANDOM() LIMIT " + limit;
+      }
+
+      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 0 " + limit,{})
       .then(res => callback(res))
       .catch(err => console.log(err));
 
@@ -122,14 +126,44 @@ export class FixesReleasesDAO {
    * @param  {Function} callback Função de retorno com os dados
    * @return {void}
    */
-  public selectFixesIn(callback) {
+  public selectFixesIn(limit, callback) {
 
     this.sqlite.create({
       name: this.vars.DBNAME,
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 1",{})
+      if(limit !== "") {
+        limit = "ORDER BY RANDOM() LIMIT " + limit;
+      }
+
+      db.executeSql("SELECT * FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 1 " + limit,{})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável por buscar o maior gasto fixo
+   * @param  {Object}   release     Descrição do lançamento
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public getMaxFixesRelease(callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      let year      = new Date().getFullYear().toString();
+      let month:any = (new Date().getMonth() + 1);
+      month         = month > 9 ? month.toString() : "0" + month.toString();
+
+      db.executeSql("SELECT *,  MAX(FIXES_VALUE) AS MAX_VALUE FROM TB_FIXES_RELEASES " +
+      "WHERE FIXES_TYPE = 0 GROUP BY FIXES_TYPE " +
+      "HAVING strftime('%m', FIXES_RELEASES_DATE) = ? AND strftime('%Y', FIXES_RELEASES_DATE) = ?",
+      [month, year])
       .then(res => callback(res))
       .catch(err => console.log(err));
 
