@@ -21,11 +21,11 @@ import { FixesReleasesPage } from '../fixes-releases/fixes-releases';
 })
 export class PanelPage {
 
-  @ViewChild('hitoryVariousChart') hitoryVariousCanvas;
-  @ViewChild('hitoryFixesChart') hitoryFixesCanvas;
+  @ViewChild('historyVariousChart') historyVariousCanvas;
+  @ViewChild('historyFixesChart') historyFixesCanvas;
 
-  hitoryVariousChart:any;
-  hitoryFixesChart:any;
+  historyVariousChart:any;
+  historyFixesChart:any;
   various_page           = VariousReleasesPage;
   fixes_page             = FixesReleasesPage;
   chart_various_data     = [];
@@ -85,7 +85,7 @@ export class PanelPage {
   }
 
   private loadVariousChart(data) {
-    this.hitoryVariousChart = new Chart(this.hitoryVariousCanvas.nativeElement, {
+    this.historyVariousChart = new Chart(this.historyVariousCanvas.nativeElement, {
         type: 'doughnut',
         data: {
           labels: ["Entradas", "Saídas"],
@@ -106,7 +106,7 @@ export class PanelPage {
   }
 
   private loadFixesChart(data) {
-    this.hitoryFixesChart = new Chart(this.hitoryFixesCanvas.nativeElement, {
+    this.historyFixesChart = new Chart(this.historyFixesCanvas.nativeElement, {
         type: 'doughnut',
         data: {
           labels: ["Entradas", "Saídas"],

@@ -3,6 +3,13 @@ page-panel {
     margin: 0 0 20px 0;
     width: 100%;
 
+    canvas {
+      display: block;
+      height: 200px !important;
+      width: 200px !important;
+      margin: auto !important;
+    }
+
     .card-line {
       height: 1px;
       margin: 0;
