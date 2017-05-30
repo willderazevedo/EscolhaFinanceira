@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController, AlertController, LoadingContr
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
+import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-releases-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -28,7 +29,7 @@ export class VariousModalPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public global: GlobalService,
-  public variousDao: VariousReleasesDAO) {
+  public variousDao: VariousReleasesDAO, public closedVariousDao: ClosedVariousReleasesDao) {
     this.populateRelease();
   }
 
@@ -105,11 +106,19 @@ export class VariousModalPage {
       this.releases.plots = "";
 
     load.present();
-    this.variousDao.getRemainingPlots(this.releases.id, (res) => {
-      if(res.rows.item(0).REMAIN < this.release_update.VARIOUS_PLOTS_REMAINING){
+    this.closedVariousDao.getPayVariousRelease(this.release_update.VARIOUS_ID, (res) => {
+      if(res.rows.length > 0){
+        load.dismiss();
         this.alertCtrl.create({
           message: "Não é possível alterar este lançamento pois algumas parcelas já foram pagas.",
-          buttons: ["Ok"]
+          buttons: [
+            {
+              text: "Ok",
+              handler: () => {
+                this.modalDismiss();
+              }
+            }
+          ]
         }).present();
 
         return false;

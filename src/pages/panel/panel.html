@@ -12,19 +12,6 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header color="primary">
-      Histórico de Diversos
-    </ion-card-header>
-    <hr class="card-line">
-    <ion-card-content>
-      <canvas #historyVariousChart></canvas>
-      <p *ngIf="chart_various_data.length == 0">
-        Nenhum lançamento encontrado
-      </p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header color="primary">
       Maior lançamento diverso do mês
     </ion-card-header>
     <hr class="card-line">
@@ -83,19 +70,6 @@
 
   <ion-card>
     <ion-card-header color="primary">
-      Histórico de Fixos
-    </ion-card-header>
-    <hr class="card-line">
-    <ion-card-content>
-      <canvas #historyFixesChart></canvas>
-      <p *ngIf="chart_fixes_data.length == 0">
-        Nenhum lançamento encontrado
-      </p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header color="primary">
       Maior lançamento fixo do mês
     </ion-card-header>
     <hr class="card-line">
@@ -146,7 +120,7 @@
       </ion-row>
     </ion-card-content>
 
-    <ion-row>
+    <ion-row *ngIf="various_releases.length > 6">
       <ion-col>
         <button ion-button icon-left clear small (click)="this.global.pageNavigation(various_page)">
           <div>Todos ></div>
@@ -176,7 +150,7 @@
       </ion-row>
     </ion-card-content>
 
-    <ion-row>
+    <ion-row *ngIf="fixes_releases.length > 6">
       <ion-col>
         <button ion-button icon-left clear small (click)="this.global.pageNavigation(fixes_page)">
           <div>Todos ></div>

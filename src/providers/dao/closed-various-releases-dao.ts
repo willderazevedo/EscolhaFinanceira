@@ -80,4 +80,25 @@ export class ClosedVariousReleasesDao {
     }).catch(err => console.log(err));
   }
 
+  /**
+   * Método responsável por buscar lançamento que ja foi pago o total ou pago a parcela
+   * @param  {int} release_id Id do lançamento
+   * @param  {Function} callback Função de retorno com os dados
+   * @return {void}
+   */
+  public getPayVariousRelease(release_id, callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES " +
+      "WHERE VARIOUS_ID = ?"
+      ,[release_id])
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
 }

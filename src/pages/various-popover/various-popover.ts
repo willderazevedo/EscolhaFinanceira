@@ -8,6 +8,7 @@ import { GlobalService } from '../../providers/global-service';
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-releases-dao';
 
+
 //Template Pages
 import { VariousModalPage } from '../various-modal/various-modal';
 
@@ -28,7 +29,7 @@ export class VariousPopoverPage {
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
   public alertCtrl: AlertController, public variousDao: VariousReleasesDAO,
   public global: GlobalService, public modalCtrl: ModalController,
-  public closedDao: ClosedVariousReleasesDao) {}
+  public closedVariousDao: ClosedVariousReleasesDao) {}
 
   ionViewDidLoad() {
     this.setCloseText();
@@ -54,7 +55,7 @@ export class VariousPopoverPage {
 
   public setCloseText() {
     this.variousDao.getRemainingPlots(this.release.VARIOUS_ID, res => {
-      if(res.rows.item(0) == 1 || this.release.VARIOUS_TYPE == 1) {
+      if(res.rows.item(0).REMAIN <= 1 || this.release.VARIOUS_TYPE == 1) {
         this.close_text = "Fechar lançamento";
 
         return false;
@@ -98,7 +99,7 @@ export class VariousPopoverPage {
     }).present();
   }
 
-  private deleteVariousRelease(successMsg = "", errMsg = "", hideLoad = false) {
+  private deleteVariousRelease(successMsg = "", errMsg = "", hideLoad = false, forceDel = false) {
     let load = this.loadCtrl.create({content:"Deletando Lançamento..."});
 
     successMsg = successMsg ? successMsg : "Lançamento deletado com sucesso";
@@ -108,29 +109,48 @@ export class VariousPopoverPage {
       load.present();
     }
 
-    this.variousDao.delete(this.release.VARIOUS_ID, res => {
-      load.dismiss();
-
-      if(res.rowsAffected <= 0){
+    this.closedVariousDao.getPayVariousRelease(this.release.VARIOUS_ID, (res) => {
+      if(res.rows.length > 0 && forceDel === false){
+        load.dismiss();
         this.alertCtrl.create({
-          message: errMsg,
-          buttons: ["Ok"]
+          message: "Não é possível remover este lançamento pois algumas parcelas já foram pagas.",
+          buttons: [
+            {
+              text: "Ok",
+              handler: () => {
+                this.popoverDismiss();
+              }
+            }
+          ]
         }).present();
 
         return false;
       }
 
-      this.alertCtrl.create({
-        message: successMsg,
-        buttons: [
-          {
-            text: "Ok",
-            handler: () =>{
-              this.popoverDismiss(true);
+      this.variousDao.delete(this.release.VARIOUS_ID, res => {
+        load.dismiss();
+
+        if(res.rowsAffected <= 0){
+          this.alertCtrl.create({
+            message: errMsg,
+            buttons: ["Ok"]
+          }).present();
+
+          return false;
+        }
+
+        this.alertCtrl.create({
+          message: successMsg,
+          buttons: [
+            {
+              text: "Ok",
+              handler: () =>{
+                this.popoverDismiss(true);
+              }
             }
-          }
-        ]
-      }).present();
+          ]
+        }).present();
+      });
     });
   }
 
@@ -151,7 +171,7 @@ export class VariousPopoverPage {
     let errMsg     = "Erro ao fechar lançamento";
 
     load.present();
-    this.closedDao.closeVariousRelease(this.release, res => {
+    this.closedVariousDao.closeVariousRelease(this.release, res => {
       if(res.rowsAffected <= 0) {
         load.dismiss();
         this.alertCtrl.create({
@@ -174,7 +194,7 @@ export class VariousPopoverPage {
     let errMsg     = "Erro ao fechar lançamento";
 
     load.present();
-    this.closedDao.haveClosedInThisMonth(this.release.VARIOUS_ID, res => {
+    this.closedVariousDao.haveClosedInThisMonth(this.release.VARIOUS_ID, res => {
       if(res.rows.length > 0) {
         load.dismiss();
         this.alertCtrl.create({
@@ -185,7 +205,7 @@ export class VariousPopoverPage {
         return false;
       }
 
-      this.closedDao.closeVariousRelease(this.release, res => {
+      this.closedVariousDao.closeVariousRelease(this.release, res => {
         if(res.rowsAffected <= 0) {
           load.dismiss();
           this.alertCtrl.create({
@@ -199,7 +219,7 @@ export class VariousPopoverPage {
         this.variousDao.getRemainingPlots(this.release.VARIOUS_ID, res => {
           if(res.rows.item(0).REMAIN == 1) {
             load.dismiss();
-            this.deleteVariousRelease(successMsg, errMsg, true);
+            this.deleteVariousRelease(successMsg, errMsg, true, true);
 
             return false;
           }
