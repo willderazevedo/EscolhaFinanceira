@@ -14,27 +14,46 @@
     <h6>Período</h6>
     <ion-item>
       <ion-label stacked>Data Inicial</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" placeholder="Digite aqui"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="report_properties.beginDate" (ionChange)="changeFinalPeriod()" doneText="Confirmar" cancelText="Cancelar" min="{{ minDate | date: 'yyyy-MM-dd' }}" max="{{ maxDate | date: 'yyyy-MM-dd' }}" placeholder="Digite aqui"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label stacked>Data Final</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" placeholder="Digite aqui"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="report_properties.finalDate" (ionChange)="changeBeginPeriod()" doneText="Confirmar" cancelText="Cancelar" min="{{ minDate | date: 'yyyy-MM-dd' }}" max="{{ maxDate | date: 'yyyy-MM-dd' }}" placeholder="Digite aqui"></ion-datetime>
     </ion-item>
 
     <div padding-top>
+      <h6>Tipo</h6>
+      <ion-row radio-group [(ngModel)]="report_properties.type">
+        <ion-col>
+          <ion-item>
+            <ion-label>Abertos</ion-label>
+            <ion-radio checked="true" value="1"></ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>Fechados</ion-label>
+            <ion-radio value="0"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div padding-top>
       <h6>Categoria</h6>
-      <ion-row radio-group>
+      <ion-row radio-group [(ngModel)]="report_properties.category">
         <ion-col>
           <ion-item>
             <ion-label>Diversos</ion-label>
-            <ion-radio checked="true" value="variuos"></ion-radio>
+            <ion-radio checked="true" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Fixos</ion-label>
-            <ion-radio value="fixes"></ion-radio>
+            <ion-radio value="0"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -42,37 +61,37 @@
 
     <div padding-top>
       <h6>Tipo de lançamento</h6>
-      <ion-row radio-group>
+      <ion-row radio-group [(ngModel)]="report_properties.release_type">
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="in" (click)="fieldPayForm(false)"></ion-radio>
+            <ion-radio checked="true" value="1" (click)="fieldPayForm(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="out" (click)="fieldPayForm(true)"></ion-radio>
+            <ion-radio value="0" (click)="fieldPayForm(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
     </div>
 
-    <div *ngIf="this.out" padding-top>
+    <div *ngIf="this.hide" padding-top>
       <h6>Forma de pagamento</h6>
-      <ion-row radio-group >
+      <ion-row radio-group [(ngModel)]="report_properties.pay_form">
         <ion-col>
           <ion-item>
             <ion-label>Avista</ion-label>
-            <ion-radio checked="true" value="cash"></ion-radio>
+            <ion-radio checked="true" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Cartão</ion-label>
-            <ion-radio value="card"></ion-radio>
+            <ion-radio value="0"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
