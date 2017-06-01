@@ -92,8 +92,8 @@ export class ClosedVariousReleasesDao {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("SELECT * FROM TB_VARIOUS_RELEASES " +
-      "WHERE VARIOUS_ID = ?"
+      db.executeSql("SELECT * FROM TB_VARIOUS_CLOSED " +
+      "WHERE VARIOUS_INDENTIFY = ?"
       ,[release_id])
       .then(res => callback(res))
       .catch(err => console.log(err));

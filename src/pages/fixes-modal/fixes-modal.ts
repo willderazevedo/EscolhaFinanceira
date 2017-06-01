@@ -43,7 +43,7 @@ export class FixesModalPage {
 
     if(empty){
       this.alertCtrl.create({
-        message: "Preencha todos os campos.",
+        message: "Preencha todos os campos corretamente.",
         buttons: ["Ok"]
       }).present();
 
@@ -85,7 +85,7 @@ export class FixesModalPage {
 
     if(empty){
       this.alertCtrl.create({
-        message: "Preencha todos os campos.",
+        message: "Preencha todos os campos corretamente.",
         buttons: ["Ok"]
       }).present();
 

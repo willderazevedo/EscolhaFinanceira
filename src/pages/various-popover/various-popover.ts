@@ -110,6 +110,7 @@ export class VariousPopoverPage {
     }
 
     this.closedVariousDao.getPayVariousRelease(this.release.VARIOUS_ID, (res) => {
+      console.log(res);
       if(res.rows.length > 0 && forceDel === false){
         load.dismiss();
         this.alertCtrl.create({
@@ -184,7 +185,7 @@ export class VariousPopoverPage {
 
 
       load.dismiss();
-      this.deleteVariousRelease(successMsg, errMsg, true);
+      this.deleteVariousRelease(successMsg, errMsg, true, true);
     });
 }
 

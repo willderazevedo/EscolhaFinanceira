@@ -37,7 +37,7 @@ export class VariousModalPage {
     let empty = false;
     let field = this.releases;
 
-    if(!field.name || !field.value || (field.type == 0 && field.form == 0 && !field.plots)) {
+    if(!field.name || !field.value || (field.type == 0 && field.form == 0 && (!field.plots || field.plots === "0"))) {
       empty = true;
     }
 
@@ -52,7 +52,7 @@ export class VariousModalPage {
 
     if(empty){
       this.alertCtrl.create({
-        message: "Preencha todos os campos.",
+        message: "Preencha todos os campos corretamente.",
         buttons: ["Ok"]
       }).present();
 
@@ -95,7 +95,7 @@ export class VariousModalPage {
 
     if(empty){
       this.alertCtrl.create({
-        message: "Preencha todos os campos.",
+        message: "Preencha todos os campos corretamente.",
         buttons: ["Ok"]
       }).present();
 
