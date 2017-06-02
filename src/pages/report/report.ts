@@ -18,7 +18,6 @@ export class ReportPage {
   maxDate           = new Date(new Date().setFullYear(new Date().getFullYear() + 5));
   actualDate        = new Date();
   tomorrowDate      = new Date(new Date().setDate(new Date().getDate() + 1));
-  hide              = false;
   report_properties = {
     beginDate: this.actualDate.toISOString(),
     finalDate: this.tomorrowDate.toISOString(),
@@ -30,6 +29,10 @@ export class ReportPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public global: GlobalService) {}
+
+  public makeReport() {
+    this.global.toggleModal(this.reportModal, { filters: this.report_properties });
+  }
 
   public changeBeginPeriod() {
     let beginDate     = new Date(this.report_properties.beginDate);
@@ -53,10 +56,6 @@ export class ReportPage {
     }
 
     this.report_properties.finalDate = tomorrowDate.toISOString();
-  }
-
-  public fieldPayForm(hide) {
-    this.hide = hide;
   }
 
 }

@@ -59,26 +59,6 @@ export class FixesReleasesDAO {
   }
 
   /**
-   * Método responsável pela pelo fechamento do mês deste lançamento
-   * @param  {Object}   release     Descrição do lançamento
-   * @param  {Function} callback Função de retorno para saber se deu certo ou não
-   * @return {void}
-   */
-  public close(release, callback) {
-    this.sqlite.create({
-      name: this.vars.DBNAME,
-      location: this.vars.DBLOCATION
-    }).then((db: SQLiteObject) => {
-
-      db.executeSql("INSERT INTO TB_FIXES_CLOSED VALUES (null, ?, ?, ?, ?, ?)",
-      [release.FIXES_ID, release.FIXES_NAME, release.FIXES_VALUE, release.FIXES_TYPE, new Date().toISOString()])
-      .then(res => callback(res))
-      .catch(err => console.log(err));
-
-    }).catch(err => console.log(err));
-  }
-
-  /**
    * Método responsável pela deleção das informações do laçamento no banco SQlite
    * @param  {int}   release_id  Id do lançamento
    * @param  {Function} callback Função de retorno para saber se deu certo ou não

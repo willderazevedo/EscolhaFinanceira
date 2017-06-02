@@ -10,19 +10,34 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- Para as entradas -->
+  <p class="site-name" ion-item detail-none>
+    Período: {{ filters.beginDate | date: 'dd/MM/yyyy' }} à {{ filters.finalDate | date: 'dd/MM/yyyy' }}
+  </p>
   <ion-card>
     <ion-card-header color="primary">
-      Entradas
+      Movimentações
     </ion-card-header>
     <hr class="card-line">
-    <ion-card-content>
-      <ion-row *ngFor="let entrie of entries">
+    <ion-card-content *ngIf="report_data.length == 0">
+      Nenhuma movimentação feita
+    </ion-card-content>
+
+    <!-- Diversos Abertos -->
+    <ion-card-content *ngIf="filters.type == 1 && filters.category == 1 && report_data.length !== 0">
+      <ion-row *ngFor="let data of report_data">
         <ion-col>
-          <h2>{{ entrie.label }}</h2>
+          <h2>{{ data.VARIOUS_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p>{{ entrie.value }}</p>
+          <p color="{{ data.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
+            <span *ngIf="data.VARIOUS_PAY_FORM == 0">
+              {{ data.VARIOUS_PLOTS }}x de R$ {{ (data.VARIOUS_VALUE/data.VARIOUS_PLOTS).toFixed(2) }}
+            </span>
+
+            <span *ngIf="data.VARIOUS_PAY_FORM == 1">
+              R$ {{ data.VARIOUS_TYPE == 1 ? '+' : '-' }}{{ data.VARIOUS_VALUE }}
+            </span>
+          </p>
         </ion-col>
       </ion-row>
       <hr>
@@ -31,25 +46,21 @@
           <h2>Total:</h2>
         </ion-col>
         <ion-col>
-          <p>R$ 1120,00</p>
+          <p>R$ {{ total.toFixed(2) }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
-  </ion-card>
 
-  <!-- Para as saídas -->
-  <ion-card>
-    <ion-card-header color="primary">
-      Saídas
-    </ion-card-header>
-    <hr class="card-line">
-    <ion-card-content>
-      <ion-row *ngFor="let out of outs">
+    <!-- Fixos Abertos -->
+    <ion-card-content *ngIf="filters.type == 1 && filters.category == 0 && report_data.length !== 0">
+      <ion-row *ngFor="let data of report_data">
         <ion-col>
-          <h2>{{ out.label }}</h2>
+          <h2>{{ data.FIXES_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p>{{ out.value }}</p>
+          <p color="{{ data.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
+            R$ {{ data.FIXES_TYPE == 1 ? '+' : '-' }}{{ data.FIXES_VALUE }}
+          </p>
         </ion-col>
       </ion-row>
       <hr>
@@ -58,7 +69,59 @@
           <h2>Total:</h2>
         </ion-col>
         <ion-col>
-          <p>R$ 1120,00</p>
+          <p>R$ {{ total.toFixed(2) }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <!-- Diversos Fechados -->
+    <ion-card-content *ngIf="filters.type == 0 && filters.category == 1 && report_data.length !== 0">
+      <ion-row *ngFor="let data of report_data">
+        <ion-col>
+          <h2>{{ data.CLOSED_NAME }}</h2>
+        </ion-col>
+        <ion-col>
+          <p color="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+            <span *ngIf="data.CLOSED_PAY_FORM == 0">
+              Parcela de R$ {{ data.CLOSED_VALUE }} em {{ data.CLOSED_DATE | date: 'dd/MM/yyyy' }}
+            </span>
+
+            <span *ngIf="data.CLOSED_PAY_FORM == 1">
+              R$ {{ data.CLOSED_TYPE == 1 ? '+' : '-' }}{{ data.CLOSED_VALUE }} <small>{{ data.CLOSED_DATE | date: 'MM/yyyy' }}</small>
+            </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <h2>Total:</h2>
+        </ion-col>
+        <ion-col>
+          <p>R$ {{ total.toFixed(2) }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <!-- Fixos Fechados -->
+    <ion-card-content *ngIf="filters.type == 0 && filters.category == 0 && report_data.length !== 0">
+      <ion-row *ngFor="let data of report_data">
+        <ion-col>
+          <h2>{{ data.CLOSED_NAME }}</h2>
+        </ion-col>
+        <ion-col>
+          <p color="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+              R$ {{ data.CLOSED_TYPE == 1 ? '+' : '-' }}{{ data.CLOSED_VALUE }} <small>{{ data.CLOSED_DATE | date: 'MM/yyyy' }}</small>
+          </p>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+          <h2>Total:</h2>
+        </ion-col>
+        <ion-col>
+          <p>R$ {{ total.toFixed(2) }}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>

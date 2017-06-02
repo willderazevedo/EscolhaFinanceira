@@ -94,7 +94,7 @@ export class FixesPopoverPage {
         return false;
       }
 
-      this.fixesDao.close(this.release, res => {
+      this.closedDao.closeFixesReleases(this.release, res => {
         load.dismiss();
 
         if(res.rowsAffected <= 0){
