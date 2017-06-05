@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, App, MenuController, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 //Providers
@@ -82,10 +82,12 @@ export class MyApp {
    */
   constructor(platform: Platform, helper: DbHelper,
   public global: GlobalService, public daoConfig: ConfigDAO,
-  public vars: VarsService) {
+  public vars: VarsService, public app: App,
+  public menu: MenuController, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       helper.createDataBase();
       StatusBar.styleDefault();
+      this.backButtonHardwareAction(platform);
       this.checkConfig();
     });
   }
@@ -100,6 +102,37 @@ export class MyApp {
         Splashscreen.hide();
       }, 100);
     }
+  }
+
+  /**
+   * Adicionando evento para botão de voltar nativo
+   * @param  {Platform} platform Biblioteca com informações da plataforma Android/IOs
+   * @return {void}
+   */
+  private backButtonHardwareAction(platform) {
+    platform.registerBackButtonAction(() => {
+      if(this.app.getActiveNav().canGoBack()) {
+        this.menu.swipeEnable(true);
+        this.app.getRootNav().pop();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: "Você deseja mesmo sair?",
+        buttons: [
+          {
+            text: "Não"
+          },
+          {
+            text: "Sim",
+            handler: () => {
+              platform.exitApp();
+            }
+          }
+        ]
+      }).present();
+    });
   }
 
   /**

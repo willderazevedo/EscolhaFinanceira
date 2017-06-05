@@ -57,15 +57,23 @@ export class ConfigPage {
     this.getConfig();
   }
 
+  ionViewDidLoad() {
+    this.backButtonAction();
+  }
+
   /**
-   * Método nativo resposavel por executar uma ação apos o carregamento da pagina
+   * Adicionando evento para botão de navegação push
    * @return {void}
    */
-  ionViewDidLoad() {
-    this.viewCtrl.getNavbar().backButtonClick = () => {
+  private backButtonAction() {
+    this.viewCtrl.getNavbar().backButtonClick = (ev: UIEvent) => {
+      if(!this.navCtrl.canGoBack()) {
+        return false;
+      }
+
       this.menu.swipeEnable(true);
       this.navCtrl.pop();
-    }
+    };
   }
 
   /**
