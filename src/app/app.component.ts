@@ -96,6 +96,7 @@ export class MyApp {
       StatusBar.styleDefault();
       this.backButtonHardwareAction(platform);
       this.checkConfig();
+      this.hideSplashScreen();
     });
   }
 
