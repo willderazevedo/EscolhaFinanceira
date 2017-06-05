@@ -30,6 +30,7 @@ import { ReportPage } from '../pages/report/report';
 import { ReportModalPage } from '../pages/report-modal/report-modal';
 import { CloseReleasesPage } from '../pages/close-releases/close-releases';
 import { InfoPage } from '../pages/info/info';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { InfoPage } from '../pages/info/info';
     ReportPage,
     ReportModalPage,
     CloseReleasesPage,
-    InfoPage
+    InfoPage,
+    TutorialPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -70,7 +72,8 @@ import { InfoPage } from '../pages/info/info';
     ReportPage,
     ReportModalPage,
     CloseReleasesPage,
-    InfoPage
+    InfoPage,
+    TutorialPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

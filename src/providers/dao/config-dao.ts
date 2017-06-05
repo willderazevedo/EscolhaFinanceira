@@ -57,26 +57,7 @@ export class ConfigDAO {
 
     }).catch(err => console.log(err));
   }
-
-  /**
-   * Método responsável por desligar o tutorial do usuário
-   * @param  {Function} callback Função de retorno para saber se deu certo ou não
-   * @return {void}
-   */
-  public turnOffTutorial(callback) {
-
-    this.sqlite.create({
-      name: this.vars.DBNAME,
-      location: this.vars.DBLOCATION
-    }).then((db: SQLiteObject) => {
-
-      db.executeSql("UPDATE TB_USER SET USER_TUTORIAL = 0",{})
-      .then(res => callback(res))
-      .catch(err => console.log(err));
-
-    }).catch(err => console.log(err));
-  }
-
+  
   /**
    * Método responsável pela busca das informações do usuário  no banco SQlite
    * @param  {Function} callback Função de retorno com os dados

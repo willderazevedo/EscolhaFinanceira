@@ -18,6 +18,7 @@ import { FixesReleasesPage } from '../pages/fixes-releases/fixes-releases';
 import { ReportPage } from '../pages/report/report';
 import { CloseReleasesPage } from '../pages/close-releases/close-releases';
 import { InfoPage } from '../pages/info/info';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @Component({
   templateUrl: 'app.html'
@@ -65,6 +66,12 @@ export class MyApp {
    * @var  {Object} info
    */
   info                    = InfoPage;
+
+  /**
+   * Página do tutorial
+   * @var  {Object} tutorial
+   */
+  tutorial                = TutorialPage;
 
   /**
    * Página inicial
@@ -149,7 +156,7 @@ export class MyApp {
         return false;
       }
 
-      this.rootPage = this.config;
+      this.rootPage = this.tutorial;
       this.hideSplashScreen();
     });
   }

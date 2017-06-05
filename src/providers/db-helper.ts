@@ -26,8 +26,7 @@ export class DbHelper {
       db.executeSql("CREATE TABLE IF NOT EXISTS TB_USER (" +
           "USER_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
           "USER_NAME TEXT NOT NULL," +
-          "USER_INCOME DOUBLE NOT NULL," +
-          "USER_TUTORIAL INTEGER DEFAULT 1" +
+          "USER_INCOME DOUBLE NOT NULL" +
         ")", {})
       .then(res => console.log(res))
       .catch(err => console.log(err));
