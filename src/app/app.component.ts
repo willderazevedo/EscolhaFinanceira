@@ -95,8 +95,8 @@ export class MyApp {
       helper.createDataBase();
       StatusBar.styleDefault();
       this.backButtonHardwareAction(platform);
-      this.checkConfig();
       this.hideSplashScreen();
+      this.checkConfig();
     });
   }
 
@@ -157,7 +157,7 @@ export class MyApp {
         return false;
       }
 
-      this.rootPage = this.tutorial;
+      this.rootPage = this.config;
       this.hideSplashScreen();
     });
   }
