@@ -93,7 +93,7 @@ export class MyApp {
   public menu: MenuController, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       helper.createDataBase();
-      StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString('#216ded');
       this.backButtonHardwareAction(platform);
       this.hideSplashScreen();
       this.checkConfig();
