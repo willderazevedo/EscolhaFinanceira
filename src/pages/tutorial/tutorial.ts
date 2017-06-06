@@ -20,7 +20,7 @@ export class TutorialPage {
   slides = [
     {
       title: "Configuração",
-      message: "Aqui você deverá colocar seus dados como se nome e sua renda.",
+      message: "Aqui você deverá colocar seus dados como seu nome e sua renda.",
       src: "assets/tutorial/1.jpg"
     },
     {
