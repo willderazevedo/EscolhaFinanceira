@@ -1,26 +1,46 @@
 page-tutorial {
-  .slide-title {
-    margin-top: 2.8rem;
-  }
+  .content {
 
-  .slide-image {
-    max-height: 50%;
-    max-width: 60%;
-    margin: 18px 0;
-  }
+    background-color: map-get($colors, 'primary');
+    color: map-get($colors, 'none');
 
-  b {
-    font-weight: 500;
-  }
+    .end-button {
+      background-color: map-get($colors, 'none');
+      color: map-get($colors, 'primary');
+    }
 
-  p {
-    padding: 0 40px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #60646B;
+    .slide-title {
+      margin-top: 2.8rem;
+    }
+
+    .slide-image {
+      max-height: 50%;
+      max-width: 60%;
+      margin: 18px 0;
+    }
 
     b {
-      color: #000000;
+      font-weight: 500;
+    }
+
+    p {
+      padding: 0 40px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  .footer {
+
+    .controls {
+      
+      .button {
+        color: map-get($colors, 'none');
+      }
+    }
+
+    &::before {
+      background-image: none;
     }
   }
 }

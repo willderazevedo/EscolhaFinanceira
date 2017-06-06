@@ -157,7 +157,7 @@ export class MyApp {
         return false;
       }
 
-      this.rootPage = this.config;
+      this.rootPage = this.tutorial;
       this.hideSplashScreen();
     });
   }

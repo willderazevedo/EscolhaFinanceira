@@ -1,10 +1,17 @@
+<ion-toolbar color="primary">
+  <ion-buttons end *ngIf="skip">
+    <button ion-button (click)="confirmSkip()">
+      Pular Tutorial
+    </button>
+  </ion-buttons>
+</ion-toolbar>
+
 <ion-content padding color="light">
-  <ion-slides pager>
+  <ion-slides pager="false" #slidesComponent (ionSlideWillChange)="slideWillChangeNext(); slideWillChangePrev();">
     <ion-slide>
-      <img src="assets/tutorial/hi.png" class="slide-image"/>
       <h2 class="slide-title">Olá</h2>
       <p>
-        Eu sou Totoro, seja bem vindo, vamos começar nosso turorial sobre o Escolha Financeira.
+        Seja bem vindo, vamos começar nosso turorial sobre o Escolha Financeira.
       </p>
     </ion-slide>
     <ion-slide *ngFor="let slide of slides">
@@ -13,11 +20,29 @@
       <p>{{ slide.message }}</p>
     </ion-slide>
     <ion-slide>
-      <img src="assets/tutorial/go.gif" class="slide-image"/>
-      <h2 class="slide-title">Você está pronto</h2>
-      <button ion-button large clear icon-right color="primary" (click)="this.global.pageNavigation(config)">
+      <h2 class="slide-title">Você está pronto?</h2>
+      <button ion-button large class="end-button" (click)="this.global.pageNavigation(config)">
         Vamos nessa
       </button>
     </ion-slide>
   </ion-slides>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary" class="controls">
+    <ion-row>
+      <ion-col>
+        <button ion-button full clear icon-left *ngIf="prev" (click)="slidePrev()">
+          <ion-icon name="ios-arrow-back"></ion-icon>
+          Anterior
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full clear icon-right *ngIf="skip" (click)="slideNext()">
+          Próximo
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
