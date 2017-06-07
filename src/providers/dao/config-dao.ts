@@ -25,7 +25,7 @@ export class ConfigDAO {
       location: this.vars.DBLOCATION
     }).then((db: SQLiteObject) => {
 
-      db.executeSql("INSERT INTO TB_USER VALUES (null, ?, ?, 1)",[
+      db.executeSql("INSERT INTO TB_USER VALUES (null, ?, ?)",[
         user.name,
         user.income,
       ])
@@ -57,7 +57,7 @@ export class ConfigDAO {
 
     }).catch(err => console.log(err));
   }
-  
+
   /**
    * Método responsável pela busca das informações do usuário  no banco SQlite
    * @param  {Function} callback Função de retorno com os dados

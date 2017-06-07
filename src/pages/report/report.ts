@@ -14,7 +14,6 @@ import { ReportModalPage } from '../report-modal/report-modal';
 export class ReportPage {
 
   reportModal       = ReportModalPage;
-  minDate           = new Date();
   maxDate           = new Date(new Date().setFullYear(new Date().getFullYear() + 5));
   actualDate        = new Date();
   tomorrowDate      = new Date(new Date().setDate(new Date().getDate() + 1));
