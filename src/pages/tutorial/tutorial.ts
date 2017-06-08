@@ -55,7 +55,7 @@ export class TutorialPage {
     },
     {
       title: "Relatório",
-      message: "Nesta área você poderar buscar informções dos seus lançamentos recentes ou antigos sendo eles pagos ou abertos.",
+      message: "Nesta área você poderar buscar informações dos seus lançamentos recentes ou antigos sendo eles pagos ou abertos.",
       src: "assets/tutorial/8.jpg"
     },
     {
