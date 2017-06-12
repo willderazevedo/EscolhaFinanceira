@@ -14,7 +14,7 @@ import { ReportDao } from '../providers/dao/report-dao';
 import { SQLite } from '@ionic-native/sqlite';
 import { GlobalService } from '../providers/global-service';
 import { VarsService } from '../providers/vars-service';
-import { TutorialService } from '../providers/tutorial-service';
+import { TotoroBotService } from '../providers/totoro-bot-service';
 import { DbHelper } from '../providers/db-helper';
 
 //Pages
@@ -87,7 +87,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     ClosedVariousReleasesDao,
     ReportDao,
     VarsService,
-    TutorialService
+    TotoroBotService
   ]
 })
 export class AppModule {}
