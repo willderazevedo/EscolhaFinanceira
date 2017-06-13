@@ -6,6 +6,7 @@ import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
 
 //Providers
 import { TotoroBotService } from '../../providers/totoro-bot-service';
+import { VarsService } from '../../providers/vars-service';
 
 @Component({
   selector: 'page-fixes-modal',
@@ -24,7 +25,7 @@ export class FixesModalPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
   public alertCtrl: AlertController, public fixesDao: FixesReleasesDAO,
-  public totoroBot: TotoroBotService) {
+  public totoroBot: TotoroBotService, public vars: VarsService) {
     this.populateRelease();
   }
 
@@ -39,20 +40,21 @@ export class FixesModalPage {
     return empty;
   }
 
+  private checkValue() {
+    let income       = this.vars.income;
+    let invalidValue = false;
+
+    if(parseFloat(this.releases.value) > income) {
+      invalidValue = true;
+    }
+
+    return invalidValue;
+  }
+
   public saveRelease() {
-    let empty = this.checkFields();
-    let load  = this.loadCtrl.create({
+    let load         = this.loadCtrl.create({
       content: "Salvando informações...",
     });
-
-    if(empty){
-      this.alertCtrl.create({
-        message: "Preencha todos os campos corretamente.",
-        buttons: ["Ok"]
-      }).present();
-
-      return false;
-    }
 
     load.present();
     this.fixesDao.insert(this.releases, (res) => {
@@ -82,19 +84,9 @@ export class FixesModalPage {
   }
 
   public updateRelease() {
-    let empty = this.checkFields();
-    let load  = this.loadCtrl.create({
+    let load         = this.loadCtrl.create({
       content: "Salvando informações...",
     });
-
-    if(empty){
-      this.alertCtrl.create({
-        message: "Preencha todos os campos corretamente.",
-        buttons: ["Ok"]
-      }).present();
-
-      return false;
-    }
 
     load.present();
     this.fixesDao.update(this.releases, (res) => {
@@ -136,9 +128,37 @@ export class FixesModalPage {
   }
 
   public initializeCaseOne() {
+    let empty        = this.checkFields();
+    let invalidValue = this.checkValue();
+
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos corretamente.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
+
+    if(invalidValue){
+      this.alertCtrl.create({
+        message: "O valor não deve ultrapassar sua renda.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
+
     this.totoroBot.caseOneFixes(this.releases, saveTip => {
 
       if(!saveTip) {
+
+        if(this.release_update) {
+          this.updateRelease();
+
+          return false;
+        }
+
         this.saveRelease();
 
         return false;
@@ -148,7 +168,7 @@ export class FixesModalPage {
         message: saveTip,
         buttons: [
           {text:"Cancelar"},
-          {text:"Continuar", handler: () => this.saveRelease()}
+          {text:"Continuar", handler: () => this.release_update ? this.updateRelease() : this.saveRelease()}
         ]
       }).present();
 

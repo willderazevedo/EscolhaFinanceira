@@ -8,6 +8,7 @@ import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-rel
 //Providers
 import { GlobalService } from '../../providers/global-service';
 import { TotoroBotService } from '../../providers/totoro-bot-service';
+import { VarsService } from '../../providers/vars-service';
 
 @Component({
   selector: 'page-various-modal',
@@ -31,7 +32,7 @@ export class VariousModalPage {
   public viewCtrl: ViewController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public global: GlobalService,
   public variousDao: VariousReleasesDAO, public closedVariousDao: ClosedVariousReleasesDao,
-  public totoroBot: TotoroBotService) {
+  public totoroBot: TotoroBotService, public vars: VarsService) {
     this.populateRelease();
   }
 
@@ -46,23 +47,23 @@ export class VariousModalPage {
     return empty;
   }
 
+  private checkValue() {
+    let income       = this.vars.income;
+    let invalidValue = false;
+
+    if((this.releases.form == 1 && parseFloat(this.releases.value) > income)) {
+      invalidValue = true;
+    }
+
+    return invalidValue;
+  }
+
   public saveRelease() {
-    let empty = this.checkFields();
-    let load  = this.loadCtrl.create({
+    let load         = this.loadCtrl.create({
       content: "Salvando informações...",
     });
 
-    if(empty){
-      this.alertCtrl.create({
-        message: "Preencha todos os campos corretamente.",
-        buttons: ["Ok"]
-      }).present();
-
-      return false;
-    }
-
     load.present();
-
     this.variousDao.insert(this.releases, (res) => {
       load.dismiss();
 
@@ -90,19 +91,9 @@ export class VariousModalPage {
   }
 
   public updateRelease() {
-    let empty = this.checkFields();
-    let load  = this.loadCtrl.create({
+    let load         = this.loadCtrl.create({
       content: "Salvando informações...",
     });
-
-    if(empty){
-      this.alertCtrl.create({
-        message: "Preencha todos os campos corretamente.",
-        buttons: ["Ok"]
-      }).present();
-
-      return false;
-    }
 
     if(this.releases.form == 1)
       this.releases.plots = "";
@@ -169,8 +160,36 @@ export class VariousModalPage {
   }
 
   public initializeCaseOne() {
+    let empty        = this.checkFields();
+    let invalidValue = this.checkValue();
+
+    if(empty){
+      this.alertCtrl.create({
+        message: "Preencha todos os campos corretamente.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
+
+    if(invalidValue){
+      this.alertCtrl.create({
+        message: "O valor não deve ultrapassar sua renda.",
+        buttons: ["Ok"]
+      }).present();
+
+      return false;
+    }
+
     this.totoroBot.caseOneVarious(this.releases, saveTip => {
       if(!saveTip) {
+
+        if(this.release_update) {
+          this.updateRelease();
+
+          return false;
+        }
+
         this.saveRelease();
 
         return false;
@@ -180,7 +199,7 @@ export class VariousModalPage {
         message: saveTip,
         buttons: [
           {text:"Cancelar"},
-          {text:"Continuar", handler: () => this.saveRelease()}
+          {text:"Continuar", handler: () => this.release_update ? this.updateRelease() : this.saveRelease()}
         ]
       }).present();
     });

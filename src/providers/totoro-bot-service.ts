@@ -54,17 +54,17 @@ export class TotoroBotService {
 
         if(release.form == 0) {
 
-          for(var i = 2;i <= 15;i++) {
+          for(var i = 2;i <= 30;i++) {
             if((((spentValue/i) * 100)/income) < 50) {
               savePlots = i;
 
               break;
             }
 
-            savePlots = 15;
+            savePlots = 30;
           }
 
-          saveTip = "Você está prestes a gastar mais de 50% da sua renda mensal nesta primeira parcela, R$ " + releaseValue.toFixed(2) + "para ser mais exato,"
+          saveTip = "Você está prestes a gastar mais de 50% da sua renda mensal nesta primeira parcela, R$ " + releaseValue.toFixed(2) + " para ser mais exato, " +
           "uma saída para isto seria aumentar o número de parcelas deste lançamento para " + savePlots + "x ou mais.";
 
           callback(saveTip);
