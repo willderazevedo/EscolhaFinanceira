@@ -7,6 +7,7 @@ import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-rel
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { TotoroBotService } from '../../providers/totoro-bot-service';
 
 @Component({
   selector: 'page-various-modal',
@@ -29,7 +30,8 @@ export class VariousModalPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public global: GlobalService,
-  public variousDao: VariousReleasesDAO, public closedVariousDao: ClosedVariousReleasesDao) {
+  public variousDao: VariousReleasesDAO, public closedVariousDao: ClosedVariousReleasesDao,
+  public totoroBot: TotoroBotService) {
     this.populateRelease();
   }
 
@@ -164,6 +166,24 @@ export class VariousModalPage {
     this.releases.form  = this.release_update.VARIOUS_PAY_FORM;
     this.releases.plots = this.release_update.VARIOUS_PLOTS;
     this.releases.value = this.release_update.VARIOUS_VALUE;
+  }
+
+  public initializeCaseOne() {
+    this.totoroBot.caseOneVarious(this.releases, saveTip => {
+      if(!saveTip) {
+        this.saveRelease();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: saveTip,
+        buttons: [
+          {text:"Cancelar"},
+          {text:"Continuar", handler: () => this.saveRelease()}
+        ]
+      }).present();
+    });
   }
 
   public modalDismiss(refresh = false) {

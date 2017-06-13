@@ -4,6 +4,9 @@ import { NavController, NavParams, ViewController, LoadingController, AlertContr
 //Data Access Object
 import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
 
+//Providers
+import { TotoroBotService } from '../../providers/totoro-bot-service';
+
 @Component({
   selector: 'page-fixes-modal',
   templateUrl: 'fixes-modal.html'
@@ -20,7 +23,8 @@ export class FixesModalPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public fixesDao: FixesReleasesDAO) {
+  public alertCtrl: AlertController, public fixesDao: FixesReleasesDAO,
+  public totoroBot: TotoroBotService) {
     this.populateRelease();
   }
 
@@ -129,6 +133,26 @@ export class FixesModalPage {
     this.releases.name  = this.release_update.FIXES_NAME;
     this.releases.type  = this.release_update.FIXES_TYPE;
     this.releases.value = this.release_update.FIXES_VALUE;
+  }
+
+  public initializeCaseOne() {
+    this.totoroBot.caseOneFixes(this.releases, saveTip => {
+
+      if(!saveTip) {
+        this.saveRelease();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: saveTip,
+        buttons: [
+          {text:"Cancelar"},
+          {text:"Continuar", handler: () => this.saveRelease()}
+        ]
+      }).present();
+
+    });
   }
 
   public modalDismiss(refresh = false) {
