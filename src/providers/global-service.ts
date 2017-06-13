@@ -25,14 +25,17 @@ export class GlobalService {
    * @param  {Object} page Página de destino
    * @param  {Object} params Parametros a serem passados para a pagina de destino
    * @param  {boolean} back Tela com retorno ou nao
-   * @return {void}
+   * @return {void|boolean}
    */
   public pageNavigation(page = null, params = {}, back = false) {
 
-    if(back)
+    if(back) {
       this.app.getRootNav().push(page, params);
-    else
-      this.app.getRootNav().setRoot(page, params);
+
+      return false;
+    }
+
+    this.app.getRootNav().setRoot(page, params);
   }
 
   /**
@@ -57,7 +60,7 @@ export class GlobalService {
   }
 
   /**
-   * Método responsável por atualizar a pagina
+   * Método responsável por atualizar (refresh) a pagina
    * @return {void}
    */
   public refreshPage() {
@@ -65,7 +68,7 @@ export class GlobalService {
   }
 
   /**
-   * Método responsável buscar valor na carteira
+   * Método responsável buscar configurações do usuário
    * @return {void}
    */
   public updateConfigVars() {
