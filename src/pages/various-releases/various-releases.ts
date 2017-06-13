@@ -3,6 +3,7 @@ import { NavController, NavParams, PopoverController, AlertController, LoadingCo
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
+import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-releases-dao';
 
 //Template Pages
 import { VariousModalPage } from '../various-modal/various-modal';
@@ -22,7 +23,7 @@ export class VariousReleasesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public modalCtrl: ModalController,
-  public variousDao: VariousReleasesDAO) {
+  public variousDao: VariousReleasesDAO, public closedVarious: ClosedVariousReleasesDao) {
     this.getVariousReleasesOut();
     this.getVariousReleasesIn();
   }
@@ -32,11 +33,16 @@ export class VariousReleasesPage {
 
     load.present();
     this.variousDao.selectVariousOut("", data => {
-      let length = data.rows.length;
+      let length          = data.rows.length;
+      let variousReleases = data;
 
       for(let i = 0;i < length;i++) {
-        this.releases_out.push(data.rows.item(i));
-        this.releases_out[i]["collapse"] = true;
+        this.closedVarious.haveClosedInThisMonth(variousReleases.rows.item(i).VARIOUS_ID, data => {
+
+          this.releases_out.push(variousReleases.rows.item(i));
+          this.releases_out[i]["collapse"] = true;
+          this.releases_out[i]["avaible"]  = data.rows.length > 0 ? false : true;
+        });
       }
 
       load.dismiss();
@@ -46,10 +52,15 @@ export class VariousReleasesPage {
   public getVariousReleasesIn() {
     this.variousDao.selectVariousIn("", data => {
       let length = data.rows.length;
+      let variousReleases = data;
 
       for(let i = 0;i < length;i++) {
-        this.releases_in.push(data.rows.item(i));
-        this.releases_in[i]["collapse"] = true;
+        this.closedVarious.haveClosedInThisMonth(variousReleases.rows.item(i).VARIOUS_ID, data => {
+
+          this.releases_in.push(variousReleases.rows.item(i));
+          this.releases_in[i]["collapse"] = true;
+          this.releases_in[i]["avaible"]  = data.rows.length > 0 ? false : true;
+        });
       }
     });
   }

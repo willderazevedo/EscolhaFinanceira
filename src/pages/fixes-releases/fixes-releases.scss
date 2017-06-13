@@ -5,6 +5,14 @@ page-fixes-releases {
 
     .card-header {
       padding: 0;
+
+      .item {
+        padding-left: 7px;
+
+        .avaible {
+          opacity: 1;
+        }
+      }
     }
 
     .collapse-content {

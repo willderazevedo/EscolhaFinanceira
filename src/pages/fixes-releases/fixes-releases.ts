@@ -3,6 +3,7 @@ import { NavController, NavParams, PopoverController, ModalController, LoadingCo
 
 //Data Access Object
 import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
+import { ClosedFixesReleasesDao } from '../../providers/dao/closed-fixes-releases-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -25,7 +26,7 @@ export class FixesReleasesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public modalCtrl: ModalController,
   public global: GlobalService, public loadCtrl: LoadingController,
-  public fixesDao: FixesReleasesDAO) {
+  public fixesDao: FixesReleasesDAO, public closeFixes: ClosedFixesReleasesDao) {
     this.getFixesReleasesOut();
     this.getFixesReleasesIn();
   }
@@ -35,11 +36,16 @@ export class FixesReleasesPage {
 
     load.present();
     this.fixesDao.selectFixesOut("", data => {
-      let length = data.rows.length;
+      let length        = data.rows.length;
+      let fixesReleases = data;
 
       for(let i = 0;i < length;i++) {
-        this.releases_out.push(data.rows.item(i));
-        this.releases_out[i]["collapse"] = true;
+        this.closeFixes.haveClosedInThisMonth(fixesReleases.rows.item(i).FIXES_ID, data => {
+
+          this.releases_out.push(fixesReleases.rows.item(i));
+          this.releases_out[i]["collapse"] = true;
+          this.releases_out[i]["avaible"]  = data.rows.length > 0 ? false : true;
+        });
       }
 
       load.dismiss();
@@ -48,11 +54,16 @@ export class FixesReleasesPage {
 
   public getFixesReleasesIn() {
     this.fixesDao.selectFixesIn("", data => {
-      let length = data.rows.length;
+      let length        = data.rows.length;
+      let fixesReleases = data;
 
       for(let i = 0;i < length;i++) {
-        this.releases_in.push(data.rows.item(i));
-        this.releases_in[i]["collapse"] = true;
+        this.closeFixes.haveClosedInThisMonth(fixesReleases.rows.item(i).FIXES_ID, data => {
+
+          this.releases_in.push(fixesReleases.rows.item(i));
+          this.releases_in[i]["collapse"] = true;
+          this.releases_in[i]["avaible"]  = data.rows.length > 0 ? false : true;
+        });
       }
     });
   }

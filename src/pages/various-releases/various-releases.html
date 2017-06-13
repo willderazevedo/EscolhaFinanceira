@@ -35,6 +35,10 @@
       <ion-card *ngFor="let release of releases_out">
         <ion-card-header (click)="release.collapse=!release.collapse;">
           <ion-item detail-none>
+            <button ion-button clear small icon-only item-left disable class="avaible">
+              <ion-icon name="md-checkmark-circle" color="secondary" *ngIf="!release.avaible"></ion-icon>
+              <ion-icon name="md-close-circle" color="danger" *ngIf="release.avaible"></ion-icon>
+            </button>
             <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
             <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
               <ion-icon name="md-more"></ion-icon>
@@ -124,6 +128,10 @@
       <ion-card *ngFor="let release of releases_in">
         <ion-card-header (click)="release.collapse=!release.collapse;">
           <ion-item detail-none>
+            <button ion-button clear small icon-only item-left disable class="avaible">
+              <ion-icon name="md-checkmark-circle" color="secondary" *ngIf="!release.avaible"></ion-icon>
+              <ion-icon name="md-close-circle" color="danger" *ngIf="release.avaible"></ion-icon>
+            </button>
             <h2 color="primary">{{ release.VARIOUS_NAME }}</h2>
             <button ion-button clear icon-only item-right (click)="togglePopover($event, {release: release})">
               <ion-icon name="md-more"></ion-icon>
