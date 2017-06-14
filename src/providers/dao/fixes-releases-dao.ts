@@ -149,4 +149,42 @@ export class FixesReleasesDAO {
     }).catch(err => console.log(err));
   }
 
+  /**
+   * Método responsável pela da soma de todos o lançamentos fixos de saída.
+   * @param  {Function} callback Função de retorno com os dados
+   * @return {void}
+   */
+  public selectFixesOutSum(callback) {
+
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT SUM(FIXES_VALUE) AS SUM_OUT FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 0",{})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável pela da soma de todos o lançamentos fixos de entrada.
+   * @param  {Function} callback Função de retorno com os dados
+   * @return {void}
+   */
+  public selectFixesInSum(callback) {
+
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT SUM(FIXES_VALUE) AS SUM_IN FROM TB_FIXES_RELEASES WHERE FIXES_TYPE = 1",{})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
+
 }

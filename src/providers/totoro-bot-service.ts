@@ -122,4 +122,45 @@ export class TotoroBotService {
     });
   }
 
+  public caseTwoFixes(release, callback) {
+    let income      = this.vars.income;
+    let saveTip:any = false;
+
+    if(release.type == 1) {
+      callback(saveTip);
+
+      return false;
+    }
+
+    this.fixesDao.selectFixesOutSum(data => {
+      let sumOut = data.rows.length > 0 ? (data.rows.item(0).SUM_OUT * (-1)) : 0;
+
+      this.fixesDao.selectFixesInSum(data => {
+        let sumIn        = data.rows.length > 0 ? data.rows.item(0).SUM_IN : 0;
+        let spentOnMonth = sumOut + sumIn;
+        let spentNow     = spentOnMonth - release.value;
+        let spentPercent = (spentNow * 100)/income;
+        let savePercent  = 0;
+        let saveMoney    = 0;
+
+        if(spentPercent < 80) {
+          callback(saveTip);
+
+          return false;
+        }
+
+        for(var i = 0;i < 100; i++) {
+          let calcBestPercent = ((((i * release.value)/100) + spentOnMonth) * 100)/income;
+
+          if (calcBestPercent < 80) {
+            savePercent = i;
+          }
+        }
+
+        // saveMoney = (savePercent * spentValue)/100;
+
+      });
+    });
+  }
+
 }
