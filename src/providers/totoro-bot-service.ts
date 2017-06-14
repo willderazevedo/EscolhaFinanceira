@@ -36,7 +36,7 @@ export class TotoroBotService {
     }
 
     this.variousDao.selectVariousOut("", data => {
-      if(data.rows.length == 0) {
+      if(data.rows.length == 0 || (data.rows.length == 1 && release.id !== "")) {
         let spentPercent = (releaseValue * 100)/income;
         let spentValue   = release.value;
         let savePercent  = 0;
@@ -99,7 +99,7 @@ export class TotoroBotService {
     }
 
     this.fixesDao.selectFixesOut("", data => {
-      if(data.rows.length == 0) {
+      if(data.rows.length == 0 || (data.rows.length == 1 && release.id !== "")) {
         let spentPercent = (release.value * 100)/income;
         let spentValue   = release.value;
         let savePercent  = 0;
