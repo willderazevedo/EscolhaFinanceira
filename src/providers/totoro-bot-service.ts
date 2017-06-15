@@ -81,6 +81,112 @@ export class TotoroBotService {
     });
   }
 
+  public caseTwoVarious(release, callback) {
+    let income       = this.vars.income;
+    let releaseValue = release.value;
+    let saveTip:any  = false;
+
+    if(release.type == 1) {
+      callback(saveTip);
+
+      return false;
+    }
+
+    if(release.form == 0) {
+      releaseValue = release.value/release.plots;
+    }
+
+    this.variousDao.selectVariousOut("", data => {
+      let rows   = data.rows;
+      let sumOut = 0;
+
+      for(var i = 0;i < rows.length;i++) {
+        if(rows.item(i).VARIOUS_PAY_FORM == 0) {
+          sumOut += (rows.item(i).VARIOUS_VALUE/rows.item(i).VARIOUS_PLOTS);
+
+          continue;
+        }
+
+        sumOut += rows.item(i).VARIOUS_VALUE;
+      }
+
+      sumOut = sumOut > 0 ? sumOut * (-1) : 0;
+
+      this.variousDao.selectVariousIn("", data => {
+        let rows  = data.rows;
+        let sumIn = 0;
+
+        for(var i = 0;i < rows.length;i++) {
+          sumIn += rows.item(i).VARIOUS_VALUE;
+        }
+
+        let spentOnMonth = (sumOut + sumIn);
+        let spentNow     = spentOnMonth - releaseValue;
+        let spentPercent = (spentNow * 100)/income;
+        let savePercent  = 0;
+        let savePlots    = 0;
+        let saveMoney    = 0;
+
+        spentOnMonth = spentOnMonth < 0 ? spentOnMonth * (-1) : spentOnMonth;
+        spentNow     = spentNow < 0 ? spentNow * (-1) : spentNow;
+        spentPercent = spentPercent < 0 ? spentPercent * (-1) : spentPercent;
+
+        if(spentPercent < 80) {
+          callback(saveTip);
+
+          return false;
+        }
+
+        if(release.form == 0) {
+          for(var i = 2; i < 30;i++) {
+            let calcBestPlot = (((release.value/i) + spentOnMonth) * 100)/income;
+
+            if(calcBestPlot < 80) {
+              savePlots   = i;
+              savePercent = calcBestPlot;
+
+              break;
+            }
+          }
+
+          for(var i = parseFloat(release.value);i >= 1;i--) {
+            let calcBestValue = (((i/release.plots) + spentOnMonth) * 100)/income;
+
+            if(calcBestValue < 80) {
+              saveMoney = i;
+
+              break;
+            }
+          }
+
+          saveTip = "Você está prestes a gastar mais de 80% da sua renda mensal na parcela deste lançamento, R$ " + releaseValue.toFixed(2) + " para ser mais exato, " +
+                    "uma saída para isto seria aumentar o número de parcelas deste lançamento para " + savePlots + "x ou mais, ou você pode comprar um produto de R$ " +
+                    saveMoney.toFixed(2) + " e dividir nesta parcela que deseja.";
+
+          callback(saveTip);
+
+          return false;
+        }
+
+        for(var i = 1;i <= 100; i++) {
+          let calcBestPercent = ((((releaseValue - (i * releaseValue)/100)) + spentOnMonth) * 100)/income;
+
+          if (calcBestPercent < 80) {
+            savePercent = i;
+
+            break;
+          }
+        }
+
+        saveMoney = releaseValue - ((savePercent * releaseValue)/100);
+        saveTip   = "Você irá atingir mais de 80% da sua renda, " + spentPercent.toFixed(2) + "% para ser mais exato, seria melhor que você " +
+                    "comprasse um produto no valor " + savePercent.toFixed(2) + "% a menos desse valor, ou seja, um produto de: R$ " + saveMoney.toFixed(2) + ".";
+
+        callback(saveTip);
+      });
+    });
+  }
+
   /**
    * Checa se o valor colocado no lançamento fixo não ultrapassa metade da renda do usuário,
    * se ultrapassar volta com indicação.
@@ -122,6 +228,12 @@ export class TotoroBotService {
     });
   }
 
+  /**
+   * Checa se a atual compra mais as compras feitas menos suas entradas estarão 80% menos que sua renda, se sim retornará com indicação.
+   * @param {Object}   release  Dados com a nova release que será cadastrada
+   * @param {Function} callback Dados de retorno do bot
+   * @return {void|boolean}
+   */
   public caseTwoFixes(release, callback) {
     let income      = this.vars.income;
     let saveTip:any = false;
@@ -154,11 +266,12 @@ export class TotoroBotService {
         }
 
         for(var i = 1;i <= 100; i++) {
-          let calcBestPercent = ((((i * release.value)/100) + spentOnMonth) * 100)/income;
-
+          let calcBestPercent = ((((release.value - (i * release.value)/100)) + spentOnMonth) * 100)/income;
 
           if (calcBestPercent < 80) {
             savePercent = i;
+
+            break;
           }
         }
 
