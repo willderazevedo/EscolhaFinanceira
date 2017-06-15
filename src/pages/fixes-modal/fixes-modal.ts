@@ -152,6 +152,26 @@ export class FixesModalPage {
     this.totoroBot.caseOneFixes(this.releases, saveTip => {
 
       if(!saveTip) {
+        this.initializeCaseTwo();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: saveTip,
+        buttons: [
+          {text:"Cancelar"},
+          {text:"Continuar", handler: () => this.initializeCaseTwo()}
+        ]
+      }).present();
+
+    });
+  }
+
+  private initializeCaseTwo() {
+    this.totoroBot.caseTwoFixes(this.releases, saveTip => {
+
+      if(!saveTip) {
 
         if(this.release_update) {
           this.updateRelease();

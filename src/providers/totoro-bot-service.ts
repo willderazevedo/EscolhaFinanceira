@@ -137,11 +137,15 @@ export class TotoroBotService {
 
       this.fixesDao.selectFixesInSum(data => {
         let sumIn        = data.rows.length > 0 ? data.rows.item(0).SUM_IN : 0;
-        let spentOnMonth = sumOut + sumIn;
+        let spentOnMonth = (sumOut + sumIn);
         let spentNow     = spentOnMonth - release.value;
         let spentPercent = (spentNow * 100)/income;
         let savePercent  = 0;
         let saveMoney    = 0;
+
+        spentOnMonth = spentOnMonth < 0 ? spentOnMonth * (-1) : spentOnMonth;
+        spentNow     = spentNow < 0 ? spentNow * (-1) : spentNow;
+        spentPercent = spentPercent < 0 ? spentPercent * (-1) : spentPercent;
 
         if(spentPercent < 80) {
           callback(saveTip);
@@ -149,16 +153,20 @@ export class TotoroBotService {
           return false;
         }
 
-        for(var i = 0;i < 100; i++) {
+        for(var i = 1;i <= 100; i++) {
           let calcBestPercent = ((((i * release.value)/100) + spentOnMonth) * 100)/income;
+
 
           if (calcBestPercent < 80) {
             savePercent = i;
           }
         }
 
-        // saveMoney = (savePercent * spentValue)/100;
+        saveMoney = release.value - ((savePercent * release.value)/100);
+        saveTip   = "Você irá atingir mais de 80% da sua renda, " + spentPercent.toFixed(2) + "% para ser mais exato, seria melhor que você " +
+                    "comprasse um produto no valor " + savePercent.toFixed(2) + "% a menos desse valor, ou seja, um produto de: R$ " + saveMoney.toFixed(2) + ".";
 
+        callback(saveTip);
       });
     });
   }
