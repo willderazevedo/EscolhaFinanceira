@@ -202,6 +202,24 @@ export class VariousModalPage {
   private initializeCaseTwo() {
     this.totoroBot.caseTwoVarious(this.releases, saveTip => {
       if(!saveTip) {
+        this.initializeCaseThree();
+
+        return false;
+      }
+
+      this.alertCtrl.create({
+        message: saveTip,
+        buttons: [
+          {text:"Cancelar"},
+          {text:"Continuar", handler: () => this.initializeCaseThree()}
+        ]
+      }).present();
+    });
+  }
+
+  private initializeCaseThree() {
+    this.totoroBot.caseThreeVarious(this.releases, saveTip => {
+      if(!saveTip) {
 
         if(this.release_update) {
           this.updateRelease();

@@ -201,4 +201,22 @@ export class VariousReleasesDAO {
     }).catch(err => console.log(err));
   }
 
+  /**
+   * Método responsável por buscar o somatório das parcelas do cartão
+   * @param  {Function} callback Função de retorno para saber se deu certo ou não
+   * @return {void}
+   */
+  public selectPlotsValueOnMonth(callback) {
+    this.sqlite.create({
+      name: this.vars.DBNAME,
+      location: this.vars.DBLOCATION
+    }).then((db: SQLiteObject) => {
+
+      db.executeSql("SELECT SUM((VARIOUS_VALUE/VARIOUS_PLOTS)) AS SUM_CARD FROM TB_VARIOUS_RELEASES " +
+      "WHERE VARIOUS_TYPE = 0 AND VARIOUS_PAY_FORM = 0", {})
+      .then(res => callback(res))
+      .catch(err => console.log(err));
+
+    }).catch(err => console.log(err));
+  }
 }
