@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
+import { MenuController, LoadingController } from 'ionic-angular';
 
 //Data Access Object
 import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
@@ -18,23 +18,61 @@ import { FixesReleasesPage } from '../fixes-releases/fixes-releases';
 })
 export class PanelPage {
 
+  /**
+   * Pagina de lançamentos diversos
+   * @type {Object}
+   */
   various_page           = VariousReleasesPage;
+
+  /**
+   * Página de lançamentos fixos
+   * @type {Object}
+   */
   fixes_page             = FixesReleasesPage;
-  chart_various_data     = [];
-  chart_fixes_data       = [];
+
+  /**
+   * Maior lançamento diverso
+   * @type {Array}
+   */
   higher_various_release = [];
+
+  /**
+   * Maior lançamento fixo
+   * @type {Array}
+   */
   higher_fixes_release   = [];
+
+  /**
+   * Lançamentos diversos
+   * @type {Array}
+   */
   various_releases       = [];
+
+  /**
+   * Lançamentos fixos
+   * @type {Array}
+   */
   fixes_releases         = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public menu: MenuController, public global: GlobalService,
+  /**
+   * Contrutor da classe PanelPage
+   * @param {MenuController}     menu       Biblioteca nativa para controle do menu
+   * @param {GlobalService}      global     Provider responsável pelas funções globais
+   * @param {FixesReleasesDAO}   fixesDao   Data Access Object de lançamentos fixos
+   * @param {VariousReleasesDAO} variousDao Data Access Object de lançamentos diversos
+   * @param {LoadingController}  loadCtrl   Biblioteca nativa responsável por controlar alertas de carregamento
+   */
+  constructor(public menu: MenuController, public global: GlobalService,
   public fixesDao: FixesReleasesDAO, public variousDao: VariousReleasesDAO,
   public loadCtrl: LoadingController) {
     this.menu.swipeEnable(true);
     this.loadInformations();
   }
 
+  /**
+   * Método responsável por carregar todo painel inicial
+   * @returns {void}
+   */
   private loadInformations() {
     let load = this.loadCtrl.create({content:"Carregando painel..."});
 
@@ -89,5 +127,4 @@ export class PanelPage {
       });
     });
   }
-
 }

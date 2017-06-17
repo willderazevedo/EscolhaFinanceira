@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, MenuController, Slides, AlertController } from 'ionic-angular';
+import { MenuController, Slides, AlertController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -15,8 +15,22 @@ export class TutorialPage {
 
   @ViewChild("slidesComponent") slidesComponent: Slides;
 
+  /**
+   * Próximo slide
+   * @type {Boolean}
+   */
   skip   = true;
+
+  /**
+   * Slide anterior
+   * @type {Boolean}
+   */
   prev   = false;
+
+  /**
+   * Slides do tutorial
+   * @type {Array}
+   */
   slides = [
     {
       title: "Configuração",
@@ -69,18 +83,36 @@ export class TutorialPage {
       src: "assets/tutorial/10.jpg"
     }
   ];
+
+  /**
+   * Página de configuração
+   * @type {Object}
+   */
   config = ConfigPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public menu: MenuController, public global: GlobalService,
-              public alertCtrl: AlertController) {
+  /**
+   * Construtor da classe TutorialPage
+   * @param {MenuController}  menu      Biblioteca nativa responsável por controlar o menu
+   * @param {AlertController} alertCtrl Biblioteca nativa responsável por controlar os alertas
+   * @param {GlobalService}   global    Provider responsável pelas funções globais
+   */
+  constructor(public menu: MenuController, public global: GlobalService,
+  public alertCtrl: AlertController) {
     this.menu.swipeEnable(false);
   }
 
+  /**
+   * Método nativo do ionic
+   * @returns {void}
+   */
   ionViewDidLoad() {
     this.slidesComponent.lockSwipes(true);
   }
 
+  /**
+   * Método responsável por pular o tutorial
+   * @returns {void}
+   */
   public confirmSkip() {
     this.alertCtrl.create({
       message: "Deseja mesmo pular o tutorial?",
@@ -98,18 +130,30 @@ export class TutorialPage {
     }).present();
   }
 
+  /**
+   * Método responsável voltar o slide
+   * @returns {void}
+   */
   public slidePrev() {
     this.slidesComponent.lockSwipes(false);
     this.slidesComponent.slidePrev();
     this.slidesComponent.lockSwipes(true);
   }
 
+  /**
+   * Método responsável passar o slide
+   * @returns {void}
+   */
   public slideNext() {
     this.slidesComponent.lockSwipes(false);
     this.slidesComponent.slideNext();
     this.slidesComponent.lockSwipes(true);
   }
 
+  /**
+   * Método responsável por esconder botão de próximo no último
+   * @returns {void}
+   */
   public slideWillChangeNext() {
     if((this.slidesComponent.getActiveIndex() - 2) >= (this.slides.length - 1)) {
       this.skip = false;
@@ -120,6 +164,10 @@ export class TutorialPage {
     this.skip = true;
   }
 
+  /**
+   * Método responsável por esconder botão de anterior no primeiro
+   * @returns {void}
+   */
   public slideWillChangePrev() {
     if(this.slidesComponent.getActiveIndex() === 0) {
       this.prev = false;
@@ -129,5 +177,4 @@ export class TutorialPage {
 
     this.prev = true;
   }
-
 }

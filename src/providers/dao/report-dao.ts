@@ -89,5 +89,4 @@ export class ReportDao {
 
     }).catch(err => console.log(err));
   }
-
 }

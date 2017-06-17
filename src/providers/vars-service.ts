@@ -5,25 +5,25 @@ export class VarsService {
 
   /**
    * Nome do banco de dados
-   * @var {string} DBNAME
+   * @type {string}
    */
   public DBNAME     = "escolhafinanceira.db";
 
   /**
    * Caminho do banco de dados
-   * @var {string} DBLOCATION
+   * @type {string}
    */
   public DBLOCATION = "default";
 
   /**
    * Nome do usuário
-   * @var {string} name
+   * @type {string}
    */
   public name = "";
 
   /**
    * Valor da salario
-   * @var {float} income
+   * @type {float}
    */
   public income = 0;
 

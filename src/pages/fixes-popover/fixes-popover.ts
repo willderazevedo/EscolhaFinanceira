@@ -20,14 +20,33 @@ import { FixesReleasesPage } from '../fixes-releases/fixes-releases';
 })
 export class FixesPopoverPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public viewCtrl: ViewController, public modalCtrl: ModalController,
-  public global: GlobalService, public fixesDao: FixesReleasesDAO,
-  public alertCtrl: AlertController, public loadCtrl: LoadingController,
-  public closedDao: ClosedFixesReleasesDao) {}
-
+  /**
+   * Descrição do lançamento selecionado
+   * @type {Object}
+   */
   release     = this.navParams.get('release');
+
+  /**
+   * Modal de edição de lançamentos fixos
+   * @type {Object}
+   */
   fixes_modal = FixesModalPage;
+
+  /**
+   * Construtor da classe FixesPopoverPage
+   * @param {NavParams}              public navParams Biblioteca nativa para acesso a paramêtros passando para esta tela
+   * @param {ViewController}         public viewCtrl  Biblioteca nativa para controle das views
+   * @param {ModalController}        public modalCtrl Biblioteca nativa para controle de modais
+   * @param {AlertController}        public alertCtrl Biblioteca nativa para controle de alertas
+   * @param {LoadingController}      public loadCtrl  Biblioteca nativa para controle de alertas de carregamento
+   * @param {FixesReleasesDAO}       public fixesDao  Data Access Object de lançamentos fixos
+   * @param {ClosedFixesReleasesDao} public closedDao Data Access Object de lançamentos fixos pagos
+   * @param {GlobalService}          public global    Provider responsável pelas funções globais
+   */
+  constructor(public navParams: NavParams, public viewCtrl: ViewController,
+  public modalCtrl: ModalController, public global: GlobalService,
+  public fixesDao: FixesReleasesDAO, public alertCtrl: AlertController,
+  public loadCtrl: LoadingController, public closedDao: ClosedFixesReleasesDao) {}
 
   public toggleModal() {
     let modal = this.modalCtrl.create(this.fixes_modal, {release: this.release});
@@ -43,6 +62,10 @@ export class FixesPopoverPage {
     });
   }
 
+  /**
+   * Método resposáel por perguntar ao usuário se ele realmente deseja excluir o lançamento
+   * @returns {void}
+   */
   public confirmDelete() {
     this.alertCtrl.create({
       message: "Você deseja deletar o lançamento: " + this.release.FIXES_NAME + "?",
@@ -60,6 +83,10 @@ export class FixesPopoverPage {
     }).present();
   }
 
+  /**
+   * Método responsável por perguntar ao usuário se ele deseja realmente fechar o lançamento do mês
+   * @returns {void}
+   */
   public confirmClose() {
     this.alertCtrl.create({
       message: "Você deseja fechar o mês deste lançamento: " + this.release.FIXES_NAME + "?",
@@ -77,6 +104,10 @@ export class FixesPopoverPage {
     }).present();
   }
 
+  /**
+   * Método responsável pelo fechamento do mês do lançamento fixo
+   * @returns {void|boolean}
+   */
   private closeFixesRelease() {
     let load = this.loadCtrl.create({content:"Fechando Mês..."});
     load.present();
@@ -121,7 +152,10 @@ export class FixesPopoverPage {
     });
   }
 
-
+  /**
+   * Método responsável por deletar o lançamento fixo
+   * @returns {void|boolean}
+   */
   private deleteFixesRelease() {
     let load = this.loadCtrl.create({content:"Deletando Lançamento..."});
 
@@ -152,6 +186,10 @@ export class FixesPopoverPage {
     });
   }
 
+  /**
+   * Método responsável por fechar o popover
+   * @param {boolean} refresh Fechar e atualizar a listagm de fixos ou não
+   */
   public popoverDismiss(refresh = false) {
     this.viewCtrl.dismiss(refresh);
   }

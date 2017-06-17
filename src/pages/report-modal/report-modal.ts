@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController } from 'ionic-angular';
 
 //Data Access Object
 import { ReportDao } from '../../providers/dao/report-dao';
@@ -10,16 +10,40 @@ import { ReportDao } from '../../providers/dao/report-dao';
 })
 export class ReportModalPage {
 
+  /**
+   * Filtros do relatório
+   * @type {Object}
+   */
   filters     = this.navParams.get('filters');
+
+  /**
+   * Resultados do relatório
+   * @type {Array}
+   */
   report_data = [];
+
+  /**
+   * Somátorio dos lançamentos
+   * @type {Float}
+   */
   total       = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public viewCtrl: ViewController, public reportDao: ReportDao,
-  public loadCtrl: LoadingController) {
+  /**
+   * Construtor da classe ReportModalPage
+   * @param {NavParams}         navParams Biblioteca nativa responsável por recuperar os parâmentros passados por outras páginas
+   * @param {ViewController}    viewCtrl  Biblioteca nativa responsável pelo controle das views
+   * @param {LoadingController} loadCtrl  Biblioteca nativa responsável pelo controle de alertas
+   * @param {ReportDao}         reportDao Data Access Object do relatório
+   */
+  constructor(public navParams: NavParams, public viewCtrl: ViewController,
+  public reportDao: ReportDao, public loadCtrl: LoadingController) {
     this.buildReport();
   }
 
+  /**
+   * Método responsável pela construção do relatório aberto ou fechado
+   * @returns {void|boolean}
+   */
   public buildReport() {
     if (this.filters.type == 1) {
       this.getOpenReleasesReport();
@@ -30,6 +54,10 @@ export class ReportModalPage {
     this.getClosedReleasesReport();
   }
 
+  /**
+   * Método responsável por construir o relatório com lançamentos abertos
+   * @returns {void}
+   */
   private getOpenReleasesReport() {
 
     let load = this.loadCtrl.create({content: "Construindo relatório..."});
@@ -54,6 +82,10 @@ export class ReportModalPage {
     });
   }
 
+  /**
+   * Método responsável por construir o relatório com lançamentos fechados
+   * @returns {void}
+   */
   private getClosedReleasesReport() {
     let load = this.loadCtrl.create({content: "Construindo relatório..."});
 
@@ -73,6 +105,10 @@ export class ReportModalPage {
     });
   }
 
+  /**
+   * Método responsável por fechar a modal
+   * @returns {void}
+   */
   public modalDismiss() {
     this.viewCtrl.dismiss();
   }

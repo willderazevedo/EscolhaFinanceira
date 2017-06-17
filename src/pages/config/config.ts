@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController, App } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController } from 'ionic-angular';
 
 //Data Access Object
 import { ConfigDAO } from '../../providers/dao/config-dao';
@@ -18,19 +18,19 @@ export class ConfigPage {
 
   /**
    * Identificador se a tela está em modo de update ou nao
-   * @var  {boolean} update
+   * @type {boolean}
    */
   update = this.navParams.get('update') ? true : false;
 
   /**
    * Página do painel
-   * @var  {Object} panel
+   * @type {Object}
    */
   panel  = PanelPage;
 
   /**
    * Informações do usuário
-   * @var {Obeject} user
+   * @type {Obeject}
    */
   user   = {
     name: "",
@@ -38,7 +38,7 @@ export class ConfigPage {
   };
 
   /**
-   * [constructor description]
+   * Construtor da classe ConfigPage
    * @param  {NavController}     navCtrl   Controle de navegação
    * @param  {NavParams}         navParams Parametros passados para a pagina atual
    * @param  {MenuController}    menu      Controle do menu lateral
@@ -52,33 +52,24 @@ export class ConfigPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public dao: ConfigDAO, public teste: App) {
+  public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
+    this.viewCtrl.showBackButton(false);
     this.getConfig();
-  }
-
-  ionViewDidLoad() {
-    this.backButtonAction();
   }
 
   /**
    * Adicionando evento para botão de navegação push
-   * @return {void}
+   * @returns {void}
    */
   private backButtonAction() {
-    this.viewCtrl.getNavbar().backButtonClick = (ev: UIEvent) => {
-      if(!this.navCtrl.canGoBack()) {
-        return false;
-      }
-
-      this.menu.swipeEnable(true);
-      this.navCtrl.pop();
-    };
+    this.menu.swipeEnable(true);
+    this.navCtrl.pop();
   }
 
   /**
    * Método resposavel pela gravação do usuario no app
-   * @return {void}
+   * @returns {void}
    */
   public saveConfig() {
 
@@ -106,7 +97,7 @@ export class ConfigPage {
 
   /**
    * Método resposavel pela atualização do usuario no app
-   * @return {void}
+   * @returns {void|boolean}
    */
   public updateConfig() {
 
@@ -145,7 +136,7 @@ export class ConfigPage {
 
   /**
    * Método responsável por colocar configurações nos campos
-   * @return {boolean|void} Retorna falso ou nada
+   * @returns {boolean|void} Retorna falso ou nada
    */
   public getConfig() {
 

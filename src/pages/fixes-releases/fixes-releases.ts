@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, ModalController, LoadingController } from 'ionic-angular';
+import { PopoverController, ModalController, LoadingController } from 'ionic-angular';
 
 //Data Access Object
 import { FixesReleasesDAO } from '../../providers/dao/fixes-releases-dao';
@@ -18,15 +18,52 @@ import { FixesPopoverPage } from '../fixes-popover/fixes-popover';
 })
 export class FixesReleasesPage {
 
+  /**
+   * Modal de fixos
+   * @type {Object}
+   */
   fixesModal        = FixesModalPage;
+
+  /**
+   * Variável resposável por guardar segmento atual
+   * @type {String}
+   */
   releases_type     = "out";
+
+  /**
+   * Lançamentos diversos de saída
+   * @type {Array}
+   */
   releases_out      = [];
+
+  /**
+   * Lançamentos diversos de entrada
+   * @type {Array}
+   */
   releases_in       = [];
+
+  /**
+   * Lançamentos diversos de saída temporário para filtro
+   * @type {Array}
+   */
   temp_releases_out = [];
+
+  /**
+   * Lançamntos diversos de entrada temporário para filtro
+   * @type {Array}
+   */
   temp_releases_in  = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public popoverCtrl: PopoverController, public modalCtrl: ModalController,
+  /**
+   * Construtor da classe FixesReleasesPage
+   * @param {PopoverController}      popoverCtrl Biblioteca nativa para controle da popover
+   * @param {ModalController}        modalCtrl   Biblioteca nativa para controle das modais
+   * @param {LoadingController}      loadCtrl    Biblioteca nativa para controle dos alertas de carregamento
+   * @param {GlobalService}          global      Provider responsável pelas fuções globais
+   * @param {FixesReleasesDAO}       fixesDao    Data Access Object de lançamentos fixos
+   * @param {ClosedFixesReleasesDao} closeFixes  Data Access Object de lançamentos fixos pagos
+   */
+  constructor(public popoverCtrl: PopoverController, public modalCtrl: ModalController,
   public global: GlobalService, public loadCtrl: LoadingController,
   public fixesDao: FixesReleasesDAO, public closeFixes: ClosedFixesReleasesDao) {
     this.getFixesReleasesOut();
@@ -35,6 +72,11 @@ export class FixesReleasesPage {
     this.temp_releases_in  = this.releases_in;
   }
 
+  /**
+   * Método responsável por filtrar os lançamentos fixos de saída
+   * @param {any} event Informações do evento IonInput similar ao KeyUp
+   * @returns {void|number}
+   */
   public filterFixesOut(event) {
     let searched      = event.target.value;
     this.releases_out = this.temp_releases_out;
@@ -46,6 +88,11 @@ export class FixesReleasesPage {
     }
   }
 
+  /**
+   * Método responsável por filtrar os lançamentos fixos de entrada
+   * @param {any} event Informações do evento IonInput similar ao KeyUp
+   * @returns {void|number}
+   */
   public filterFixesIn(event) {
     let searched      = event.target.value;
     this.releases_in = this.temp_releases_in;
@@ -57,6 +104,10 @@ export class FixesReleasesPage {
     }
   }
 
+  /**
+   * Método responsávl pela listagem dos lançamentos fixos de saída
+   * @returns {void}
+   */
   public getFixesReleasesOut() {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
@@ -78,6 +129,10 @@ export class FixesReleasesPage {
     });
   }
 
+  /**
+   * Método responsávl pela listagem dos lançamentos fixos de entrada
+   * @returns {void}
+   */
   public getFixesReleasesIn() {
     this.fixesDao.selectFixesIn("", data => {
       let length        = data.rows.length;
@@ -94,6 +149,12 @@ export class FixesReleasesPage {
     });
   }
 
+  /**
+   * Método responsável pela criação da popover de cada lançamento e refresh da listagem
+   * @param {any}    event  Informações do evento de Tap similar ao Click
+   * @param {Object} params Informações do lançamento escolhido
+   * @returns {void|boolean}
+   */
   public togglePopover(event, params = {}){
     event.stopPropagation();
 
@@ -113,6 +174,10 @@ export class FixesReleasesPage {
     });
   }
 
+  /**
+   * Método responsável pela criação da modal de atualização de cada lançamento e refresh da listagem
+   * @returns {void|boolean}
+   */
   public toggleModal() {
     let modal = this.modalCtrl.create(this.fixesModal);
 
@@ -129,5 +194,4 @@ export class FixesReleasesPage {
       this.getFixesReleasesIn();
     });
   }
-
 }

@@ -31,6 +31,11 @@ export class ClosedVariousReleasesDao {
     }).catch(err => console.log(err));
   }
 
+  /**
+   * Método reponsável pelo fechamento do lançamento
+   * @param {Object}   release  Informações do lançamento
+   * @param {Function} callback Callback com o retorno se dos dados
+   */
   public closeVariousRelease(release, callback) {
 
     this.sqlite.create({
@@ -100,5 +105,4 @@ export class ClosedVariousReleasesDao {
 
     }).catch(err => console.log(err));
   }
-
 }

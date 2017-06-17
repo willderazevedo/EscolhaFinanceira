@@ -186,5 +186,4 @@ export class FixesReleasesDAO {
 
     }).catch(err => console.log(err));
   }
-
 }

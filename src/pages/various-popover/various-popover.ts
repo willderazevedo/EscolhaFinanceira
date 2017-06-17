@@ -21,24 +21,60 @@ import { VariousReleasesPage } from '../various-releases/various-releases';
 })
 export class VariousPopoverPage {
 
+  /**
+   * Informações da release selecionada
+   * @type {Object}
+   */
   release       = this.navParams.get('release');
+
+  /**
+   * Texto de fechar ou pagar o lançamento
+   * @type {String}
+   */
   close_text    = "";
+
+  /**
+   * Modal de lançamentos diersos
+   * @type {Object}
+   */
   various_modal = VariousModalPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public variousDao: VariousReleasesDAO,
-  public global: GlobalService, public modalCtrl: ModalController,
-  public closedVariousDao: ClosedVariousReleasesDao) {}
+  /**
+   * Construtor da classe VariousPopoverPage
+   * @param {NavParams}                public navParams        Biblioteca nativa responsável por receber os parâmetros passados por outras páginas
+   * @param {ViewController}           public viewCtrl         Biblioteca nativa responsável pelo controle das views
+   * @param {LoadingController}        public loadCtrl         Biblioteca nativa responsável pelo controle dos alertas de carregamento
+   * @param {AlertController}          public alertCtrl        Biblioteca nativa responsável pelo controle dos alertas
+   * @param {ModalController}          public modalCtrl        Biblioteca nativa responsável pelo controle das modais
+   * @param {VariousReleasesDAO}       public variousDao       Data Access Object de lançamentos diversos
+   * @param {GlobalService}            public global           Provider responsável pelas funções globais
+   * @param {ClosedVariousReleasesDao} public closedVariousDao Data Access Object de lançamentos diversos pagos
+   */
+  constructor(public navParams: NavParams, public viewCtrl: ViewController,
+  public loadCtrl: LoadingController, public alertCtrl: AlertController,
+  public variousDao: VariousReleasesDAO, public global: GlobalService,
+  public modalCtrl: ModalController, public closedVariousDao: ClosedVariousReleasesDao) {}
 
+  /**
+   * Método nativo do ionic
+   * @returns {void}
+   */
   ionViewDidLoad() {
     this.setCloseText();
   }
 
+  /**
+   * Método responsável por fechar a popover
+   * @param {void} refresh Atualizar listagem de lançamentos
+   */
   public popoverDismiss(refresh = false) {
     this.viewCtrl.dismiss(refresh);
   }
 
+  /**
+   * Método responsável por criar a modal para edição do lançamento
+   * @returns {void|boolean}
+   */
   public toggleModal() {
     let modal = this.modalCtrl.create(this.various_modal, {release: this.release});
 
@@ -53,6 +89,10 @@ export class VariousPopoverPage {
     });
   }
 
+  /**
+   * Método responsável por colocar o texto de acordo com as parcelas restantes ou lançamento avista
+   * @returns {void|boolean}
+   */
   public setCloseText() {
     this.variousDao.getRemainingPlots(this.release.VARIOUS_ID, res => {
       if(res.rows.item(0).REMAIN <= 1 || this.release.VARIOUS_TYPE == 1) {
@@ -65,6 +105,10 @@ export class VariousPopoverPage {
     });
   }
 
+  /**
+   * Método responsável por confimar deleção
+   * @returns {void}
+   */
   public confirmDelete() {
     this.alertCtrl.create({
       message: "Você deseja deletar o lançamento: " + this.release.VARIOUS_NAME + "?",
@@ -82,6 +126,10 @@ export class VariousPopoverPage {
     }).present();
   }
 
+  /**
+   * Método responsável por confimar pagamento
+   * @returns {void}
+   */
   public confirmClose() {
     this.alertCtrl.create({
       message: "Você deseja fechar o lançamento: " + this.release.VARIOUS_NAME + "?",
@@ -99,6 +147,14 @@ export class VariousPopoverPage {
     }).present();
   }
 
+  /**
+   * Método responsável por deletar o lançamento
+   * @param {string}  successMsg Mensagem para sucesso da deleção
+   * @param {string}  errMsg     Mensagem para erro na deleção
+   * @param {boolean} hideLoad   Não mostrar load de carregamento
+   * @param {boolean} forceDel   Forçar deleção
+   * @returns {void|boolean}
+   */
   private deleteVariousRelease(successMsg = "", errMsg = "", hideLoad = false, forceDel = false) {
     let load = this.loadCtrl.create({content:"Deletando Lançamento..."});
 
@@ -155,6 +211,10 @@ export class VariousPopoverPage {
     });
   }
 
+  /**
+   * Método responsável por decidir qual a forma de fechamento deste lançamento
+   * @returns {void|boolean}
+   */
   private closeVariousRelease() {
 
     if(this.release.VARIOUS_PAY_FORM == 0){
@@ -166,6 +226,10 @@ export class VariousPopoverPage {
     this.doCloseNormal();
   }
 
+  /**
+   * Método responsável por fechar lançamentos avista ou entradas
+   * @returns {void|boolean}
+   */
   public doCloseNormal() {
     let load       = this.loadCtrl.create({content:"Fechando lançamento..."});
     let successMsg = "Lançamento fechado com sucesso.";
@@ -187,8 +251,12 @@ export class VariousPopoverPage {
       load.dismiss();
       this.deleteVariousRelease(successMsg, errMsg, true, true);
     });
-}
+  }
 
+  /**
+   * Método responsável por fechar lançamentos no cartão
+   * @returns {void|boolean}
+   */
   public doCloseInCard() {
     let load       = this.loadCtrl.create({content:"Fechando lançamento..."});
     let successMsg = "Laçamento fechado com sucesso.";

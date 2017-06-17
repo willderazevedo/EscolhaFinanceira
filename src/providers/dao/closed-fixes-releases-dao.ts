@@ -76,5 +76,4 @@ export class ClosedFixesReleasesDao {
 
     }).catch(err => console.log(err));
   }
-
 }

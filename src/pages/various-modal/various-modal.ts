@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
@@ -16,9 +16,28 @@ import { VarsService } from '../../providers/vars-service';
 })
 export class VariousModalPage {
 
+  /**
+   * Compra no cartão
+   * @type {Boolean}
+   */
   card           = false;
+
+  /**
+   * Lançamento de saída
+   * @type {Boolean}
+   */
   out            = false;
+
+  /**
+   * Informções do lançamento caso seja update
+   * @type {Object}
+   */
   release_update = this.navParams.get('release');
+
+  /**
+   * Campos do novo ou de atualização do lançamento
+   * @type {Object}
+   */
   releases       = {
     id: "",
     name: "",
@@ -28,14 +47,30 @@ export class VariousModalPage {
     plots: ""
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public viewCtrl: ViewController, public alertCtrl: AlertController,
-  public loadCtrl: LoadingController, public global: GlobalService,
-  public variousDao: VariousReleasesDAO, public closedVariousDao: ClosedVariousReleasesDao,
-  public totoroBot: TotoroBotService, public vars: VarsService) {
+  /**
+   * Contrutor da classe VariousModalPage
+   * @param {NavParams}                navParams        Biblioteca nativa responsável por buscar os parâmetros passados por outras páginas
+   * @param {ViewController}           viewCtrl         Biblioteca nativa responsável por controlar as views
+   * @param {AlertController}          alertCtrl        Biblioteca nativa responsável por controlar os alertas
+   * @param {LoadingController}        loadCtrl         Biblioteca nativa responsável por controlar os os alertas de carregamento
+   * @param {GlobalService}            global           Provider responsável pelas funções globais
+   * @param {VariousReleasesDAO}       variousDao       Data Access Object dos lançamentos diversos
+   * @param {ClosedVariousReleasesDao} closedVariousDao Data Access Object dos lançamentos diversos pagos
+   * @param {TotoroBotService}         totoroBot        Bot responsável pela tomada de decisões
+   * @param {VarsService}              vars             Provider responsável pelas variáveis globais
+   */
+  constructor(public navParams: NavParams, public viewCtrl: ViewController,
+  public alertCtrl: AlertController, public loadCtrl: LoadingController,
+  public global: GlobalService, public variousDao: VariousReleasesDAO,
+  public closedVariousDao: ClosedVariousReleasesDao, public totoroBot: TotoroBotService,
+  public vars: VarsService) {
     this.populateRelease();
   }
 
+  /**
+   * Método responsável por checar se os campos estão vazios
+   * @returns {boolean}
+   */
   private checkFields() {
     let empty = false;
     let field = this.releases;
@@ -47,6 +82,10 @@ export class VariousModalPage {
     return empty;
   }
 
+  /**
+   * Método responsável por checar se a compra e maior que a renda
+   * @returns {boolean}
+   */
   private checkValue() {
     let income       = this.vars.income;
     let invalidValue = false;
@@ -58,6 +97,10 @@ export class VariousModalPage {
     return invalidValue;
   }
 
+  /**
+   * Método responsável por salvar lançamento
+   * @returns {void|boolean}
+   */
   public saveRelease() {
     let load         = this.loadCtrl.create({
       content: "Salvando informações...",
@@ -90,6 +133,10 @@ export class VariousModalPage {
     });
   }
 
+  /**
+   * Método responsável por atualizar lançamento
+   * @returns {void|boolean}
+   */
   public updateRelease() {
     let load         = this.loadCtrl.create({
       content: "Salvando informações...",
@@ -142,9 +189,12 @@ export class VariousModalPage {
         }).present();
       });
     });
-
   }
 
+  /**
+   * Método responsável por popoular campos caso seja aualização do lançamento
+   * @returns {void|boolean}
+   */
   private populateRelease() {
 
     if(!this.release_update) {
@@ -159,6 +209,10 @@ export class VariousModalPage {
     this.releases.value = this.release_update.VARIOUS_VALUE;
   }
 
+  /**
+   * Método responsável por inicializar caso um da tomada de decisões
+   * @returns {void|boolean}
+   */
   public initializeCaseOne() {
     let empty        = this.checkFields();
     let invalidValue = this.checkValue();
@@ -199,6 +253,10 @@ export class VariousModalPage {
     });
   }
 
+  /**
+   * Método responsável por inicializar caso dois da tomada de decisões
+   * @returns {void|boolean}
+   */
   private initializeCaseTwo() {
     this.totoroBot.caseTwoVarious(this.releases, saveTip => {
       if(!saveTip) {
@@ -217,6 +275,10 @@ export class VariousModalPage {
     });
   }
 
+  /**
+   * Método responsável por inicializar caso três da tomada de decisões
+   * @returns {void|boolean}
+   */
   private initializeCaseThree() {
     this.totoroBot.caseThreeVarious(this.releases, saveTip => {
       if(!saveTip) {
@@ -242,14 +304,26 @@ export class VariousModalPage {
     });
   }
 
+  /**
+   * Método responsável por fechar modal
+   * @param {boolean} refresh Atualizar listagem de diversos ou não
+   */
   public modalDismiss(refresh = false) {
     this.viewCtrl.dismiss(refresh);
   }
 
+  /**
+   * Método reponsável por esconder campo de parcelas
+   * @param {boolean} hide Esconde ou Mostrar
+   */
   public fieldPlots(hide) {
     this.card = hide;
   }
 
+  /**
+   * Método reponsável por esconder campo de forma de pagamento
+   * @param {boolean} hide Esconde ou Mostrar
+   */
   public fieldPayForm(hide) {
     this.out = hide;
   }

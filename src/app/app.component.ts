@@ -27,64 +27,67 @@ export class MyApp {
 
   /**
    * Página de configuração
-   * @var  {Object} config
+   * @type {Object}
    */
   config:Object           = ConfigPage;
 
   /**
    * Página do painel
-   * @var  {Object} panel
+   * @type {Object}
    */
   panel:Object            = PanelPage;
 
   /**
    * Página de lançamentos diversos
-   * @var  {Object} various_releases
+   * @type {Object}
    */
   various_releases:Object = VariousReleasesPage;
 
   /**
    * Página de lançamentos fixos
-   * @var  {Object} fixes_releases
+   * @type {Object}
    */
   fixes_releases:Object   = FixesReleasesPage;
 
   /**
    * Página de relatório
-   * @var  {Object} report
+   * @type {Object}
    */
   report:Object           = ReportPage;
 
   /**
    * Página de lançamentos fechados
-   * @var  {Object} close_releases
+   * @type {Object}
    */
   close_releases          = CloseReleasesPage;
 
   /**
    * Página de sobre app
-   * @var  {Object} info
+   * @type {Object}
    */
   info                    = InfoPage;
 
   /**
    * Página do tutorial
-   * @var  {Object} tutorial
+   * @type {Object}
    */
   tutorial                = TutorialPage;
 
   /**
    * Página inicial
-   * @var  {Object} rootPage
+   * @type {Object}
    */
   rootPage:Object;
 
   /**
    * Contrutor da classe principal do app
-   * @param  {Platform}      platform     Biblioteca com informações da plataforma Android/IOs
-   * @param  {DbHelper}      helper       Provider usada na criação das tabelas do banco
-   * @param  {GlobalService} global       Provider usada em funções globais
-   * @param  {VarsService}   vars         Provider usada em variaveis globais
+   * @param  {Platform}        platform     Biblioteca com informações da plataforma Android/IOs
+   * @param  {DbHelper}        helper       Provider usada na criação das tabelas do banco
+   * @param  {GlobalService}   global       Provider usada em funções globais
+   * @param  {VarsService}     vars         Provider usada em variaveis globais
+   * @param  {App}             app          Biblioteca nativa com funções do app
+   * @param  {MenuController}  menu         Biblioteca nativa para controle do menu
+   * @param  {AlertController} alertCtrl    Bibioteca nativa para controle de alertas
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
@@ -102,7 +105,7 @@ export class MyApp {
 
   /**
    * Método responsável por corrigir o erro da splash screen e dispensa-la no tempo correto
-   * @return {void}
+   * @returns {void}
    */
   private hideSplashScreen() {
     if(Splashscreen) {
@@ -113,9 +116,9 @@ export class MyApp {
   }
 
   /**
-   * Adicionando evento para botão de voltar nativo
+   * Adicionando evento para botão de voltar nativo (hardware)
    * @param  {Platform} platform Biblioteca com informações da plataforma Android/IOs
-   * @return {void}
+   * @returns {void|boolean}
    */
   private backButtonHardwareAction(platform) {
     platform.registerBackButtonAction(() => {
@@ -145,7 +148,7 @@ export class MyApp {
 
   /**
    * Método responsável pela checagem da configuração existente
-   * @return {boolean|void} Retorna falso ou nada
+   * @returns {boolean|void} Retorna falso ou nada
    */
   public checkConfig() {
     this.daoConfig.select(res => {

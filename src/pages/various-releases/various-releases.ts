@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, AlertController, LoadingController, ModalController } from 'ionic-angular';
+import { PopoverController, AlertController, LoadingController, ModalController } from 'ionic-angular';
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
@@ -15,15 +15,52 @@ import { VariousPopoverPage } from '../various-popover/various-popover';
 })
 export class VariousReleasesPage {
 
+  /**
+   * Modal de lançamentos diversos
+   * @type {Object}
+   */
   variousModal      = VariousModalPage;
+
+  /**
+   * Variável que controla o segmento atual
+   * @type {String}
+   */
   releases_type     = "out";
+
+  /**
+   * Lançaments diversos de saída
+   * @type {Array}
+   */
   releases_out      = [];
+
+  /**
+   * Lançamentos diversos de entrada
+   * @type {Array}
+   */
   releases_in       = [];
+
+  /**
+   * Lançamentos diversos de saída temporários
+   * @type {Array}
+   */
   temp_releases_out = [];
+
+  /**
+   * Lançamentos diversos de entrada temporários
+   * @type {Array}
+   */
   temp_releases_in  = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public popoverCtrl: PopoverController, public alertCtrl: AlertController,
+  /**
+   * Construtor da classe VariousReleasesPage
+   * @param {PopoverController}        popoverCtrl   Biblioteca nativa responsável pelo controle de popovers
+   * @param {AlertController}          alertCtrl     Biblioteca nativa responsável pelo controle de alertas
+   * @param {LoadingController}        loadCtrl      Biblioteca nativa responsável pelo controle de alertas de carregamento
+   * @param {ModalController}          modalCtrl     Biblioteca nativa responsável pelo controle de modais
+   * @param {VariousReleasesDAO}       variousDao    Data Access Object de lançamentos diversos
+   * @param {ClosedVariousReleasesDao} closedVarious Data Access Object de lançamentos diversos fechados
+   */
+  constructor(public popoverCtrl: PopoverController, public alertCtrl: AlertController,
   public loadCtrl: LoadingController, public modalCtrl: ModalController,
   public variousDao: VariousReleasesDAO, public closedVarious: ClosedVariousReleasesDao) {
     this.getVariousReleasesOut();
@@ -32,6 +69,11 @@ export class VariousReleasesPage {
     this.temp_releases_in  = this.releases_in;
   }
 
+  /**
+   * Método responsáel pela filtragem dos lançamentos diversos de saída
+   * @param {any} event Informações do evento IonInput similar ao KeyUp
+   * @returns {void|number}
+   */
   public filterVariousOut(event) {
     let searched      = event.target.value;
     this.releases_out = this.temp_releases_out;
@@ -43,6 +85,11 @@ export class VariousReleasesPage {
     }
   }
 
+  /**
+   * Método responsáel pela filtragem dos lançamentos diversos de entrada
+   * @param {any} event Informações do evento IonInput similar ao KeyUp
+   * @returns {void|number}
+   */
   public filterVariousIn(event) {
     let searched      = event.target.value;
     this.releases_in = this.temp_releases_in;
@@ -54,6 +101,10 @@ export class VariousReleasesPage {
     }
   }
 
+  /**
+   * Método responsável por listar o lançamentos diversos de saída
+   * @returns {void}
+   */
   public getVariousReleasesOut() {
     let load = this.loadCtrl.create({content:"Carregando lançamentos..."}) ;
 
@@ -75,6 +126,10 @@ export class VariousReleasesPage {
     });
   }
 
+  /**
+   * Método responsável por listar o lançamentos diversos de entrada
+   * @returns {void}
+   */
   public getVariousReleasesIn() {
     this.variousDao.selectVariousIn("", data => {
       let length = data.rows.length;
@@ -91,6 +146,12 @@ export class VariousReleasesPage {
     });
   }
 
+  /**
+   * Método responsável por criar a modal para cada lançamento e seus respectivos dados e atualizar listagem
+   * @param {any} event  Informações do evento Tap similar ao Click
+   * @param {Object} params Informações do lançamento
+   * @returns {void|boolean}
+   */
   public togglePopover(event, params = {}){
     event.stopPropagation();
 
@@ -110,6 +171,10 @@ export class VariousReleasesPage {
     });
   }
 
+  /**
+   * Método responsável por criar modal de edição do lançamento e atualizar listagem dos lançamentos
+   * @returns {void|boolean}
+   */
   public toggleModal() {
     let modal = this.modalCtrl.create(this.variousModal);
 
@@ -126,5 +191,4 @@ export class VariousReleasesPage {
       this.getVariousReleasesIn();
     });
   }
-
 }
