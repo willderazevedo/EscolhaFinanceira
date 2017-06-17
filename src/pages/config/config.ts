@@ -54,7 +54,6 @@ export class ConfigPage {
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
   public alertCtrl: AlertController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
-    this.viewCtrl.showBackButton(false);
     this.getConfig();
   }
 
