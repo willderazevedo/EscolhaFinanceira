@@ -27,6 +27,7 @@
 <ion-content padding>
   <div [ngSwitch]="releases_type">
     <div *ngSwitchCase="'out'">
+      <ion-searchbar placeholder="Pesquise por nome" (ionInput)="filterVariousOut($event)"></ion-searchbar>
       <ion-card *ngIf="releases_out.length == 0">
         <ion-card-content>
           Nenhum lançamento encontrado
@@ -120,6 +121,7 @@
 
   <div [ngSwitch]="releases_type">
     <div *ngSwitchCase="'in'">
+      <ion-searchbar placeholder="Pesquise por nome" (ionInput)="filterVariousIn($event)"></ion-searchbar>
       <ion-card *ngIf="releases_in.length == 0">
         <ion-card-content>
           Nenhum lançamento encontrado

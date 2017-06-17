@@ -18,10 +18,12 @@ import { FixesPopoverPage } from '../fixes-popover/fixes-popover';
 })
 export class FixesReleasesPage {
 
-  fixesModal    = FixesModalPage;
-  releases_type = "out";
-  releases_out  = [];
-  releases_in   = [];
+  fixesModal        = FixesModalPage;
+  releases_type     = "out";
+  releases_out      = [];
+  releases_in       = [];
+  temp_releases_out = [];
+  temp_releases_in  = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public modalCtrl: ModalController,
@@ -29,6 +31,30 @@ export class FixesReleasesPage {
   public fixesDao: FixesReleasesDAO, public closeFixes: ClosedFixesReleasesDao) {
     this.getFixesReleasesOut();
     this.getFixesReleasesIn();
+    this.temp_releases_out = this.releases_out;
+    this.temp_releases_in  = this.releases_in;
+  }
+
+  public filterFixesOut(event) {
+    let searched      = event.target.value;
+    this.releases_out = this.temp_releases_out;
+
+    if (searched && searched.trim() != '') {
+      this.releases_out = this.releases_out.filter((item) => {
+        return (item.FIXES_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  public filterFixesIn(event) {
+    let searched      = event.target.value;
+    this.releases_in = this.temp_releases_in;
+
+    if (searched && searched.trim() != '') {
+      this.releases_in = this.releases_in.filter((item) => {
+        return (item.FIXES_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
   }
 
   public getFixesReleasesOut() {

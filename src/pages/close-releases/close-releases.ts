@@ -15,6 +15,8 @@ export class CloseReleasesPage {
   release_type     = "various";
   various_releases = [];
   fixes_releases   = [];
+  temp_various     = [];
+  temp_fixes       = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public loadCtrl: LoadingController, public variousDao: VariousReleasesDAO,
@@ -22,6 +24,30 @@ export class CloseReleasesPage {
   public closedVariousDao: ClosedVariousReleasesDao) {
     this.getClosedVariousReleases();
     this.getClosedFixesReleases();
+    this.temp_various = this.various_releases;
+    this.temp_fixes   = this.fixes_releases;
+  }
+
+  public filterVarious(event) {
+    let searched          = event.target.value;
+    this.various_releases = this.temp_various;
+
+    if (searched && searched.trim() != '') {
+      this.various_releases = this.various_releases.filter((item) => {
+        return (item.CLOSED_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  public filterFixes(event) {
+    let searched        = event.target.value;
+    this.fixes_releases = this.temp_fixes;
+
+    if (searched && searched.trim() != '') {
+      this.fixes_releases = this.fixes_releases.filter((item) => {
+        return (item.CLOSED_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
   }
 
   public getClosedVariousReleases() {

@@ -15,10 +15,12 @@ import { VariousPopoverPage } from '../various-popover/various-popover';
 })
 export class VariousReleasesPage {
 
-  variousModal  = VariousModalPage;
-  releases_type = "out";
-  releases_out  = [];
-  releases_in   = [];
+  variousModal      = VariousModalPage;
+  releases_type     = "out";
+  releases_out      = [];
+  releases_in       = [];
+  temp_releases_out = [];
+  temp_releases_in  = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public popoverCtrl: PopoverController, public alertCtrl: AlertController,
@@ -26,6 +28,30 @@ export class VariousReleasesPage {
   public variousDao: VariousReleasesDAO, public closedVarious: ClosedVariousReleasesDao) {
     this.getVariousReleasesOut();
     this.getVariousReleasesIn();
+    this.temp_releases_out = this.releases_out;
+    this.temp_releases_in  = this.releases_in;
+  }
+
+  public filterVariousOut(event) {
+    let searched      = event.target.value;
+    this.releases_out = this.temp_releases_out;
+
+    if (searched && searched.trim() != '') {
+      this.releases_out = this.releases_out.filter((item) => {
+        return (item.VARIOUS_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  public filterVariousIn(event) {
+    let searched      = event.target.value;
+    this.releases_in = this.temp_releases_in;
+
+    if (searched && searched.trim() != '') {
+      this.releases_in = this.releases_in.filter((item) => {
+        return (item.VARIOUS_NAME.toLowerCase().indexOf(searched.toLowerCase()) > -1);
+      });
+    }
   }
 
   public getVariousReleasesOut() {

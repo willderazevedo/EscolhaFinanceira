@@ -120,7 +120,7 @@
       </ion-row>
     </ion-card-content>
 
-    <ion-row *ngIf="various_releases.length > 6">
+    <ion-row *ngIf="various_releases.length > 3">
       <ion-col>
         <button ion-button icon-left clear small (click)="this.global.pageNavigation(various_page)">
           <div>Todos ></div>
@@ -150,7 +150,7 @@
       </ion-row>
     </ion-card-content>
 
-    <ion-row *ngIf="fixes_releases.length > 6">
+    <ion-row *ngIf="fixes_releases.length > 3">
       <ion-col>
         <button ion-button icon-left clear small (click)="this.global.pageNavigation(fixes_page)">
           <div>Todos ></div>
