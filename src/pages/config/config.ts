@@ -61,7 +61,7 @@ export class ConfigPage {
    * Adicionando evento para botão de navegação push
    * @returns {void}
    */
-  private backButtonAction() {
+  public backButtonAction() {
     this.menu.swipeEnable(true);
     this.navCtrl.pop();
   }

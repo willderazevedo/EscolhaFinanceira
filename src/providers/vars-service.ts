@@ -25,7 +25,7 @@ export class VarsService {
    * Valor da salario
    * @type {float}
    */
-  public income = 0;
+  public income = 0.0;
 
   constructor() {}
 
