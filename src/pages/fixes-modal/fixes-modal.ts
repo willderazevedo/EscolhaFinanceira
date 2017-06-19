@@ -56,7 +56,7 @@ export class FixesModalPage {
     let empty = false;
     let field = this.releases;
 
-    if(!field.name || !field.value) {
+    if(!field.name || !field.value || parseFloat(field.value) == 0) {
       empty = true;
     }
 

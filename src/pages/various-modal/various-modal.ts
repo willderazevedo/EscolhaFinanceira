@@ -75,7 +75,7 @@ export class VariousModalPage {
     let empty = false;
     let field = this.releases;
 
-    if(!field.name || !field.value || (field.type == 0 && field.form == 0 && (!field.plots || field.plots === "0"))) {
+    if(!field.name || !field.value || parseFloat(field.value) == 0 || (field.type == 0 && field.form == 0 && (!field.plots || field.plots === "0"))) {
       empty = true;
     }
 

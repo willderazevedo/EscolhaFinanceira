@@ -229,10 +229,10 @@ export class TotoroBotService {
     this.variousDao.selectPlotsValueOnMonth(data => {
       let sumCard = data.rows.length > 0 ? (data.rows.item(0).SUM_CARD * (-1)) : 0;
 
-      this.fixesDao.selectFixesOut("", data => {
+      this.fixesDao.selectFixesOutSum(data => {
         let sumOutFixes = data.rows.length > 0 ? (data.rows.item(0).SUM_OUT * (-1)) : 0;
 
-        this.fixesDao.selectFixesIn("", data => {
+        this.fixesDao.selectFixesInSum(data => {
           let sumInFixes   = data.rows.length > 0 ? data.rows.item(0).SUM_IN : 0;
           let spentOnMonth = ((sumCard + sumOutFixes) + sumInFixes);
           let spentNow     = (spentOnMonth - (release.value/release.plots));
