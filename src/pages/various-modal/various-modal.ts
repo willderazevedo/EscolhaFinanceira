@@ -90,7 +90,7 @@ export class VariousModalPage {
     let income       = this.vars.income;
     let invalidValue = false;
 
-    if((this.releases.form == 1 && parseFloat(this.releases.value) > income)) {
+    if((this.releases.form == 1 && this.releases.type == 0 && parseFloat(this.releases.value) > income)) {
       invalidValue = true;
     }
 

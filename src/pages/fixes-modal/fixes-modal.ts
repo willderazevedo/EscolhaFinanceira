@@ -71,7 +71,7 @@ export class FixesModalPage {
     let income       = this.vars.income;
     let invalidValue = false;
 
-    if(parseFloat(this.releases.value) > income) {
+    if(parseFloat(this.releases.value) > income && this.releases.type == 0) {
       invalidValue = true;
     }
 
