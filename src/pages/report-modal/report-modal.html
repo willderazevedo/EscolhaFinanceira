@@ -29,7 +29,7 @@
           <h2>{{ data.VARIOUS_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ data.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
+          <p class="{{ data.VARIOUS_TYPE == 1 ? 'secondary' : 'danger' }}">
             <span *ngIf="data.VARIOUS_PAY_FORM == 0">
               {{ data.VARIOUS_PLOTS }}x de R$ {{ (data.VARIOUS_VALUE/data.VARIOUS_PLOTS).toFixed(2) }}
             </span>
@@ -58,7 +58,7 @@
           <h2>{{ data.FIXES_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ data.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
+          <p class="{{ data.FIXES_TYPE == 1 ? 'secondary' : 'danger' }}">
             R$ {{ data.FIXES_TYPE == 1 ? '+' : '-' }}{{ data.FIXES_VALUE }}
           </p>
         </ion-col>
@@ -81,7 +81,7 @@
           <h2>{{ data.CLOSED_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+          <p class="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
             <span *ngIf="data.CLOSED_PAY_FORM == 0">
               Parcela de R$ {{ data.CLOSED_VALUE }} em {{ data.CLOSED_DATE | date: 'dd/MM/yyyy' }}
             </span>
@@ -110,7 +110,7 @@
           <h2>{{ data.CLOSED_NAME }}</h2>
         </ion-col>
         <ion-col>
-          <p color="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+          <p class="{{ data.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
               R$ {{ data.CLOSED_TYPE == 1 ? '+' : '-' }}{{ data.CLOSED_VALUE }} <small>{{ data.CLOSED_DATE | date: 'MM/yyyy' }}</small>
           </p>
         </ion-col>

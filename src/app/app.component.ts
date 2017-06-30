@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Platform, App, MenuController, AlertController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { Platform, MenuController, AlertController, App } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Providers
 import { GlobalService } from '../providers/global-service';
@@ -91,28 +92,17 @@ export class MyApp {
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
+  statusBar: StatusBar, splashScreen: SplashScreen,
   public global: GlobalService, public daoConfig: ConfigDAO,
   public vars: VarsService, public app: App,
   public menu: MenuController, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       helper.createDataBase();
-      StatusBar.backgroundColorByHexString('#216ded');
+      statusBar.backgroundColorByHexString('#216ded');
       this.backButtonHardwareAction(platform);
-      this.hideSplashScreen();
       this.checkConfig();
+      splashScreen.hide();
     });
-  }
-
-  /**
-   * Método responsável por corrigir o erro da splash screen e dispensa-la no tempo correto
-   * @returns {void}
-   */
-  private hideSplashScreen() {
-    if(Splashscreen) {
-      setTimeout(()=> {
-        Splashscreen.hide();
-      }, 100);
-    }
   }
 
   /**
@@ -155,13 +145,11 @@ export class MyApp {
       if(res.rows.length > 0){
         this.rootPage = this.panel;
         this.global.updateConfigVars();
-        this.hideSplashScreen();
 
         return false;
       }
 
       this.rootPage = this.tutorial;
-      this.hideSplashScreen();
     });
   }
 }

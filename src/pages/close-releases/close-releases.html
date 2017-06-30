@@ -42,12 +42,12 @@
               <h2>Valor:</h2>
             </ion-col>
             <ion-col *ngIf="release.CLOSED_PAY_FORM == 0">
-              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+              <p class="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
                 R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ (release.CLOSED_VALUE/release.CLOSED_PLOTS).toFixed(2) }}
               </p>
             </ion-col>
             <ion-col *ngIf="release.CLOSED_PAY_FORM == 1">
-              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+              <p class="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
                 R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ release.CLOSED_VALUE }}
               </p>
             </ion-col>
@@ -94,7 +94,7 @@
               <h2>Valor:</h2>
             </ion-col>
             <ion-col>
-              <p color="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
+              <p class="{{ release.CLOSED_TYPE == 1 ? 'secondary' : 'danger' }}">
                 R$ {{ release.CLOSED_TYPE == 1 ? '+' : '-' }}{{ release.CLOSED_VALUE }}
               </p>
             </ion-col>

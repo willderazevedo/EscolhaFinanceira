@@ -1,5 +1,9 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+
 import { MyApp } from './app.component';
 
 //Data Access Object
@@ -50,6 +54,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     TutorialPage
   ],
   imports: [
+    BrowserModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'md',
@@ -76,6 +81,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     TutorialPage
   ],
   providers: [
+    StatusBar,
+    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
     SQLite,
