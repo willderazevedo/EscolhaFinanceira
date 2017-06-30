@@ -1,7 +1,8 @@
 {
-    "name": "ionic-hello-world",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "name": "escolha-financeira",
+    "author": "Willder Azevedo",
+    "version": "0.0.1",
+    "homepage": "http://github.com/willderazevedo",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
