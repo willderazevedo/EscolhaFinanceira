@@ -54,7 +54,7 @@ export class TotoroBotService {
 
         if(release.form == 0) {
 
-          for(var i = 2;i <= 30;i++) {
+          for(let i = 2;i <= 30;i++) {
             if((((spentValue/i) * 100)/income) < 50) {
               savePlots = i;
 
@@ -107,7 +107,7 @@ export class TotoroBotService {
       let rows          = data.rows;
       let sumOutVarious = 0;
 
-      for(var i = 0;i < rows.length;i++) {
+      for(let i = 0;i < rows.length;i++) {
         if(rows.item(i).VARIOUS_PAY_FORM == 0) {
           sumOutVarious += (rows.item(i).VARIOUS_VALUE/rows.item(i).VARIOUS_PLOTS);
 
@@ -126,7 +126,7 @@ export class TotoroBotService {
           let rows         = data.rows;
           let sumInVarious = 0;
 
-          for(var i = 0;i < rows.length;i++) {
+          for(let i = 0;i < rows.length;i++) {
             sumInVarious += rows.item(i).VARIOUS_VALUE;
           }
 
@@ -159,7 +159,7 @@ export class TotoroBotService {
             }
 
             if(release.form == 0) {
-              for(var i = 2; i < 30;i++) {
+              for(let i = 2; i < 30;i++) {
                 let calcBestPlot = (((release.value/i) + spentOnMonth) * 100)/income;
 
                 if(calcBestPlot < 90) {
@@ -169,7 +169,7 @@ export class TotoroBotService {
                 }
               }
 
-              for(var i = parseFloat(release.value);i >= 1;i--) {
+              for(let i = parseFloat(release.value);i >= 1;i--) {
                 let calcBestValue = (((i/release.plots) + spentOnMonth) * 100)/income;
 
                 if(calcBestValue < 90) {
@@ -188,7 +188,7 @@ export class TotoroBotService {
               return false;
             }
 
-            for(var i = 1;i <= 100; i++) {
+            for(let i = 1;i <= 100; i++) {
               let calcBestPercent = ((((releaseValue - (i * releaseValue)/100)) + spentOnMonth) * 100)/income;
 
               if (calcBestPercent < 90) {
@@ -260,7 +260,7 @@ export class TotoroBotService {
             return false;
           }
 
-          for(var i = 2;i < 30;i++) {
+          for(let i = 2;i < 30;i++) {
             let calcBestPlot = (((release.value/i) + spentOnMonth) * 100)/income;
 
             if(calcBestPlot < 75) {
@@ -271,7 +271,7 @@ export class TotoroBotService {
             }
           }
 
-          for(var i = parseFloat(release.value);i >= 1;i--) {
+          for(let i = parseFloat(release.value);i >= 1;i--) {
             let calcBestValue = (((i/release.plots) + spentOnMonth) * 100)/income;
 
             if(calcBestValue < 75) {
@@ -356,7 +356,7 @@ export class TotoroBotService {
         let rows          = data.rows;
         let sumOutVarious = 0;
 
-        for(var i = 0;i < rows.length;i++) {
+        for(let i = 0;i < rows.length;i++) {
           if(rows.item(i).VARIOUS_PAY_FORM == 0) {
             sumOutVarious += (rows.item(i).VARIOUS_VALUE/rows.item(i).VARIOUS_PLOTS);
 
@@ -375,7 +375,7 @@ export class TotoroBotService {
             let rows         = data.rows;
             let sumInVarious = 0;
 
-            for(var i = 0;i < rows.length;i++) {
+            for(let i = 0;i < rows.length;i++) {
               sumInVarious += rows.item(i).VARIOUS_VALUE;
             }
 
@@ -404,7 +404,7 @@ export class TotoroBotService {
               return false;
             }
 
-            for(var i = 1;i <= 100; i++) {
+            for(let i = 1;i <= 100; i++) {
               let calcBestPercent = ((((release.value - (i * release.value)/100)) + spentOnMonth) * 100)/income;
 
               if (calcBestPercent < 90) {

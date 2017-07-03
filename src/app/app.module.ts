@@ -15,7 +15,6 @@ import { ClosedVariousReleasesDao } from '../providers/dao/closed-various-releas
 import { ReportDao } from '../providers/dao/report-dao';
 
 //Providers
-import { SQLite } from '@ionic-native/sqlite';
 import { GlobalService } from '../providers/global-service';
 import { VarsService } from '../providers/vars-service';
 import { TotoroBotService } from '../providers/totoro-bot-service';
@@ -35,6 +34,11 @@ import { ReportModalPage } from '../pages/report-modal/report-modal';
 import { CloseReleasesPage } from '../pages/close-releases/close-releases';
 import { InfoPage } from '../pages/info/info';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+
+//Plugins
+import { SQLite } from '@ionic-native/sqlite';
+import { Camera } from '@ionic-native/camera';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule({
   declarations: [
@@ -83,9 +87,11 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
   providers: [
     StatusBar,
     SplashScreen,
+    SQLite,
+    Camera,
+    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalService,
-    SQLite,
     DbHelper,
     ConfigDAO,
     VariousReleasesDAO,

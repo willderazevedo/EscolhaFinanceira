@@ -11,17 +11,17 @@
   </ion-header>
 
   <ion-content>
-    <ion-item>
+    <ion-item style="background-image: url('./assets/images/user-back.jpg')">
       <ion-row>
         <ion-col>
-          <ion-avatar class="avatar">
-            <img src="assets/images/totoro.png" alt="Avatar">
+          <ion-avatar class="avatar" (click)="chooseAvatar()">
+            <img src="{{ this.vars.avatar }}" alt="Avatar">
           </ion-avatar>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="text-center">
-          <h2>{{ this.vars.name }}</h2>
+          <h2 class="user-name">{{ this.vars.name }}</h2>
         </ion-col>
       </ion-row>
     </ion-item>

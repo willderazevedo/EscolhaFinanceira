@@ -22,6 +22,12 @@ export class VarsService {
   public name = "";
 
   /**
+   * Avatar do usuário
+   * @type {string}
+   */
+  public avatar = "./assets/images/totoro.png";
+
+  /**
    * Valor da salario
    * @type {float}
    */
