@@ -56,19 +56,22 @@
 
 .card {
   margin-bottom: 30px !important;
+
+  ion-card-content.card-content.card-content-md .row .col {
+
+    .danger {
+      color: map-get($colors, 'danger');
+    }
+
+    .secondary {
+      color: map-get($colors, 'secondary');
+    }
+  }
 }
 
 .content {
   .searchbar {
     padding: 0 0 8px 0;
     margin-bottom: 20px;
-  }
-
-  .danger {
-    color: map-get($colors, 'danger');
-  }
-
-  .secondary {
-    color: map-get($colors, 'secondary');
   }
 }
