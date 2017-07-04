@@ -171,7 +171,7 @@ export class VariousPopoverPage {
       if(res.rows.length > 0 && forceDel === false){
         load.dismiss();
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não é possível remover este lançamento pois algumas parcelas já foram pagas.",
           duration: 2500
         }).present();
@@ -186,7 +186,7 @@ export class VariousPopoverPage {
 
         if(res.rowsAffected <= 0){
           this.toastCtrl.create({
-            position: "top",
+            position: "bottom",
             message: errMsg,
             duration: 2000
           }).present();
@@ -195,7 +195,7 @@ export class VariousPopoverPage {
         }
 
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: successMsg,
           duration: 1500
         }).present();
@@ -234,7 +234,7 @@ export class VariousPopoverPage {
       if(res.rowsAffected <= 0) {
         load.dismiss();
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possivel fechar este lançamento.",
           duration: 2000
         }).present();
@@ -262,7 +262,7 @@ export class VariousPopoverPage {
       if(res.rows.length > 0) {
         load.dismiss();
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "A parcela deste lançamento já foi paga este mês.",
           duration: 2000
         }).present();
@@ -274,7 +274,7 @@ export class VariousPopoverPage {
         if(res.rowsAffected <= 0) {
           load.dismiss();
           this.toastCtrl.create({
-            position: "top",
+            position: "bottom",
             message: "Não foi possivel pagar esta parcela.",
             duration: 2000
           }).present();
@@ -294,7 +294,7 @@ export class VariousPopoverPage {
             if(res.rowsAffected <= 0) {
               load.dismiss();
               this.toastCtrl.create({
-                position: "top",
+                position: "bottom",
                 message: "Não foi possivel decrementar parcela.",
                 duration: 2000
               }).present();
@@ -304,7 +304,7 @@ export class VariousPopoverPage {
 
             load.dismiss();
             this.toastCtrl.create({
-              position: "top",
+              position: "bottom",
               message: "Parcela paga com sucesso.",
               duration: 1500
             }).present();

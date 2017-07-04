@@ -7,6 +7,7 @@ import { ClosedFixesReleasesDao } from '../../providers/dao/closed-fixes-release
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { VarsService } from '../../providers/vars-service';
 
 //Template Pages
 import { FixesModalPage } from '../fixes-modal/fixes-modal';
@@ -61,11 +62,13 @@ export class FixesReleasesPage {
    * @param {LoadingController}      loadCtrl    Biblioteca nativa para controle dos alertas de carregamento
    * @param {GlobalService}          global      Provider responsável pelas fuções globais
    * @param {FixesReleasesDAO}       fixesDao    Data Access Object de lançamentos fixos
+   * @param {VarsService}              vars             Provider para acesso de variaveis globais
    * @param {ClosedFixesReleasesDao} closeFixes  Data Access Object de lançamentos fixos pagos
    */
   constructor(public popoverCtrl: PopoverController, public modalCtrl: ModalController,
   public global: GlobalService, public loadCtrl: LoadingController,
-  public fixesDao: FixesReleasesDAO, public closeFixes: ClosedFixesReleasesDao) {
+  public fixesDao: FixesReleasesDAO, public closeFixes: ClosedFixesReleasesDao,
+  public vars: VarsService) {
     this.getFixesReleasesOut();
     this.getFixesReleasesIn();
     this.temp_releases_out = this.releases_out;

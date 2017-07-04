@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="{{ this.vars.navColor }}">
     <ion-buttons left>
       <button ion-button icon-only clear menuToggle>
         <ion-icon name="md-menu"></ion-icon>
@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header color="primary">
+    <ion-card-header color="{{ this.vars.navColor }}">
       Maior lançamento diverso do mês
     </ion-card-header>
     <hr class="card-line">
@@ -69,7 +69,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header color="primary">
+    <ion-card-header color="{{ this.vars.navColor }}">
       Maior lançamento fixo do mês
     </ion-card-header>
     <hr class="card-line">
@@ -100,7 +100,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header color="primary">
+    <ion-card-header color="{{ this.vars.navColor }}">
       Lançamentos Diversos
     </ion-card-header>
     <hr class="card-line">
@@ -122,7 +122,7 @@
 
     <ion-row *ngIf="various_releases.length !== 0">
       <ion-col>
-        <button ion-button icon-left clear small (click)="this.global.pageNavigation(various_page)">
+        <button ion-button icon-left clear small color="{{ this.vars.navColor }}" (click)="this.global.pageNavigation(various_page)">
           <div>Todos ></div>
         </button>
       </ion-col>
@@ -130,7 +130,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header color="primary">
+    <ion-card-header color="{{ this.vars.navColor }}">
       Lançamentos Fixos
     </ion-card-header>
     <hr class="card-line">
@@ -152,7 +152,7 @@
 
     <ion-row *ngIf="fixes_releases.length !== 0">
       <ion-col>
-        <button ion-button icon-left clear small (click)="this.global.pageNavigation(fixes_page)">
+        <button ion-button icon-left clear small color="{{ this.vars.navColor }}" (click)="this.global.pageNavigation(fixes_page)">
           <div>Todos ></div>
         </button>
       </ion-col>

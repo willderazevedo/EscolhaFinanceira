@@ -28,6 +28,24 @@ export class VarsService {
   public avatar = "./assets/images/totoro.png";
 
   /**
+   * Cor do tema
+   * @type {string}
+   */
+  public navColor = "primary";
+
+  /**
+   * Cor do tema da status bar
+   * @type {string}
+   */
+  public variationStatusBar = "#216ded";
+
+  /**
+   * Cor do tema da botão de escolha das cores
+   * @type {string}
+   */
+  public variationPalletButton = "danger";
+
+  /**
    * Valor da salario
    * @type {float}
    */

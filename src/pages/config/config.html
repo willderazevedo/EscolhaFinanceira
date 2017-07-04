@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary" hideBackButton>
+  <ion-navbar color="{{ this.vars.navColor }}" hideBackButton>
     <ion-buttons left>
       <button ion-button clear icon-only *ngIf="update" (click)="backButtonAction()">
         <ion-icon name="md-arrow-round-back"></ion-icon>
@@ -16,7 +16,7 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header color="primary">
+    <ion-card-header color="{{ this.vars.navColor }}">
       Me conte sobre você
     </ion-card-header>
     <hr class="card-line">

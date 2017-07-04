@@ -1,6 +1,6 @@
 <ion-menu [content]="menu">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="{{ this.vars.navColor }}">
       <ion-buttons left>
         <button ion-button icon-only clear menuClose>
           <ion-icon name="md-arrow-round-back"></ion-icon>
@@ -53,6 +53,20 @@
       <ion-icon name="md-information-circle"></ion-icon>
       Sobre
     </button>
+
+    <ion-fab top right edge>
+      <button ion-fab mini color="{{ this.vars.variationPalletButton }}">
+        <ion-icon name="md-color-palette"></ion-icon>
+      </button>
+
+      <ion-fab-list side="bottom">
+        <button class="dot" ion-fab color="purple" (click)="chooseTheme('purple', '#8635bd', 'darkPurple')"></button>
+        <button class="dot" ion-fab color="yellow" (click)="chooseTheme('yellow', '#c78419', 'darkYellow')"></button>
+        <button class="dot" ion-fab color="pink" (click)="chooseTheme('pink', '#b92255', 'darkPink')"></button>
+        <button class="dot" ion-fab color="primary" (click)="chooseTheme('primary', '#216ded', 'blue')"></button>
+        <button class="dot" ion-fab color="green" (click)="chooseTheme('green', '#3e693a', 'darkGreen')"></button>
+      </ion-fab-list>
+    </ion-fab>
   </ion-content>
 </ion-menu>
 

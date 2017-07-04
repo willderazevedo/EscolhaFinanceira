@@ -6,6 +6,7 @@ import { ConfigDAO } from '../../providers/dao/config-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { VarsService } from '../../providers/vars-service';
 
 //Pages
 import { PanelPage } from '../panel/panel';
@@ -47,12 +48,14 @@ export class ConfigPage {
    * @param  {LoadingController} loadCtrl  Controle do alerta de load
    * @param  {ToastController}   toastCtrl Controle do toast
    * @param  {ConfigDAO}         dao       Data Access Object de config
+   * @param {VarsService}              vars             Provider para acesso de variaveis globais
    * @return {void}
    */
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public toastCtrl: ToastController, public dao: ConfigDAO) {
+  public toastCtrl: ToastController, public dao: ConfigDAO,
+  public vars: VarsService) {
     this.menu.swipeEnable(false);
     this.getConfig();
   }
@@ -82,7 +85,7 @@ export class ConfigPage {
 
       if(res.rowsAffected <= 0){
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possível salvar as configurações!",
           duration: 2000
         }).present();
@@ -111,7 +114,7 @@ export class ConfigPage {
 
       if(res.rowsAffected <= 0){
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possível salvar as configurações!",
           duration: 2000
         }).present();
@@ -122,7 +125,7 @@ export class ConfigPage {
       this.global.updateConfigVars();
 
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "Configurações atualizadas!",
         duration: 1500
       }).present();

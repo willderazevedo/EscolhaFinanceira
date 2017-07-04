@@ -94,7 +94,7 @@ export class FixesModalPage {
 
       if(res.rowsAffected <= 0){
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possível salvar este lançamento!",
           duration: 2000
         }).present();
@@ -103,7 +103,7 @@ export class FixesModalPage {
       }
 
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "Lançamento salvo com sucesso!",
         duration: 1500
       }).present();
@@ -127,7 +127,7 @@ export class FixesModalPage {
 
       if(res.rowsAffected <= 0){
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possível salvar este lançamento!",
           duration: 2000
         }).present();
@@ -136,7 +136,7 @@ export class FixesModalPage {
       }
 
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "Lançamento salvo com sucesso!",
         duration: 1500
       }).present();
@@ -171,7 +171,7 @@ export class FixesModalPage {
 
     if(empty){
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "Preencha todos os campos corretamente.",
         duration: 2000
       }).present();
@@ -181,7 +181,7 @@ export class FixesModalPage {
 
     if(invalidValue){
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "O valor não deve ultrapassar sua renda.",
         duration: 2000
       }).present();

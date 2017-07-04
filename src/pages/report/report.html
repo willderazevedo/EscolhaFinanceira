@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="{{ this.vars.navColor }}">
     <ion-buttons left>
       <button ion-button icon-only clear menuToggle>
         <ion-icon name="md-menu"></ion-icon>
@@ -27,14 +27,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Abertos</ion-label>
-            <ion-radio checked="true" value="1"></ion-radio>
+            <ion-radio checked="true" color="{{ this.vars.navColor }}" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Fechados</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio color="{{ this.vars.navColor }}" value="0"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -46,14 +46,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Diversos</ion-label>
-            <ion-radio checked="true" value="1"></ion-radio>
+            <ion-radio checked="true" color="{{ this.vars.navColor }}" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Fixos</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -65,14 +65,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="1"></ion-radio>
+            <ion-radio checked="true" color="{{ this.vars.navColor }}" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -84,21 +84,21 @@
         <ion-col>
           <ion-item>
             <ion-label>Avista</ion-label>
-            <ion-radio checked="true" value="1"></ion-radio>
+            <ion-radio checked="true" color="{{ this.vars.navColor }}" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Cartão</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
     </div>
   </ion-list>
 
-  <button ion-button full color="primary" (click)="makeReport()">
+  <button ion-button full color="{{ this.vars.navColor }}" (click)="makeReport()">
     Gerar Relatório
   </button>
 </ion-content>

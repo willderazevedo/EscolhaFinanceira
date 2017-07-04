@@ -99,7 +99,7 @@ export class MyApp {
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
-  statusBar: StatusBar, splashScreen: SplashScreen,
+  public statusBar: StatusBar, splashScreen: SplashScreen,
   public global: GlobalService, public daoConfig: ConfigDAO,
   public vars: VarsService, public app: App,
   public menu: MenuController, public alertCtrl: AlertController,
@@ -107,11 +107,12 @@ export class MyApp {
   public loadCtrl: LoadingController) {
     platform.ready().then(() => {
       helper.createDataBase();
-      statusBar.backgroundColorByHexString('#216ded');
+      this.statusBar.backgroundColorByHexString(this.vars.variationStatusBar);
       this.backButtonHardwareAction(platform);
       this.checkConfig();
       splashScreen.hide();
       this.loadAvatar();
+      this.loadTheme();
     });
   }
 
@@ -183,6 +184,18 @@ export class MyApp {
   }
 
   /**
+   * Método responsável por carregar a cor escolhida pelo usuario
+   * @return {void}
+   */
+  private loadTheme() {
+    this.storage.getItem("user_theme").then(data => {
+      this.vars.navColor              = data.nav;
+      this.vars.variationPalletButton = data.pallet;
+      this.statusBar.backgroundColorByHexString(data.status);
+    }).catch(err => console.log(err));
+  }
+
+  /**
    * Método responsável pela troca do avatar do usuário e salvar o caminho da imagem
    * no storage em base64 para cada usuario logado
    * @return {void}
@@ -207,5 +220,30 @@ export class MyApp {
         console.log(err);
       });
     }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável por trocar a cor do tema
+   * @param  {String} navColor Cor escolhida
+   * @return {void}
+   */
+  public chooseTheme(navColor, statusBarColor, palletButtonColor) {
+    let load        = this.loadCtrl.create({content: "Trocando cor..."});
+    let themeColors = {
+      nav: navColor,
+      status: statusBarColor,
+      pallet: palletButtonColor
+    };
+
+    load.present();
+    this.storage.setItem("user_theme", themeColors).then(() => {
+      load.dismiss();
+      this.vars.navColor              = themeColors.nav;
+      this.vars.variationPalletButton = themeColors.pallet;
+      this.statusBar.backgroundColorByHexString(themeColors.status);
+    }).catch(err => {
+      load.dismiss();
+      console.log(err)
+    });
   }
 }

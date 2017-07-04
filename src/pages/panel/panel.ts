@@ -7,6 +7,7 @@ import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { VarsService } from '../../providers/vars-service';
 
 //Pages
 import { VariousReleasesPage } from '../various-releases/various-releases';
@@ -61,10 +62,12 @@ export class PanelPage {
    * @param {FixesReleasesDAO}   fixesDao   Data Access Object de lançamentos fixos
    * @param {VariousReleasesDAO} variousDao Data Access Object de lançamentos diversos
    * @param {LoadingController}  loadCtrl   Biblioteca nativa responsável por controlar alertas de carregamento
+   * @param {VarsService}              vars             Provider para acesso de variaveis globais
+   * @return {void}
    */
   constructor(public menu: MenuController, public global: GlobalService,
   public fixesDao: FixesReleasesDAO, public variousDao: VariousReleasesDAO,
-  public loadCtrl: LoadingController) {
+  public loadCtrl: LoadingController, public vars: VarsService) {
     this.menu.swipeEnable(true);
     this.loadInformations();
   }

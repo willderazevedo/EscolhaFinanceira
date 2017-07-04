@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="{{ this.vars.navColor }}">
     <ion-title>Novo Fixo</ion-title>
     <ion-buttons right>
       <button ion-button icon-only clear (click)="this.modalDismiss()">
@@ -28,21 +28,21 @@
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="1"></ion-radio>
+            <ion-radio checked="true" color="{{ this.vars.navColor }}" value="1"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
     </div>
   </ion-list>
 
-  <button ion-button full color="primary" (click)="initializeCaseOne()">
+  <button ion-button full color="{{ this.vars.navColor }}" (click)="initializeCaseOne()">
     Salvar
   </button>
 </ion-content>

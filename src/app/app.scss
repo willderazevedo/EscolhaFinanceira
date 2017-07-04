@@ -75,3 +75,29 @@
     margin-bottom: 20px;
   }
 }
+
+#menu-pallete.list {
+  margin: 0;
+
+  .item {
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+
+    .item-inner {
+      padding: 0 8px 0 16px;
+    }
+
+    .label .icon {
+      font-size: 19px;
+    }
+
+    .dot {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin: 10px auto;
+      position: relative;
+    }
+  }
+}

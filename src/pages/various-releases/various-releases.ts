@@ -9,6 +9,9 @@ import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-rel
 import { VariousModalPage } from '../various-modal/various-modal';
 import { VariousPopoverPage } from '../various-popover/various-popover';
 
+//Providers
+import { VarsService } from '../../providers/vars-service';
+
 @Component({
   selector: 'page-various-releases',
   templateUrl: 'various-releases.html'
@@ -58,10 +61,12 @@ export class VariousReleasesPage {
    * @param {ModalController}          modalCtrl     Biblioteca nativa responsável pelo controle de modais
    * @param {VariousReleasesDAO}       variousDao    Data Access Object de lançamentos diversos
    * @param {ClosedVariousReleasesDao} closedVarious Data Access Object de lançamentos diversos fechados
+   * @param {VarsService}              vars          Provider para acesso de variaveis globais
+   * @return {void}
    */
   constructor(public popoverCtrl: PopoverController, public loadCtrl: LoadingController,
   public modalCtrl: ModalController, public variousDao: VariousReleasesDAO,
-  public closedVarious: ClosedVariousReleasesDao) {
+  public closedVarious: ClosedVariousReleasesDao, public vars: VarsService) {
     this.getVariousReleasesOut();
     this.getVariousReleasesIn();
     this.temp_releases_out = this.releases_out;

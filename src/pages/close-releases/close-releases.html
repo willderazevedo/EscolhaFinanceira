@@ -1,6 +1,6 @@
 
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="{{ this.vars.navColor }}">
     <ion-buttons left>
       <button ion-button icon-only clear menuToggle>
         <ion-icon name="md-menu"></ion-icon>
@@ -8,7 +8,7 @@
     </ion-buttons>
     <ion-title>Fechados</ion-title>
   </ion-navbar>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="{{ this.vars.navColor }}">
     <ion-segment [(ngModel)]="release_type">
     <ion-segment-button value="various">
       Diversos
@@ -32,7 +32,7 @@
       <ion-card *ngFor="let release of various_releases">
         <ion-card-header>
           <ion-item detail-none>
-            <h2 color="primary">{{ release.CLOSED_NAME }}</h2>
+            <h2>{{ release.CLOSED_NAME }}</h2>
           </ion-item>
         </ion-card-header>
         <hr class="card-line">

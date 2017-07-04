@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="{{ this.vars.navColor }}">
     <ion-title>Novo Diverso</ion-title>
     <ion-buttons right>
       <button ion-button icon-only clear (click)="this.modalDismiss()">
@@ -28,14 +28,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Entrada</ion-label>
-            <ion-radio checked="true" value="1" (click)="fieldPayForm(false)"></ion-radio>
+            <ion-radio checked="true" value="1" color="{{ this.vars.navColor }}" (click)="fieldPayForm(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Saída</ion-label>
-            <ion-radio value="0" (click)="fieldPayForm(true)"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}" (click)="fieldPayForm(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -47,14 +47,14 @@
         <ion-col>
           <ion-item>
             <ion-label>Avista</ion-label>
-            <ion-radio checked="true" value="1" (click)="fieldPlots(false)"></ion-radio>
+            <ion-radio checked="true" value="1" color="{{ this.vars.navColor }}" (click)="fieldPlots(false)"></ion-radio>
           </ion-item>
         </ion-col>
 
         <ion-col>
           <ion-item>
             <ion-label>Cartão</ion-label>
-            <ion-radio value="0" (click)="fieldPlots(true)"></ion-radio>
+            <ion-radio value="0" color="{{ this.vars.navColor }}" (click)="fieldPlots(true)"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -66,5 +66,5 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button full color="primary" (click)="initializeCaseOne()">Salvar</button>
+  <button ion-button full color="{{ this.vars.navColor }}" (click)="initializeCaseOne()">Salvar</button>
 </ion-content>

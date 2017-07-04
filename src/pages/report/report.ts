@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
+import { VarsService } from '../../providers/vars-service';
 
 //TemplatePages
 import { ReportModalPage } from '../report-modal/report-modal';
@@ -52,8 +53,10 @@ export class ReportPage {
   /**
    * Construtor da classe ReportPage
    * @param {GlobalService} global Provider responsável pelas funções globais
+   * @param {VarsService}   vars             Provider para acesso de variaveis globais
+   * @return {void}
    */
-  constructor(public global: GlobalService) {}
+  constructor(public global: GlobalService, public vars: VarsService) {}
 
   /**
    * Método responsável por abrir a modal passando os filtros

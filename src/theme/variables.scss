@@ -38,14 +38,29 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222,
+  dark:       #222222,
   border:     #c8c7cc,
   font:       #484848,
-  none:       #ffffff
+  none:       #ffffff,
+  green:      #5b9556,
+  darkGreen:  #3e693a,
+  yellow:     #f39c12,
+  darkYellow: #c78419,
+  blue:       #216ded,
+  purple:     #9747ce,
+  darkPurple: #8635bd,
+  pink:       #e91e63,
+  darkPink:   #b92255
 );
 
+//Overrides
+//---------------------------------------------------
 $segment-button-md-border-color-activated: #fff;
 $segment-button-md-text-color-activated: #fff;
+$text-input-md-show-focus-highlight: false;
+$text-input-ios-show-focus-highlight: false;
+$label-md-text-color-focused: #484848;
+$label-md-text-color: #484848;
 
 
 // App iOS Variables

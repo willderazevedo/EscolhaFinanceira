@@ -5,6 +5,9 @@ import { LoadingController, AlertController } from 'ionic-angular';
 import { ClosedFixesReleasesDao } from '../../providers/dao/closed-fixes-releases-dao';
 import { ClosedVariousReleasesDao } from '../../providers/dao/closed-various-releases-dao';
 
+//Providers
+import { VarsService } from '../../providers/vars-service';
+
 @Component({
   selector: 'page-close-releases',
   templateUrl: 'close-releases.html'
@@ -47,9 +50,12 @@ export class CloseReleasesPage {
    * @param {AlertController}          alertCtrl        Biblioteca nativa para controle dos alertas
    * @param {ClosedFixesReleasesDao}   closedFixesDao   Data Access Object dos lançementos fixos pagos
    * @param {ClosedVariousReleasesDao} closedVariousDao Data Access Object dos lançamentos diversos pagos
+   * @param {VarsService}              vars             Provider para acesso de variaveis globais
+   * @return {void}
    */
   constructor(public loadCtrl: LoadingController, public alertCtrl: AlertController,
-  public closedFixesDao: ClosedFixesReleasesDao, public closedVariousDao: ClosedVariousReleasesDao) {
+  public closedFixesDao: ClosedFixesReleasesDao, public closedVariousDao: ClosedVariousReleasesDao,
+  public vars: VarsService) {
     this.getClosedVariousReleases();
     this.getClosedFixesReleases();
     this.temp_various = this.various_releases;

@@ -4,6 +4,9 @@ import { NavParams, ViewController, LoadingController } from 'ionic-angular';
 //Data Access Object
 import { ReportDao } from '../../providers/dao/report-dao';
 
+//Providers
+import { VarsService } from '../../providers/vars-service';
+
 @Component({
   selector: 'page-report-modal',
   templateUrl: 'report-modal.html'
@@ -34,9 +37,12 @@ export class ReportModalPage {
    * @param {ViewController}    viewCtrl  Biblioteca nativa responsável pelo controle das views
    * @param {LoadingController} loadCtrl  Biblioteca nativa responsável pelo controle de alertas
    * @param {ReportDao}         reportDao Data Access Object do relatório
+   * @param {VarsService}       vars      Provider para acesso de variaveis globais
+   * @return {void}
    */
   constructor(public navParams: NavParams, public viewCtrl: ViewController,
-  public reportDao: ReportDao, public loadCtrl: LoadingController) {
+  public reportDao: ReportDao, public loadCtrl: LoadingController,
+  public vars: VarsService) {
     this.buildReport();
   }
 

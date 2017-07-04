@@ -120,7 +120,7 @@ export class FixesPopoverPage {
         load.dismiss();
 
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Este lançamento ja foi fechado neste mês.",
           duration: 2000
         }).present();
@@ -133,7 +133,7 @@ export class FixesPopoverPage {
 
         if(res.rowsAffected <= 0){
           this.toastCtrl.create({
-            position: "top",
+            position: "bottom",
             message: "Não foi possível fechar este lançamento!",
             duration: 2000
           }).present();
@@ -142,7 +142,7 @@ export class FixesPopoverPage {
         }
 
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Lançamento fechado com sucesso!",
           duration: 1500
         }).present();
@@ -165,7 +165,7 @@ export class FixesPopoverPage {
 
       if(res.rowsAffected <= 0){
         this.toastCtrl.create({
-          position: "top",
+          position: "bottom",
           message: "Não foi possível deletar este lançamento!",
           duration: 2000
         }).present();
@@ -174,7 +174,7 @@ export class FixesPopoverPage {
       }
 
       this.toastCtrl.create({
-        position: "top",
+        position: "bottom",
         message: "Lançamento deletado com sucesso!",
         duration: 1500
       }).present();
