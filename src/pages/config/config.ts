@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, ViewController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ViewController, LoadingController, ToastController } from 'ionic-angular';
 
 //Data Access Object
 import { ConfigDAO } from '../../providers/dao/config-dao';
@@ -45,14 +45,14 @@ export class ConfigPage {
    * @param  {GlobalService}     global    Provider com funções globais
    * @param  {ViewController}    viewCtrl  Controle da pagina atual
    * @param  {LoadingController} loadCtrl  Controle do alerta de load
-   * @param  {AlertController}   alertCtrl Controle do alerta
+   * @param  {ToastController}   toastCtrl Controle do toast
    * @param  {ConfigDAO}         dao       Data Access Object de config
    * @return {void}
    */
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public menu: MenuController, public global: GlobalService,
   public viewCtrl: ViewController, public loadCtrl: LoadingController,
-  public alertCtrl: AlertController, public dao: ConfigDAO) {
+  public toastCtrl: ToastController, public dao: ConfigDAO) {
     this.menu.swipeEnable(false);
     this.getConfig();
   }
@@ -81,9 +81,10 @@ export class ConfigPage {
       load.dismiss();
 
       if(res.rowsAffected <= 0){
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não foi possível salvar as configurações!",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
@@ -109,27 +110,25 @@ export class ConfigPage {
       load.dismiss();
 
       if(res.rowsAffected <= 0){
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não foi possível salvar as configurações!",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
       }
 
-      this.alertCtrl.create({
+      this.global.updateConfigVars();
+
+      this.toastCtrl.create({
+        position: "top",
         message: "Configurações atualizadas!",
-        buttons: [
-          {
-            text: "Ok",
-            handler: () => {
-              this.global.updateConfigVars();
-              this.menu.swipeEnable(true);
-              this.navCtrl.pop();
-            }
-          }
-        ]
+        duration: 1500
       }).present();
+
+      this.menu.swipeEnable(true);
+      this.navCtrl.pop();
     });
   }
 

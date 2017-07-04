@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, ModalController, ToastController, LoadingController, AlertController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -34,19 +34,21 @@ export class FixesPopoverPage {
 
   /**
    * Construtor da classe FixesPopoverPage
-   * @param {NavParams}              public navParams Biblioteca nativa para acesso a paramêtros passando para esta tela
-   * @param {ViewController}         public viewCtrl  Biblioteca nativa para controle das views
-   * @param {ModalController}        public modalCtrl Biblioteca nativa para controle de modais
-   * @param {AlertController}        public alertCtrl Biblioteca nativa para controle de alertas
-   * @param {LoadingController}      public loadCtrl  Biblioteca nativa para controle de alertas de carregamento
-   * @param {FixesReleasesDAO}       public fixesDao  Data Access Object de lançamentos fixos
-   * @param {ClosedFixesReleasesDao} public closedDao Data Access Object de lançamentos fixos pagos
-   * @param {GlobalService}          public global    Provider responsável pelas funções globais
+   * @param {NavParams}              navParams Biblioteca nativa para acesso a paramêtros passando para esta tela
+   * @param {ViewController}         viewCtrl  Biblioteca nativa para controle das views
+   * @param {ModalController}        modalCtrl Biblioteca nativa para controle de modais
+   * @param {ToastController}        toastCtrl Biblioteca nativa para controle de toasts
+   * @param {AlertController}        alertCtrl Biblioteca nativa para controle de alertas
+   * @param {LoadingController}      loadCtrl  Biblioteca nativa para controle de alertas de carregamento
+   * @param {FixesReleasesDAO}       fixesDao  Data Access Object de lançamentos fixos
+   * @param {ClosedFixesReleasesDao} closedDao Data Access Object de lançamentos fixos pagos
+   * @param {GlobalService}          global    Provider responsável pelas funções globais
    */
   constructor(public navParams: NavParams, public viewCtrl: ViewController,
   public modalCtrl: ModalController, public global: GlobalService,
-  public fixesDao: FixesReleasesDAO, public alertCtrl: AlertController,
-  public loadCtrl: LoadingController, public closedDao: ClosedFixesReleasesDao) {}
+  public fixesDao: FixesReleasesDAO, public toastCtrl: ToastController,
+  public loadCtrl: LoadingController, public closedDao: ClosedFixesReleasesDao,
+  public alertCtrl: AlertController) {}
 
   public toggleModal() {
     let modal = this.modalCtrl.create(this.fixes_modal, {release: this.release});
@@ -117,9 +119,10 @@ export class FixesPopoverPage {
       if (res.rows.length > 0) {
         load.dismiss();
 
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Este lançamento ja foi fechado neste mês.",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
@@ -129,25 +132,22 @@ export class FixesPopoverPage {
         load.dismiss();
 
         if(res.rowsAffected <= 0){
-          this.alertCtrl.create({
+          this.toastCtrl.create({
+            position: "top",
             message: "Não foi possível fechar este lançamento!",
-            buttons: ["Ok"]
+            duration: 2000
           }).present();
 
           return false;
         }
 
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Lançamento fechado com sucesso!",
-          buttons: [
-            {
-              text: "Ok",
-              handler: () =>{
-                this.popoverDismiss(true);
-              }
-            }
-          ]
+          duration: 1500
         }).present();
+
+        this.popoverDismiss(true);
       });
     });
   }
@@ -164,25 +164,22 @@ export class FixesPopoverPage {
       load.dismiss();
 
       if(res.rowsAffected <= 0){
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não foi possível deletar este lançamento!",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
       }
 
-      this.alertCtrl.create({
+      this.toastCtrl.create({
+        position: "top",
         message: "Lançamento deletado com sucesso!",
-        buttons: [
-          {
-            text: "Ok",
-            handler: () =>{
-              this.popoverDismiss(true);
-            }
-          }
-        ]
+        duration: 1500
       }).present();
+
+      this.popoverDismiss(true);
     });
   }
 

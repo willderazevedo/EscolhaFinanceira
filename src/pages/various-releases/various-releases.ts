@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PopoverController, AlertController, LoadingController, ModalController } from 'ionic-angular';
+import { PopoverController, LoadingController, ModalController } from 'ionic-angular';
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
@@ -54,15 +54,14 @@ export class VariousReleasesPage {
   /**
    * Construtor da classe VariousReleasesPage
    * @param {PopoverController}        popoverCtrl   Biblioteca nativa responsável pelo controle de popovers
-   * @param {AlertController}          alertCtrl     Biblioteca nativa responsável pelo controle de alertas
    * @param {LoadingController}        loadCtrl      Biblioteca nativa responsável pelo controle de alertas de carregamento
    * @param {ModalController}          modalCtrl     Biblioteca nativa responsável pelo controle de modais
    * @param {VariousReleasesDAO}       variousDao    Data Access Object de lançamentos diversos
    * @param {ClosedVariousReleasesDao} closedVarious Data Access Object de lançamentos diversos fechados
    */
-  constructor(public popoverCtrl: PopoverController, public alertCtrl: AlertController,
-  public loadCtrl: LoadingController, public modalCtrl: ModalController,
-  public variousDao: VariousReleasesDAO, public closedVarious: ClosedVariousReleasesDao) {
+  constructor(public popoverCtrl: PopoverController, public loadCtrl: LoadingController,
+  public modalCtrl: ModalController, public variousDao: VariousReleasesDAO,
+  public closedVarious: ClosedVariousReleasesDao) {
     this.getVariousReleasesOut();
     this.getVariousReleasesIn();
     this.temp_releases_out = this.releases_out;

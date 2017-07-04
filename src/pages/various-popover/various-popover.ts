@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController, ToastController, AlertController, ModalController } from 'ionic-angular';
 
 //Providers
 import { GlobalService } from '../../providers/global-service';
@@ -41,19 +41,21 @@ export class VariousPopoverPage {
 
   /**
    * Construtor da classe VariousPopoverPage
-   * @param {NavParams}                public navParams        Biblioteca nativa responsável por receber os parâmetros passados por outras páginas
-   * @param {ViewController}           public viewCtrl         Biblioteca nativa responsável pelo controle das views
-   * @param {LoadingController}        public loadCtrl         Biblioteca nativa responsável pelo controle dos alertas de carregamento
-   * @param {AlertController}          public alertCtrl        Biblioteca nativa responsável pelo controle dos alertas
-   * @param {ModalController}          public modalCtrl        Biblioteca nativa responsável pelo controle das modais
-   * @param {VariousReleasesDAO}       public variousDao       Data Access Object de lançamentos diversos
-   * @param {GlobalService}            public global           Provider responsável pelas funções globais
-   * @param {ClosedVariousReleasesDao} public closedVariousDao Data Access Object de lançamentos diversos pagos
+   * @param {NavParams}                navParams        Biblioteca nativa responsável por receber os parâmetros passados por outras páginas
+   * @param {ViewController}           viewCtrl         Biblioteca nativa responsável pelo controle das views
+   * @param {LoadingController}        loadCtrl         Biblioteca nativa responsável pelo controle dos alertas de carregamento
+   * @param {ToastController}          toastCtrl        Biblioteca nativa responsável pelo controle dos toasts
+   * @param {AlertController}          alertCtrl        Biblioteca nativa responsável pelo controle dos alertas
+   * @param {ModalController}          modalCtrl        Biblioteca nativa responsável pelo controle das modais
+   * @param {VariousReleasesDAO}       variousDao       Data Access Object de lançamentos diversos
+   * @param {GlobalService}            global           Provider responsável pelas funções globais
+   * @param {ClosedVariousReleasesDao} closedVariousDao Data Access Object de lançamentos diversos pagos
    */
   constructor(public navParams: NavParams, public viewCtrl: ViewController,
-  public loadCtrl: LoadingController, public alertCtrl: AlertController,
+  public loadCtrl: LoadingController, public toastCtrl: ToastController,
   public variousDao: VariousReleasesDAO, public global: GlobalService,
-  public modalCtrl: ModalController, public closedVariousDao: ClosedVariousReleasesDao) {}
+  public modalCtrl: ModalController, public closedVariousDao: ClosedVariousReleasesDao,
+  public alertCtrl: AlertController) {}
 
   /**
    * Método nativo do ionic
@@ -168,17 +170,13 @@ export class VariousPopoverPage {
     this.closedVariousDao.getPayVariousRelease(this.release.VARIOUS_ID, (res) => {
       if(res.rows.length > 0 && forceDel === false){
         load.dismiss();
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não é possível remover este lançamento pois algumas parcelas já foram pagas.",
-          buttons: [
-            {
-              text: "Ok",
-              handler: () => {
-                this.popoverDismiss();
-              }
-            }
-          ]
+          duration: 2500
         }).present();
+
+        this.popoverDismiss();
 
         return false;
       }
@@ -187,25 +185,22 @@ export class VariousPopoverPage {
         load.dismiss();
 
         if(res.rowsAffected <= 0){
-          this.alertCtrl.create({
+          this.toastCtrl.create({
+            position: "top",
             message: errMsg,
-            buttons: ["Ok"]
+            duration: 2000
           }).present();
 
           return false;
         }
 
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: successMsg,
-          buttons: [
-            {
-              text: "Ok",
-              handler: () =>{
-                this.popoverDismiss(true);
-              }
-            }
-          ]
+          duration: 1500
         }).present();
+
+        this.popoverDismiss(true);
       });
     });
   }
@@ -238,9 +233,10 @@ export class VariousPopoverPage {
     this.closedVariousDao.closeVariousRelease(this.release, res => {
       if(res.rowsAffected <= 0) {
         load.dismiss();
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não foi possivel fechar este lançamento.",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
@@ -265,9 +261,10 @@ export class VariousPopoverPage {
     this.closedVariousDao.haveClosedInThisMonth(this.release.VARIOUS_ID, res => {
       if(res.rows.length > 0) {
         load.dismiss();
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "A parcela deste lançamento já foi paga este mês.",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
@@ -276,9 +273,10 @@ export class VariousPopoverPage {
       this.closedVariousDao.closeVariousRelease(this.release, res => {
         if(res.rowsAffected <= 0) {
           load.dismiss();
-          this.alertCtrl.create({
+          this.toastCtrl.create({
+            position: "top",
             message: "Não foi possivel pagar esta parcela.",
-            buttons: ["Ok"]
+            duration: 2000
           }).present();
 
           return false;
@@ -295,26 +293,23 @@ export class VariousPopoverPage {
           this.variousDao.decreasePlots(this.release.VARIOUS_ID, res => {
             if(res.rowsAffected <= 0) {
               load.dismiss();
-              this.alertCtrl.create({
+              this.toastCtrl.create({
+                position: "top",
                 message: "Não foi possivel decrementar parcela.",
-                buttons: ["Ok"]
+                duration: 2000
               }).present();
 
               return false;
             }
 
             load.dismiss();
-            this.alertCtrl.create({
+            this.toastCtrl.create({
+              position: "top",
               message: "Parcela paga com sucesso.",
-              buttons: [
-                {
-                  text: "Ok",
-                  handler: () => {
-                    this.popoverDismiss(true);
-                  }
-                }
-              ]
+              duration: 1500
             }).present();
+
+            this.popoverDismiss(true);
           });
         });
       });

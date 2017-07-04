@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController, AlertController, LoadingController } from 'ionic-angular';
 
 //Data Access Object
 import { VariousReleasesDAO } from '../../providers/dao/various-releases-dao';
@@ -51,6 +51,7 @@ export class VariousModalPage {
    * Contrutor da classe VariousModalPage
    * @param {NavParams}                navParams        Biblioteca nativa responsável por buscar os parâmetros passados por outras páginas
    * @param {ViewController}           viewCtrl         Biblioteca nativa responsável por controlar as views
+   * @param {ToastController}          toastCtrl        Biblioteca nativa responsável por controlar os toasts
    * @param {AlertController}          alertCtrl        Biblioteca nativa responsável por controlar os alertas
    * @param {LoadingController}        loadCtrl         Biblioteca nativa responsável por controlar os os alertas de carregamento
    * @param {GlobalService}            global           Provider responsável pelas funções globais
@@ -60,10 +61,10 @@ export class VariousModalPage {
    * @param {VarsService}              vars             Provider responsável pelas variáveis globais
    */
   constructor(public navParams: NavParams, public viewCtrl: ViewController,
-  public alertCtrl: AlertController, public loadCtrl: LoadingController,
+  public toastCtrl: ToastController, public loadCtrl: LoadingController,
   public global: GlobalService, public variousDao: VariousReleasesDAO,
   public closedVariousDao: ClosedVariousReleasesDao, public totoroBot: TotoroBotService,
-  public vars: VarsService) {
+  public vars: VarsService, public alertCtrl: AlertController) {
     this.populateRelease();
   }
 
@@ -111,25 +112,22 @@ export class VariousModalPage {
       load.dismiss();
 
       if(res.rowsAffected <= 0){
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não foi possível salvar este lançamento!",
-          buttons: ["Ok"]
+          duration: 2000
         }).present();
 
         return false;
       }
 
-      this.alertCtrl.create({
+      this.toastCtrl.create({
+        position: "top",
         message: "Lançamento salvo com sucesso!",
-        buttons: [
-          {
-            text:"Ok",
-            handler: () => {
-              this.modalDismiss(true);
-            }
-          }
-        ]
+        duration: 1500
       }).present();
+
+      this.modalDismiss(true);
     });
   }
 
@@ -149,17 +147,13 @@ export class VariousModalPage {
     this.closedVariousDao.getPayVariousRelease(this.release_update.VARIOUS_ID, (res) => {
       if(res.rows.length > 0){
         load.dismiss();
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Não é possível alterar este lançamento pois algumas parcelas já foram pagas.",
-          buttons: [
-            {
-              text: "Ok",
-              handler: () => {
-                this.modalDismiss();
-              }
-            }
-          ]
+          duration: 2500
         }).present();
+
+        this.modalDismiss();
 
         return false;
       }
@@ -168,25 +162,22 @@ export class VariousModalPage {
         load.dismiss();
 
         if(res.rowsAffected <= 0){
-          this.alertCtrl.create({
+          this.toastCtrl.create({
+            position: "top",
             message: "Não foi possível salvar este lançamento!",
-            buttons: ["Ok"]
+            duration: 2000
           }).present();
 
           return false;
         }
 
-        this.alertCtrl.create({
+        this.toastCtrl.create({
+          position: "top",
           message: "Lançamento salvo com sucesso!",
-          buttons: [
-            {
-              text:"Ok",
-              handler: () => {
-                this.modalDismiss(true);
-              }
-            }
-          ]
+          duration: 1500
         }).present();
+
+        this.modalDismiss(true);
       });
     });
   }
@@ -218,18 +209,20 @@ export class VariousModalPage {
     let invalidValue = this.checkValue();
 
     if(empty){
-      this.alertCtrl.create({
+      this.toastCtrl.create({
+        position: "top",
         message: "Preencha todos os campos corretamente.",
-        buttons: ["Ok"]
+        duration: 2000
       }).present();
 
       return false;
     }
 
     if(invalidValue){
-      this.alertCtrl.create({
+      this.toastCtrl.create({
+        position: "top",
         message: "O valor não deve ultrapassar sua renda.",
-        buttons: ["Ok"]
+        duration: 2000
       }).present();
 
       return false;

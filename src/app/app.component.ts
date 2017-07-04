@@ -125,15 +125,15 @@ export class MyApp {
       let activePortal  = this.app._appRoot._modalPortal.getActive() ||
                           this.app._appRoot._overlayPortal.getActive();
 
-      if(this.app.getActiveNav().canGoBack()) {
-        this.menu.swipeEnable(true);
-        this.app.getRootNav().pop();
+      if(activePortal) {
+        activePortal.dismiss();
 
         return false;
       }
 
-      if(activePortal) {
-        activePortal.dismiss();
+      if(this.app.getActiveNav().canGoBack()) {
+        this.menu.swipeEnable(true);
+        this.app.getRootNav().pop();
 
         return false;
       }
@@ -188,33 +188,24 @@ export class MyApp {
    * @return {void}
    */
   public chooseAvatar() {
-    let load = this.loadCtrl.create({content: "Trocando avatar..."});
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       allowEdit: true
     };
 
-    load.present();
     this.camera.getPicture(options).then(data => {
       let image = "data:image/jpeg;base64," + data;
+      let load  = this.loadCtrl.create({content: "Salvando avatar..."});
 
-      load.setContent("Salvando avatar...");
+      load.present();
       this.storage.setItem("user_avatar", image).then((data) => {
         load.dismiss();
-
         this.vars.avatar = image;
       }).catch(err => {
         load.dismiss();
-        this.alertCtrl.create({
-          message: "Não foi possivel salvar seu avatar.",
-          buttons: ["Ok"]
-        }).present();
         console.log(err);
       });
-    }).catch(err => {
-      load.dismiss()
-      console.log(err);
-    });
+    }).catch(err => console.log(err));
   }
 }
