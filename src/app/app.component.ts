@@ -99,7 +99,7 @@ export class MyApp {
    * @return {void}
    */
   constructor(platform: Platform, helper: DbHelper,
-  public statusBar: StatusBar, splashScreen: SplashScreen,
+  public statusBar: StatusBar, public splashScreen: SplashScreen,
   public global: GlobalService, public daoConfig: ConfigDAO,
   public vars: VarsService, public app: App,
   public menu: MenuController, public alertCtrl: AlertController,
@@ -113,6 +113,16 @@ export class MyApp {
       splashScreen.hide();
       this.loadAvatar();
       this.loadTheme();
+    });
+  }
+
+  /**
+   * Fix da tela branca na splashScreen
+   * @return {void}
+   */
+  private hideSplashScreen() {
+    setTimeout(() => {
+      this.splashScreen.hide();
     });
   }
 
