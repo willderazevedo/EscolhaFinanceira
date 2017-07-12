@@ -110,7 +110,8 @@ export class MyApp {
       this.statusBar.backgroundColorByHexString(this.vars.variationStatusBar);
       this.backButtonHardwareAction(platform);
       this.checkConfig();
-      splashScreen.hide();
+      this.hideSplashScreen();
+      this.loadCape();
       this.loadAvatar();
       this.loadTheme();
     });
@@ -194,6 +195,16 @@ export class MyApp {
   }
 
   /**
+   * Método responsável por carregar a foto de capa escolhida pelo usuario
+   * @return {void}
+   */
+  private loadCape() {
+    this.storage.getItem("user_cape").then(data => {
+      this.vars.capeBackground = data;
+    }).catch(err => console.log(err));
+  }
+
+  /**
    * Método responsável por carregar a cor escolhida pelo usuario
    * @return {void}
    */
@@ -207,7 +218,6 @@ export class MyApp {
 
   /**
    * Método responsável pela troca do avatar do usuário e salvar o caminho da imagem
-   * no storage em base64 para cada usuario logado
    * @return {void}
    */
   public chooseAvatar() {
@@ -225,6 +235,32 @@ export class MyApp {
       this.storage.setItem("user_avatar", image).then((data) => {
         load.dismiss();
         this.vars.avatar = image;
+      }).catch(err => {
+        load.dismiss();
+        console.log(err);
+      });
+    }).catch(err => console.log(err));
+  }
+
+  /**
+   * Método responsável pela troca da foto de capa do usuário e salvar o caminho da imagem
+   * @return {void}
+   */
+  public chooseCape() {
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true
+    };
+
+    this.camera.getPicture(options).then(data => {
+      let image = "data:image/jpeg;base64," + data;
+      let load  = this.loadCtrl.create({content: "Salvando capa..."});
+
+      load.present();
+      this.storage.setItem("user_cape", image).then((data) => {
+        load.dismiss();
+        this.vars.capeBackground = image;
       }).catch(err => {
         load.dismiss();
         console.log(err);

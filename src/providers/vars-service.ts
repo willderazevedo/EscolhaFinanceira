@@ -28,6 +28,12 @@ export class VarsService {
   public avatar = "./assets/images/totoro.png";
 
   /**
+   * Foto de capa do usuário
+   * @type {string}
+   */
+  public capeBackground = "./assets/images/user-back.jpg";
+
+  /**
    * Cor do tema
    * @type {string}
    */

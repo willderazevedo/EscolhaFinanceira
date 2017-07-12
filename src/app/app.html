@@ -11,7 +11,7 @@
   </ion-header>
 
   <ion-content>
-    <ion-item style="background-image: url('./assets/images/user-back.jpg')">
+    <ion-item [ngStyle]="{'background-image': 'url(' + this.vars.capeBackground + ')'}">
       <ion-row>
         <ion-col>
           <ion-avatar class="avatar" (click)="chooseAvatar()">
@@ -24,6 +24,9 @@
           <h2 class="user-name">{{ this.vars.name }}</h2>
         </ion-col>
       </ion-row>
+      <button ion-button clear icon-only color="none" class="cape-edit" (click)="chooseCape()">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
     </ion-item>
     <button ion-item (click)="this.global.pageNavigation(panel)" menuClose>
       <ion-icon name="md-home"></ion-icon>
